@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 20px 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  gap: 100px;
+}
+
+.logo {
+  height: 100px; /* lớn hơn chiều cao navbar */
+  position: absolute;
+  top: -20px;  /* nhô ra phía trên */
+  left: 20px;  /* vị trí ngang của logo */
+  z-index: 2;  /* đảm bảo nổi lên trên */
+  
+}
+
+.menu {
+  display: flex;
+  gap: 25px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 160px;
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+/* Banner */
+.banner {
+  background: url('https://vietnam.travel/themes/custom/vietnamtourism/images/banners/central_vietnam.jpg') no-repeat center center;
+  background-size: cover;
+  height: 90vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px #000;
+  overflow: hidden;
+}
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 2s;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+/* Section Menu */
+.section-menu {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.section-menu a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-bottom: 3px solid transparent;
+}
+
+.section-menu a:hover {
+  border-bottom: 3px solid #d42333;
+  color: #d42333;
+}
+
+section {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-size: 23px;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  
+}
+
+#tongquan {
+  background-color: #ffffff;
+  display:block;
+}
+
+#destinations, #trips, #suggestions {
+  background-color: #f9f9f9;
+  display:none;
+}
+
