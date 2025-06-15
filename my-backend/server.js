@@ -1,8 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
 
-const uri = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI || require('./secret').MONGO_URI;
+const Destination = require('./models/Destination'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,38 +11,30 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const client = new MongoClient(secret.uri);
-let collection;
-
-// Kết nối đến MongoDB
-async function connectDB() {
-  try {
-    await client.connect();
-    const db = client.db('DULICHVIETNAM');
-    collection = db.collection('diadiem'); // tên bảng bạn sẽ tạo
+// Kết nối MongoDB
+mongoose.connect(MONGO_URI)
+  .then(() => {
     console.log('✅ Đã kết nối MongoDB');
-  } catch (err) {
-    console.error('❌ Lỗi kết nối MongoDB:', err);
-  }
-}
-connectDB();
+  })
+  .catch((err) => {
+    console.error('❌ Lỗi kết nối MongoDB:', err.message);
+  });
 
-// API tìm kiếm
+// API tìm kiếm theo title
 app.get('/search', async (req, res) => {
-  const keyword = req.query.keyword || '';
-  if (!collection) return res.status(500).send('Chưa kết nối database');
-
   try {
-    const results = await collection.find({
-      ten: { $regex: keyword, $options: 'i' }
-    }).toArray();
+    const keyword = req.query.q || '';
+    const results = await Destination.find({
+      title: { $regex: keyword, $options: 'i' }
+    });
+
     res.json(results);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Lỗi server');
+  } catch (error) {
+    console.error('Lỗi khi tìm kiếm:', error);
+    res.status(500).json({ message: 'Lỗi server' });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server đang chạy ở http://localhost:${PORT}`);
+  console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
 });
