@@ -1,0 +1,156 @@
+/*NGÀY KHỞI HÀNH - NGÀY KẾT THÚC*/
+
+.step-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; /* gap-6 */
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+@media (min-width: 768px) {
+  .time-grid {
+    grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+  }
+}
+
+/* Nhóm chung label cho form */
+.form-label {
+  display: block;
+  color: #374151; /* text-gray-700 */
+  font-weight: 500; /* font-medium */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+/* Nhóm chung khoảng cách nhóm */
+.form-group {
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.input-icon-wrapper,
+.select-wrapper {
+  position: relative;
+}
+
+.input-icon-wrapper .icon,
+.icon-left,
+.icon-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af; /* text-gray-400 */
+  pointer-events: none;
+}
+
+.icon-left {
+  left: 0.75rem; /* pl-3 */
+}
+
+.icon-right {
+  right: 0.75rem; /* pr-3 */
+}
+
+.date-picker,
+.custom-select {
+  width: 100%;
+  padding: 0.75rem 2.5rem; /* py-3 pl-10 pr-10 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  appearance: none;
+}
+
+.date-picker:focus,
+.custom-select:focus {
+  outline: none;
+  border-color: #3b82f6; /* focus:border-primary */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* focus:ring-primary */
+}
+
+/*SỐ NGÀY DU LỊCH*/
+
+.range-container {
+  display: flex;
+  align-items: center;
+}
+
+.range-label {
+  color: #4b5563; /* text-gray-600 */
+  margin: 0 1rem;
+  white-space: nowrap;
+}
+
+.custom-range {
+  flex-grow: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #d1d5db; /* gray-300 */
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-range::-webkit-slider-thumb,
+.custom-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6; /* primary */
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+}
+
+.range-value {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.range-highlight {
+  color: #3b82f6; /* text-primary */
+  font-weight: 500;
+}
+
+/*2 BUTTON (QUAY LẠI - TIẾP TỤC)*/
+
+.button-group {
+  margin-top: 2rem; /* mt-8 */
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem; /* py-3 px-6 */
+  font-weight: 500;
+  border-radius: 0.5rem; /* rounded-button */
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #e5e7eb; /* bg-gray-200 */
+  color: #374151; /* text-gray-700 */
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db; /* hover:bg-gray-300 */
+}
+
+.btn-primary {
+  background-color: #3b82f6; /* bg-primary */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb; /* hover:bg-primary/90 */
+}

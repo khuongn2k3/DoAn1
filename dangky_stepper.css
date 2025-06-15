@@ -1,0 +1,56 @@
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  padding: 0 10px;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.step-circle {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #777;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.step.active .step-circle {
+  background-color: #3b82f6; /* màu xanh dương nhạt */
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+}
+
+.step.completed .step-circle {
+  background-color: #3b82f6; /* màu xanh dương nhạt */
+  color: #fff;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+}
+
+.step-label {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.step.active .step-label,
+.step.completed .step-label {
+  color: #3b82f6; /* màu xanh dương nhạt */
+}

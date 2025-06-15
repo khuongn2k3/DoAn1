@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Du Lich Việt Nam</title>
+    <link rel="stylesheet" href="style.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="dangky.css">
+    <link rel="stylesheet" href="dangky_stepper.css">
+    <link rel="stylesheet" href="dangky_step1.css">
+    <link rel="stylesheet" href="dangky_step2.css">
+    <link rel="stylesheet" href="dangky_step3.css">
+    <link rel="stylesheet" href="dangky_step4.css">
+    
+    <script src="dangky.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href = "index.html">
+          <img class="logo" src="F:\DoAn1\image\vietnam-tourism-logo.png" alt="Vietnam Tourism Logo" height="50">
+        </a>
+        <div class="menu" id="lkh">
+            <a href="#section-menu">Trang Chủ</a>  
+          <div class="dropdown">
+            <a href="#">Các nơi để đi</a>
+            <div class="dropdown-menu">
+              <a href="#">Miền Bắc</a>?
+              <a href="#">Miền Trung</a>
+              <a href="#">Miền Nam</a>
+            </div>
+          </div> 
+          <a href="dangky.html">Lên kế hoạch</a>
+          
+        </div> 
+      </div>
+
+    <main class="main-container">
+        <div class="content-wrapper">
+            <div class="form-header">
+                <h1>Đăng Ký Tour Du Lịch</h1>
+                <p>Hãy điền thông tin bên dưới để đặt tour du lịch mơ ước của bạn</p>
+            </div>
+
+            <form id="booking-form" class="booking-form">
+                <!-- Stepper -->
+                <div class="stepper">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+                    </div>
+            
+                    <!-- Step 1 -->
+                    <div class="step active">
+                        <div class="step-circle">1</div>
+                        <span class="step-label">Địa điểm</span>
+                    </div>
+            
+                    <!-- Step 2 -->
+                    <div class="step" data-step="2">
+                        <div class="step-circle inactive" data-step="2">2</div>
+                        <span class="step-label inactive" data-step="2">Thời gian</span>
+                    </div>
+            
+                    <!-- Step 3 -->
+                    <div class="step" data-step="3">
+                        <div class="step-circle inactive" data-step="3">3</div>
+                        <span class="step-label inactive" data-step="3">Chi tiết</span>
+                    </div>
+            
+                    <!-- Step 4 -->
+                    <div class="step" data-step="4">
+                        <div class="step-circle inactive" data-step="4">4</div>
+                        <span class="step-label inactive" data-step="4">Xác nhận</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Destination -->
+                <div class="step-content active" id="step-1">
+                    <h2 class="step-title">Chọn điểm đến của bạn</h2>
+                
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <i class="ri-search-line"></i>
+                        </div>
+                        <input type="text" id="destination-search" class="search-input" placeholder="Tìm kiếm điểm đến...">
+                    </div>
+
+                    <div class="popular-destinations">
+                        <h3 class="section-title">Điểm đến phổ biến</h3>
+                    
+                        <div class="destinations-grid">
+                            <div class="destination-card">
+                                <div class="check-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <img src="https://readdy.ai/api/search-image?query=beautiful%20beach%20in%20Phu%20Quoc%20island%2C%20Vietnam%2C%20tropical%20paradise%20with%20palm%20trees%2C%20white%20sand%20and%20clear%20blue%20water%2C%20sunny%20day%2C%20aerial%20view&width=400&height=200&seq=1&orientation=landscape"
+                                    alt="Phú Quốc" class="destination-image">
+                                <div class="destination-info">
+                                    <h4>Phú Quốc</h4>
+                                    <p>Đảo Ngọc thiên đường</p>
+                                </div>
+                            </div>
+
+                            <div class="destination-card">
+                                <div class="check-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <img src="https://readdy.ai/api/search-image?query=Ha%20Long%20Bay%2C%20Vietnam%2C%20beautiful%20limestone%20karsts%20rising%20from%20emerald%20waters%2C%20traditional%20wooden%20boats%2C%20misty%20morning%20atmosphere%2C%20UNESCO%20world%20heritage%20site&width=400&height=200&seq=2&orientation=landscape"
+                                    alt="Hạ Long" class="destination-image">
+                                <div class="destination-info">
+                                    <h4>Hạ Long</h4>
+                                    <p>Kỳ quan thiên nhiên</p>
+                                </div>
+                            </div>
+
+                            <div class="destination-card">
+                                <div class="check-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <img src="https://readdy.ai/api/search-image?query=Hoi%20An%20ancient%20town%2C%20Vietnam%2C%20traditional%20yellow%20buildings%20with%20lanterns%20at%20night%2C%20riverside%20view%2C%20UNESCO%20world%20heritage%20site%2C%20cultural%20destination&width=400&height=200&seq=3&orientation=landscape"
+                                    alt="Hội An" class="destination-image">
+                                <div class="destination-info">
+                                    <h4>Hội An</h4>
+                                    <p>Phố cổ lãng mạn</p>
+                                </div>
+                            </div>
+                              
+                            <div class="destination-card">
+                                <div class="check-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <img src="https://readdy.ai/api/search-image?query=Da%20Lat%20city%2C%20Vietnam%2C%20highlands%20with%20pine%20forests%2C%20beautiful%20flower%20gardens%2C%20cool%20misty%20weather%2C%20romantic%20lake%20view%2C%20French%20colonial%20architecture&width=400&height=200&seq=4&orientation=landscape"
+                                    alt="Đà Lạt" class="destination-image">
+                                <div class="destination-info">
+                                    <h4>Đà Lạt</h4>
+                                    <p>Thành phố ngàn hoa</p>
+                                </div>
+                            </div>
+
+                            <div class="destination-card">
+                                <div class="check-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <img src="https://readdy.ai/api/search-image?query=Sapa%20terraced%20rice%20fields%2C%20Vietnam%2C%20mountainous%20landscape%20with%20ethnic%20minority%20villages%2C%20misty%20mountains%2C%20green%20terraces%2C%20traditional%20houses&width=400&height=200&seq=5&orientation=landscape"
+                                    alt="Sapa" class="destination-image">
+                                <div class="destination-info">
+                                    <h4>Sapa</h4>
+                                    <p>Thị trấn trong sương</p>
+                                </div>
+                            </div>
+
+                            <div class="destination-card">
+                                <div class="check-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <img src="https://readdy.ai/api/search-image?query=Nha%20Trang%20beach%2C%20Vietnam%2C%20beautiful%20coastal%20city%20with%20long%20sandy%20beaches%2C%20clear%20blue%20water%2C%20palm%20trees%2C%20modern%20resorts%2C%20sunny%20day&width=400&height=200&seq=6&orientation=landscape"
+                                    alt="Nha Trang" class="destination-image">
+                                <div class="destination-info">
+                                    <h4>Nha Trang</h4>
+                                    <p>Thiên đường biển</p>
+                                </div>
+                            </div>                              
+                        </div>
+
+                        <div class="next-button-wrapper">
+                            <button type="button" id="next-to-step-2" class="next-button">
+                                Tiếp tục
+                            </button>
+                        </div>                       
+                    </div>
+                </div>
+
+                <!-- Step 2: Time Selection -->
+                <div class="step-content" id="step-2">
+                    <h2 class="step-title">Chọn thời gian cho chuyến đi</h2>
+                    <div class="time-grid">
+                        <div>
+                            <label class="form-label">Ngày khởi hành</label>
+                            <div class="input-icon-wrapper">
+                                <i class="ri-calendar-line icon"></i>
+                                <input type="date" class="date-picker" min="2025-06-02">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label">Ngày kết thúc</label>
+                            <div class="input-icon-wrapper">
+                                <i class="ri-calendar-line icon"></i>
+                                <input type="date" class="date-picker" min="2025-06-03">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Thời gian khởi hành</label>
+                        <div class="select-wrapper">
+                            <i class="ri-time-line icon-left"></i>
+                            <select class="custom-select">
+                                <option value="">Chọn thời gian</option>
+                                <option value="morning">Buổi sáng (6:00 - 9:00)</option>
+                                <option value="noon">Buổi trưa (11:00 - 13:00)</option>
+                                <option value="afternoon">Buổi chiều (14:00 - 17:00)</option>
+                                <option value="evening">Buổi tối (18:00 - 20:00)</option>
+                            </select>
+                            <i class="ri-arrow-down-s-line icon-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Số ngày du lịch</label>
+                        <div class="range-container">
+                            <span class="range-label">1 ngày</span>
+                            <input type="range" min="1" max="30" value="" class="custom-range" id="duration-range">
+                            <span class="range-label">30 ngày</span>
+                        </div>
+                        <div class="range-value">
+                            <span id="duration-value" class="range-highlight"></span>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" id="back-to-step-1" class="btn btn-secondary">Quay lại</button>
+                        <button type="button" id="next-to-step-3" class="btn btn-primary">Tiếp tục</button>
+                    </div>                      
+                </div> 
+
+                <!-- Step 3: Additional Details -->
+                <div class="step-content" id="step-3">
+                    <h2 class="step-title">Chi tiết chuyến đi</h2>
+                
+                    <div class="tour-section">
+                        <label class="tour-label">Loại tour</label>
+                        <div class="tour-options">
+                
+                            <!-- Option 1 -->
+                            <div class="tour-type-option">
+                                <div class="option-content">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="tour-type" value="private">
+                                        <span class="radio-mark"></span>
+                                    </label>
+                                    <div>
+                                        <h4 class="tour-title">Tour cá nhân</h4>
+                                        <p class="tour-desc">Lịch trình riêng tư, tùy chỉnh theo ý bạn</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <!-- Option 2 -->
+                            <div class="tour-type-option">
+                                <div class="option-content">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="tour-type" value="group">
+                                        <span class="radio-mark"></span>
+                                    </label>
+                                    <div>
+                                        <h4 class="tour-title">Tour nhóm</h4>
+                                        <p class="tour-desc">Đi cùng nhóm khách, giá tốt hơn</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <!-- Option 3 -->
+                            <div class="tour-type-option">
+                                <div class="option-content">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="tour-type" value="family">
+                                        <span class="radio-mark"></span>
+                                    </label>
+                                    <div>
+                                        <h4 class="tour-title">Tour gia đình</h4>
+                                        <p class="tour-desc">Phù hợp cho gia đình có trẻ em</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quantity-grid">
+                        <div>
+                            <label class="quantity-label" for="adults">Số lượng người lớn</label>
+                            <div class="quantity-control">
+                                <button type="button" class="quantity-btn decrease-btn" data-input="adults"
+                                    aria-label="Giảm số lượng người lớn">
+                                    <span class="icon">−</span>
+                                </button>
+                                <input type="number" min="1" value="2" id="adults" class="quantity-input" />
+                                <button type="button" class="quantity-btn increase-btn" data-input="adults"
+                                    aria-label="Tăng số lượng người lớn">
+                                    <span class="icon">＋</span>
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div>
+                            <label class="quantity-label" for="children">Số lượng trẻ em</label>
+                            <div class="quantity-control">
+                                <button type="button" class="quantity-btn decrease-btn" data-input="children"
+                                    aria-label="Giảm số lượng trẻ em">
+                                    <span class="icon">−</span>
+                                </button>
+                                <input type="number" min="0" value="0" id="children" class="quantity-input" />
+                                <button type="button" class="quantity-btn increase-btn" data-input="children"
+                                    aria-label="Tăng số lượng trẻ em">
+                                    <span class="icon">＋</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <div class="services-wrapper">
+                        <label class="section-label">Dịch vụ đi kèm</label>
+                        <div class="services-grid">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="services" value="hotel" />
+                                <span class="checkmark"></span>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="ri-hotel-line"></i>
+                                    </div>
+                                    <span>Khách sạn</span>
+                                </div>
+                            </label>
+                    
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="services" value="flight" />
+                                <span class="checkmark"></span>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="ri-flight-takeoff-line"></i>
+                                    </div>
+                                    <span>Vé máy bay</span>
+                                </div>
+                            </label>
+                    
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="services" value="transportation" />
+                                <span class="checkmark"></span>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="ri-bus-line"></i>
+                                    </div>
+                                    <span>Xe đưa đón</span>
+                                </div>
+                            </label>
+                    
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="services" value="meals" />
+                                <span class="checkmark"></span>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="ri-restaurant-line"></i>
+                                    </div>
+                                    <span>Ăn uống</span>
+                                </div>
+                            </label>
+                    
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="services" value="guide" />
+                                <span class="checkmark"></span>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="ri-user-voice-line"></i>
+                                    </div>
+                                    <span>Hướng dẫn viên</span>
+                                </div>
+                            </label>
+                    
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="services" value="insurance" />
+                                <span class="checkmark"></span>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="ri-shield-check-line"></i>
+                                    </div>
+                                    <span>Bảo hiểm du lịch</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                      
+                    <div class="special-request">
+                        <label for="special-request" class="special-label">Yêu cầu đặc biệt</label>
+                        <textarea id="special-request" class="special-textarea" rows="3"
+                            placeholder="Nhập yêu cầu đặc biệt của bạn (nếu có)..."></textarea>
+                    </div>
+                      
+                    <div class="button-group">
+                        <button type="button" id="back-to-step-1" class="btn btn-secondary">Quay lại</button>
+                        <button type="button" id="next-to-step-3" class="btn btn-primary">Tiếp tục</button>
+                    </div>
+                </div>  
+
+                <!-- Step 4: Contact Information -->
+                <div class="step-content" id="step-4">
+                    <h2 class="heading">Thông tin liên hệ</h2>
+                
+                    <div class="form-grid">
+                        <div class="form-group-step4">
+                            <label for="full-name">Họ và tên</label>
+                            <input type="text" id="full-name" placeholder="Nguyễn Văn A">
+                        </div>
+                
+                        <div class="form-group-step4">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="tel" id="phone" placeholder="0912 345 678">
+                        </div>
+                    </div>
+                
+                    <div class="form-group-step4">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="example@gmail.com">
+                    </div>
+                
+                    <div class="form-group-step4">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" id="address" placeholder="123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh">
+                    </div>
+                
+                    <div class="tour-summary">
+                        <div class="summary-box">
+                            <h3 class="summary-title">Tóm tắt đặt tour</h3>
+                            <div class="summary-content">
+                                <div class="summary-row">
+                                    <span class="label">Điểm đến:</span>
+                                    <span class="value" id="summary-destination"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Ngày khởi hành:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Ngày kết thúc:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Thời gian:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Số ngày:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Loại tour:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Số lượng:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="label">Dịch vụ đi kèm:</span>
+                                    <span class="value"></span>
+                                </div>
+                                <div class="summary-total">
+                                    <div class="summary-row">
+                                        <span class="value strong">Tổng chi phí dự kiến:</span>
+                                        <span class="value highlight"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group-step4">
+                        <label class="custom-checkbox-dieukhoan">
+                            <input type="checkbox" name="terms" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">
+                                Tôi đồng ý với
+                                <a href="#" class="link">điều khoản và điều kiện</a> của công ty du lịch.
+                            </span>
+                        </label>
+                    </div>                                                                                                                                    
+                
+                    <div class="button-group">
+                        <button type="button" id="back-to-step-3" class="btn btn-secondary">Quay lại</button>
+                        <button type="submit" class="btn btn-primary">Đăng ký tour</button>
+                    </div>
+                </div>                  
+            </form>              
+        </div>
+    </main>
+</body>
+</html>

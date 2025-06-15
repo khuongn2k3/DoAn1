@@ -1,0 +1,361 @@
+/*LOẠI TOUR*/
+
+.step-content {
+  display: lock;
+}
+
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.tour-section {
+  margin-bottom: 1.5rem;
+}
+
+.tour-label {
+  display: block;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.tour-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .tour-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tour-type-option {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+.tour-type-option:hover {
+  border-color: #3b82f6; /* primary */
+}
+
+.option-content {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.custom-radio {
+  margin-right: 0.75rem;
+  position: relative;
+}
+
+.custom-radio input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.radio-mark {
+  display: inline-block;
+  width: 1rem; /* 16px */
+  height: 1rem; /* 16px */
+  border: 2px solid #d1d5db;
+  border-radius: 9999px;
+  position: relative;
+}
+
+.custom-radio input[type="radio"]:checked + .radio-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%; /* Đưa tâm dấu chấm lên giữa chiều cao */
+  left: 50%; /* Đưa tâm dấu chấm lên giữa chiều rộng */
+  width: 12px; /* Dấu chấm to hơn */
+  height: 12px;
+  background-color: #3b82f6;
+  border-radius: 9999px;
+  transform: translate(-45%, -45%); /* Dịch dấu chấm về chính giữa */
+}
+
+.tour-title {
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0;
+}
+
+.tour-desc {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+/*SỐ LƯỢNG NGƯỜI LỚN VÀ TRẺ EM*/
+
+.quantity-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .quantity-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.quantity-label {
+  display: block;
+  color: #374151; /* text-gray-700 */
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  color: #4b5563; /* text-gray-600 */
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, transform 0.1s ease;
+}
+
+.decrease-btn {
+  border-radius: 0.375rem 0 0 0.375rem; /* rounded-l-lg */
+  border-right: none;
+}
+
+.increase-btn {
+  border-radius: 0 0.375rem 0.375rem 0; /* rounded-r-lg */
+  border-left: none;
+}
+
+.quantity-input {
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-top: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+  border-left: none;
+  border-right: none;
+  font-size: 1rem;
+  color: #111827;
+  outline: none;
+}
+
+/* Remove number input spinners */
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* Hover và active effect cho nút */
+.quantity-btn:hover {
+  background-color: #e0e7ff; /* xanh nhạt khi hover */
+  border-color: #3b82f6; /* màu primary */
+  color: #1e40af;
+}
+
+.quantity-btn:active {
+  background-color: #c7d2fe; /* xanh đậm hơn khi nhấn */
+  border-color: #1e40af;
+  color: #1e40af;
+  transform: scale(0.95);
+}
+
+/*DỊCH VỤ*/
+
+.services-wrapper {
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.section-label {
+  display: block;
+  color: #374151; /* text-gray-700 */
+  font-weight: 500; /* font-medium */
+  margin-bottom: 0.5rem; /* mb-2 */
+  font-size: 1rem; /* default size */
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem; /* gap-4 */
+}
+
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+  }
+}
+
+/* Checkbox label */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem; /* p-3 */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+  border-radius: 0.5rem; /* rounded-lg */
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.custom-checkbox:hover {
+  background-color: #f9fafb; /* bg-gray-50 */
+}
+
+/* Hide native checkbox */
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Custom checkmark */
+.checkmark {
+  width: 1.25rem; /* 5 * 0.25rem */
+  height: 1.25rem;
+  border: 2px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.25rem; /* rounded */
+  margin-right: 0.75rem; /* mr-3 */
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Show checkmark when checked */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: #3b82f6; /* primary color */
+  border-color: #3b82f6;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  top: 40%;
+  left: 45%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Service content flex */
+.service-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Icon container */
+.service-icon {
+  width: 2rem; /* 8 * 0.25rem */
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.75rem; /* mr-3 */
+  color: #3b82f6; /* text-primary */
+  font-size: 1.25rem; /* tương đương ri icon size */
+}
+
+/* Optional: tăng kích thước icon nếu cần */
+.service-icon i {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/*YÊU CẦU ĐẶC BIỆT*/
+.special-request {
+  margin-bottom: 1.5rem;
+}
+
+.special-label {
+  display: block;
+  color: #374151; /* text-gray-700 */
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.special-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 1rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.special-textarea:focus {
+  border-color: #3b82f6; /* primary color */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* focus:ring-primary */
+}
+
+/*2 BUTTON (QUAY LẠI - TIẾP TỤC)*/
+
+.button-group {
+  margin-top: 2rem; /* mt-8 */
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem; /* py-3 px-6 */
+  font-weight: 500;
+  border-radius: 0.5rem; /* rounded-button */
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+/* Secondary button - gray */
+.btn-secondary {
+  background-color: #e5e7eb; /* bg-gray-200 */
+  color: #374151; /* text-gray-700 */
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db; /* hover:bg-gray-300 */
+}
+
+/* Primary button - blue */
+.btn-primary {
+  background-color: #3b82f6; /* bg-primary */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb; /* hover:bg-primary/90 */
+}

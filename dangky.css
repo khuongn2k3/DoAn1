@@ -1,0 +1,241 @@
+.step-content {
+  display: none;
+}
+
+.step-content.active {
+  display: block;
+}
+
+/* Icon mặc định cho các class bắt đầu bằng "ri-" (thường là remixicon) */
+:where([class^="ri-"])::before {
+  content: "\f3c2"; /* Gán ký hiệu unicode mặc định cho các icon */
+}
+
+/* Định dạng chung cho toàn bộ trang */
+body {
+  font-family: "Montserrat", sans-serif; /* Font chữ chính của trang */
+  background-color: #f9fafb; /* Màu nền trắng xám nhạt */
+}
+
+/* Tuỳ chỉnh biểu tượng lịch trong input date trên Chrome/Safari */
+.date-picker::-webkit-calendar-picker-indicator {
+  background-position: right; /* Đưa biểu tượng về bên phải */
+  background-size: auto; /* Kích thước biểu tượng tự động */
+  cursor: pointer; /* Khi hover vào sẽ thành con trỏ tay */
+  position: absolute; /* Đặt vị trí tuyệt đối để dễ căn chỉnh */
+  right: 10px; /* Cách lề phải 10px */
+}
+
+/* Ẩn nút tăng/giảm trong input type="number" trên Chrome */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Gỡ kiểu mặc định của trình duyệt */
+  margin: 0; /* Xoá khoảng cách */
+}
+
+/* Ẩn nút tăng/giảm trong input type="number" trên Firefox */
+input[type="number"] {
+  -moz-appearance: textfield; /* Hiển thị như ô nhập văn bản thường */
+}
+
+/* ===================== */
+/* ==== CHECKBOX TUỲ CHỈNH ==== */
+/* ===================== */
+.custom-checkbox {
+  display: flex; /* Dàn các phần tử con theo hàng ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  position: relative; /* Cho phép định vị tuyệt đối các phần tử con */
+  cursor: pointer; /* Đổi con trỏ khi di chuột */
+}
+
+.custom-checkbox input {
+  position: absolute; /* Ẩn hoàn toàn checkbox gốc */
+  opacity: 0; /* Làm nó trong suốt */
+  height: 0;
+  width: 0; /* Không chiếm diện tích */
+  cursor: pointer; /* Vẫn có thể nhấn được */
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px; /* Kích thước ô vuông */
+  background-color: #fff; /* Nền trắng */
+  border: 2px solid #e5e7eb; /* Viền xám nhạt */
+  border-radius: 4px; /* Bo góc nhẹ */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Căn giữa nội dung */
+}
+
+/* Khi checkbox được chọn */
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #4f46e5; /* Nền tím */
+  border-color: #4f46e5; /* Viền cũng đổi màu tím */
+}
+
+/* Mặc định dấu check không hiển thị */
+.checkmark:after {
+  content: ""; /* Đặt nội dung rỗng */
+  display: none; /* Ẩn đi */
+}
+
+/* Khi được chọn thì hiện dấu check */
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block; /* Hiển thị dấu check */
+}
+
+/* Tạo hình dáng dấu check (✓) */
+.custom-checkbox .checkmark:after {
+  width: 5px;
+  height: 10px; /* Kích thước dấu ✓ */
+  border: solid white; /* Màu trắng */
+  border-width: 0 2px 2px 0; /* Vẽ bằng hai cạnh dưới và phải */
+  transform: rotate(45deg); /* Xoay để tạo hình ✓ */
+}
+
+/* ===================== */
+/* ==== RADIO BUTTON TUỲ CHỈNH ==== */
+/* ===================== */
+.custom-radio {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.custom-radio input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  cursor: pointer;
+}
+
+.radio-mark {
+  width: 20px;
+  height: 20px; /* Hình tròn radio */
+  background-color: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 50%; /* Bo tròn hoàn toàn */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Khi được chọn thì đổi màu viền */
+.custom-radio input:checked ~ .radio-mark {
+  border-color: #4f46e5;
+}
+
+/* Dấu tròn bên trong - mặc định ẩn */
+.radio-mark:after {
+  content: "";
+  display: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4f46e5; /* Màu tím */
+}
+
+/* Khi được chọn thì hiện dấu tròn bên trong */
+.custom-radio input:checked ~ .radio-mark:after {
+  display: block;
+}
+
+/* ===================== */
+/* ==== SWITCH (CÔNG TẮC) ==== */
+/* ===================== */
+.custom-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.custom-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Nút công tắc trượt */
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e5e7eb; /* Màu nền xám nhạt */
+  transition: 0.4s; /* Mượt khi chuyển trạng thái */
+  border-radius: 24px; /* Bo tròn toàn phần */
+  cursor: pointer;
+}
+
+/* Nút tròn bên trong switch */
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Khi bật switch */
+input:checked + .slider {
+  background-color: #4f46e5; /* Nền tím khi bật */
+}
+
+/* Di chuyển nút sang phải */
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* ===================== */
+/* ==== RANGE SLIDER ==== */
+/* ===================== */
+.custom-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: #e5e7eb;
+  outline: none;
+}
+
+/* Nút tròn khi kéo - Chrome */
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+}
+
+/* Nút tròn khi kéo - Firefox */
+.custom-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  border: none;
+}
+
+/* ===================== */
+/* ==== ĐỊA ĐIỂM ĐƯỢC CHỌN ==== */
+/* ===================== */
+.destination-card.selected {
+  border-color: #4f46e5; /* Viền tím khi chọn */
+  background-color: rgba(79, 70, 229, 0.05); /* Nền tím nhạt trong suốt */
+}
+
+/* Khi card được chọn thì hiện icon check */
+.destination-card.selected .check-icon {
+  display: flex;
+}

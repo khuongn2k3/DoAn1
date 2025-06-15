@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -8,31 +8,39 @@ body {
 .navbar {
   display: flex;
   align-items: center;
-  background-color: white;
-  padding: 20px 60px;
+  background-color: rgb(88, 208, 255);
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  gap: 100px;
+  background-color: rgb(88, 208, 255) ;
+  padding-left: 200px;
 }
 
 .logo {
-  height: 100px; /* lớn hơn chiều cao navbar */
+  height: 130px; 
   position: absolute;
-  top: -20px;  /* nhô ra phía trên */
-  left: 20px;  /* vị trí ngang của logo */
-  z-index: 2;  /* đảm bảo nổi lên trên */
+  top: -20px;  
+  left: 50px;  
+  z-index: 2;
   
 }
 
 .menu {
   display: flex;
-  gap: 25px;
+  gap: 20px;
+  padding: 5px 5px;
+  margin-bottom: 20px;
 }
-
+.menu a {
+  margin-left: 10px;
+  font-size: 17px;
+  margin-top: 20px;
+  font-family: bold;
+}
 .dropdown {
   position: relative;
+  margin-top: 20px;
 }
 
 .dropdown-menu {
@@ -55,6 +63,7 @@ body {
   display: block;
   text-decoration: none;
   color: black;
+  
 }
 
 .dropdown-menu a:hover {
@@ -66,10 +75,28 @@ body {
   color: black;
   font-weight: 500;
 }
+.auth-buttons {
+  display: flex;
+  gap: 5px;
+  margin-top: -5px;
+}
 
+.auth-buttons a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  padding: 5px 15px;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  border: solid 1px;
+  border-radius: 20px;
+}
+
+.auth-buttons a:hover {
+  background-color: yellow;
+}
 /* Banner */
 .banner {
-  background: url('https://vietnam.travel/themes/custom/vietnamtourism/images/banners/central_vietnam.jpg') no-repeat center center;
   background-size: cover;
   height: 90vh;
   color: white;
@@ -98,6 +125,7 @@ body {
   opacity: 0;
   animation: fadeIn 1s ease forwards;
   animation-delay: 2s;
+  color:orange;
 }
 @keyframes fadeIn {
   to {
@@ -119,29 +147,137 @@ body {
   padding: 10px;
   border-bottom: 3px solid transparent;
 }
-
 .section-menu a:hover {
-  border-bottom: 3px solid #d42333;
-  color: #d42333;
+  border-bottom: 3px solid orange;
+  color: orange;
 }
 
 section {
-  padding: 30px 20px;
+  padding: 60px 20px;
   max-width: 1200px;
+  height: 400px;
   margin: auto;
-  font-size: 23px;
+  font-size: 15px;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
-  
+  text-align: justify; 
+  position: relative;
+  z-index: 1;
+}
+section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.4);
+  z-index: -1;
+}
+section h2{
+  color:orange;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+section p{
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
+section h3{
+  text-align: left;
+  background-color: orange;
+  padding: 5px 5px;
+}
+.section-background {
+  background: url('image/nen2.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  padding: 60px 0px;
+  position: relative;
+}
 #tongquan {
-  background-color: #ffffff;
   display:block;
+  font-weight: bold;
+  font-size: 20px;
 }
-
-#destinations, #trips, #suggestions {
-  background-color: #f9f9f9;
+#khampha, #thugian, #giaitri  {
   display:none;
 }
+button {
+  display: block;
+  background-color: rgb(155, 153, 150);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover {
+  background-color: rgb(180, 179, 178);
+}
 
+.hidden {
+  display: none;
+}
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 20px;
+  font-size: 14px;
+  gap:30px;
+  margin: 0 auto;
+  background-color: rgb(255, 255, 255);
+}
+.newsletter, .follow-us {
+  width: 35%;
+}
+.newsletter h2, .follow-us h2 {
+  color: orange;
+  font-size: 20px;
+}
+.newsletter input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.newsletter button {
+  background-color: #b71c1c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.newsletter button:hover {
+  background-color: #a01717;
+}
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+.social-icons a {
+  width: 40px;
+  height: 40px;
+  background-color: orange;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+.social-icons a:hover {
+  background-color: orange;
+}
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f7adad;
+  font-size: 14px;
+}
