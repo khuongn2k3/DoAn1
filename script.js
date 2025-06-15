@@ -43,39 +43,7 @@ function showSection(sectionId) {
         const suggestionsBox = document.getElementById('suggestions');
         const input = document.getElementById('search-input');
     
-        function showSuggestions(value) {
-          const val = value.trim().toLowerCase();
-          if (!val) {
-            suggestionsBox.style.display = 'none';
-            suggestionsBox.innerHTML = '';
-            return;
-          }
-    
-          const matched = suggestionsData.filter(item => item.toLowerCase().includes(val));
-          if (matched.length === 0) {
-            suggestionsBox.style.display = 'none';
-            suggestionsBox.innerHTML = '';
-            return;
-          }
-    
-          suggestionsBox.innerHTML = matched.map(item => `<div onclick="selectSuggestion('${item}')">${item}</div>`).join('');
-          suggestionsBox.style.display = 'block';
-        }
-    
-        function selectSuggestion(text) {
-          input.value = text;
-          suggestionsBox.style.display = 'none';
-        }
-    
-        function search() {
-          const query = input.value.trim();
-          if (query) {
-            // Chuyển sang trang kết quả với tham số q
-            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-          } else {
-            alert('Vui lòng nhập từ khóa tìm kiếm!');
-          }
-        }
+        
     
         // Ẩn suggestions khi click ra ngoài
         document.addEventListener('click', function(event) {
@@ -83,6 +51,32 @@ function showSection(sectionId) {
             suggestionsBox.style.display = 'none';
           }
         });
+
+        const API_BASE = "https://d-l5f3.onrender.com"; 
+
+function showSuggestions(keyword) {
+  if (keyword.length === 0) {
+    document.getElementById("suggestions").innerHTML = "";
+    return;
+  }
+
+  fetch(`${API_BASE}/search?keyword=${encodeURIComponent(keyword)}`)
+    .then(response => response.json())
+    .then(data => {
+      const suggestions = data.map(item => `<div>${item.ten}</div>`).join('');
+      document.getElementById("suggestions").innerHTML = suggestions;
+    })
+    .catch(err => {
+      console.error("Lỗi khi lấy gợi ý:", err);
+    });
+}
+      
+function search() {
+  const keyword = input.value.trim();
+  if (keyword) {
+    window.location.href = `/DoAn1/search.html?q=${encodeURIComponent(keyword)}`;
+  }
+}
         
         
         
