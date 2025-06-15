@@ -74,7 +74,7 @@ function showSuggestions(keyword) {
 function search() {
   const keyword = input.value.trim();
   if (keyword) {
-    window.location.href = `/DoAn1/search.html?q=${encodeURIComponent(keyword)}`;
+    window.location.href = `/DoAn1/Search.html?q=${encodeURIComponent(keyword)}`;
   }
 }
         
