@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Hiển thị ảnh đại diện hiện tại
     const avatarImg = document.querySelector('.sidebar img');
-    avatarImg.src = data.anhDaiDien || 'images/user.png';
+    avatarImg.src = data.anhDaiDien || 'avatar/user.png';
 
     selectedAvatar = data.anhDaiDien || '';
 
