@@ -79,6 +79,15 @@ function handleEnter(event) {
     search();
   }
 }       
-        
+document.getElementById('btnplan').addEventListener('click', function (e) {
+    e.preventDefault();
+    const khachHangId = localStorage.getItem('khachHangId');
+    if (!khachHangId) {
+        alert('Vui lòng đăng nhập trước khi lên kế hoạch!');
+        window.location.href = 'login_account.html';
+    } else {
+        window.location.href = 'plan.html';
+    }
+});        
         
         
