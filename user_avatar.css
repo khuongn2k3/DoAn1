@@ -20,7 +20,7 @@
 }
 
 /* Nút chọn */
-#moChonAnhBtn {
+#Btn_choseimg {
   padding: 8px 14px;
   background-color: #4e54c8;
   color: white;
@@ -30,6 +30,6 @@
   margin-top: 10px;
 }
 
-#moChonAnhBtn:hover {
+#choseimg:hover {
   background-color: #3b40a1;
 }
