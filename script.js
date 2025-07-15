@@ -42,9 +42,6 @@ function showSection(sectionId) {
     
         const suggestionsBox = document.getElementById('suggestions');
         const input = document.getElementById('search-input');
-    
-        
-    
         // Ẩn suggestions khi click ra ngoài
         document.addEventListener('click', function(event) {
           if (!document.getElementById('search-container').contains(event.target)) {
@@ -77,7 +74,11 @@ function search() {
     window.location.href = `/DoAn1/Search.html?q=${encodeURIComponent(keyword)}`;
   }
 }
-        
+function handleEnter(event) {
+  if (event.key === 'Enter') {
+    search();
+  }
+}       
         
         
         
