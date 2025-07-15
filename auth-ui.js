@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
   } else {
     authArea.innerHTML = `
-      <a href="dangnhap.html" class="btn-login">Đăng Nhập</a>
-      <a href="dangky.html" class="btn-register">Đăng Ký</a>
+      <a href="login_account.html" class="btn-login">Đăng Nhập</a>
+      <a href="register_account.html" class="btn-register">Đăng Ký</a>
     `;
   }
 });
