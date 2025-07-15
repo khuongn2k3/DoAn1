@@ -7,7 +7,7 @@
       }
 
       try {
-        const res = await fetch(`https://<your-backend-domain>/api_khachhang/${khachHangId}`);
+        const res = await fetch(`https://d-l5f3.onrender.com/api_khachhang/${khachHangId}`);
         const data = await res.json();
 
         document.getElementById('hoTen').textContent = data.hoTen;
