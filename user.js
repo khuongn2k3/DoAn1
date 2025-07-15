@@ -44,10 +44,10 @@
           const result = await res.json();
           const msg = document.getElementById('statusMessage');
           if (res.ok) {
-            msg.textContent = "✅ Đổi mật khẩu thành công!";
+            msg.textContent = "Đổi mật khẩu thành công!";
             msg.style.color = "green";
           } else {
-            msg.textContent = "❌ " + (result.message || "Lỗi đổi mật khẩu");
+            msg.textContent = (result.message || "Lỗi đổi mật khẩu");
             msg.style.color = "red";
           }
         } catch (err) {
