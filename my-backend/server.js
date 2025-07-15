@@ -4,8 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 const apiRoutes = require('./routes/api'); 
-const khachHangRoutes = require('./routes/khachhang');
-app.use('/khachhang', khachHangRoutes);
+const khachHangRoutes = require('./routes/api_khachhang');
+app.use('/api_khachhang', khachHangRoutes);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
