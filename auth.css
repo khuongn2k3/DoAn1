@@ -49,4 +49,17 @@ body {
 .auth-container button:hover {
   background-color: #45a049;
 }
+.user-icon {
+  font-size: 30px;
+  color: black;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s ease;
+}
+
+.user-icon:hover {
+  transform: scale(1.1);
+  color: orange;
+}
+
 
