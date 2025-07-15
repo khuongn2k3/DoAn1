@@ -21,7 +21,7 @@ mongoose.connect(MONGO_URI)
 app.get('/search', async (req, res) => {
   const keyword = req.query.q || '';
   try {
-    const results = await Destination.find({
+    const results = await diadiem.find({
       title: { $regex: keyword, $options: 'i' }
     });
     res.json(results);
