@@ -35,6 +35,17 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
+// PUT ảnh đại diện
+router.put('/:id', async (req, res) => {
+  try {
+    const { anhDaiDien } = req.body;
+    const result = await KhachHang.findByIdAndUpdate(req.params.id, { anhDaiDien }, { new: true });
+    if (!result) return res.status(404).send("Không tìm thấy người dùng");
+    res.json(result);
+  } catch (err) {
+    res.status(500).send("Lỗi server");
+  }
+});
 // GET thông tin khách hàng theo ID
 router.get('/:id', async (req, res) => {
   try {
