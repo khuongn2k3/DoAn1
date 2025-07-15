@@ -3,13 +3,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-const apiRoutes = require('./routes/api'); 
-const khachHangRoutes = require('./routes/api_khachhang');
-app.use('/api_khachhang', khachHangRoutes);
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI || require('./secret').MONGO_URI;
+
+const apiRoutes = require('./routes/api'); 
+const khachHangRoutes = require('./routes/api_khachhang');
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +20,7 @@ mongoose.connect(MONGO_URI)
 
 // Sử dụng route từ routes/api.js
 app.use('/', apiRoutes);
+app.use('/api_khachhang', khachHangRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
