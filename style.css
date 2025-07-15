@@ -13,6 +13,7 @@ body {
 .user-avatar img {
   width: 36px;
   height: 36px;
+  margin-top:20px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #ccc;
