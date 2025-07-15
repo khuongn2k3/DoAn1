@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đăng ký</title>
+</head>
+<body>
+  <h2>Đăng ký tài khoản</h2>
+  <form id="formDangKy">
+    <input type="text" placeholder="Họ tên" id="hoTen" required><br>
+    <input type="email" placeholder="Email" id="email" required><br>
+    <input type="text" placeholder="Số điện thoại" id="soDienThoai"><br>
+    <input type="password" placeholder="Mật khẩu" id="matKhau" required><br>
+    <input type="text" placeholder="Địa chỉ" id="diaChi"><br>
+    <button type="submit">Đăng ký</button>
+  </form>
+
+  <script>
+    document.getElementById('formDangKy').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = {
+        hoTen: hoTen.value,
+        email: email.value,
+        soDienThoai: soDienThoai.value,
+        matKhau: matKhau.value,
+        diaChi: diaChi.value
+      };
+
+      const res = await fetch('https://your-server.com/khachhang/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      alert(result.message);
+    });
+  </script>
+</body>
+</html>
 
