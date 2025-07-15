@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trang cá nhân</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .user-field {
+      margin-bottom: 20px;
+    }
+
+    .user-field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .user-field span {
+      display: block;
+      background-color: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .btn-logout {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 30px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-logout:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Thông tin cá nhân</h2>
+    <div id="userInfo">
+      <div class="user-field">
+        <label>Họ tên</label>
+        <span id="hoTen">Đang tải...</span>
+      </div>
+      <div class="user-field">
+        <label>Email</label>
+        <span id="email">Đang tải...</span>
+      </div>
+      <div class="user-field">
+        <label>Số điện thoại</label>
+        <span id="soDienThoai">Đang tải...</span>
+      </div>
+      <div class="user-field">
+        <label>Địa chỉ</label>
+        <span id="diaChi">Đang tải...</span>
+      </div>
+    </div>
+    <button class="btn-logout" id="btnDangXuat">Đăng xuất</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const khachHangId = localStorage.getItem('khachHangId');
+      if (!khachHangId) {
+        alert("Bạn chưa đăng nhập!");
+        window.location.href = "login_account.html";
+        return;
+      }
+
+      try {
+        //  Gọi API backend để lấy thông tin khách hàng
+        const response = await fetch(`https://<your-backend-domain>/api_khachhang/${khachHangId}`);
+        const data = await response.json();
+
+        //  Hiển thị thông tin
+        document.getElementById('hoTen').textContent = data.hoTen;
+        document.getElementById('email').textContent = data.email;
+        document.getElementById('soDienThoai').textContent = data.soDienThoai;
+        document.getElementById('diaChi').textContent = data.diaChi;
+      } catch (error) {
+        alert("Lỗi khi tải thông tin người dùng!");
+        console.error(error);
+      }
+
+      //  Xử lý nút đăng xuất
+      document.getElementById('btnDangXuat').addEventListener('click', function () {
+        localStorage.removeItem('khachHangId');
+        window.location.href = 'login_account.html';
+      });
+    });
+  </script>
+</body>
+</html>
