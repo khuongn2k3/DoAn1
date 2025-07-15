@@ -35,7 +35,7 @@
         }
 
         try {
-          const res = await fetch(`https://<your-backend-domain>/api_khachhang/change-password`, {
+          const res = await fetch(`https://d-l5f3.onrender.com/api_khachhang/change-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ khachHangId, oldPassword: oldPass, newPassword: newPass })
