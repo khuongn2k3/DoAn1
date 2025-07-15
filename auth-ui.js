@@ -1,5 +1,3 @@
-// auth-ui.js
-
 document.addEventListener('DOMContentLoaded', function () {
   const authArea = document.getElementById('authArea');
   if (!authArea) return;
