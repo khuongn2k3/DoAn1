@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Đăng nhập</h2>
+    <form id="formDangNhap">
+      <input type="email" placeholder="Email" id="email" required>
+      <input type="password" placeholder="Mật khẩu" id="matKhau" required>
+      <button type="submit">Đăng nhập</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('formDangNhap').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const data = {
+        email: email.value,
+        matKhau: matKhau.value
+      };
+
+      const res = await fetch('https://https://d-l5f3.onrender.com/khachhang/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      alert(result.message);
+
+      if (res.ok) {
+        localStorage.setItem('khachHangId', result.khach._id);
+        // Ví dụ chuyển sang trang chủ:
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+</body>
+</html>
 
