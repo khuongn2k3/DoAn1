@@ -20,30 +20,37 @@
 
   <script>
     document.getElementById('formDangKy').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const data = {
-    hoTen: hoTen.value,
-    email: email.value,
-    soDienThoai: soDienThoai.value,
-    matKhau: matKhau.value,
-    diaChi: diaChi.value
-  };
+      e.preventDefault();
 
-  const res = await fetch('https://d-l5f3.onrender.com/api_khachhang/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
+      // Lấy giá trị từ input
+      const data = {
+        hoTen: document.getElementById('hoTen').value,
+        email: document.getElementById('email').value,
+        soDienThoai: document.getElementById('soDienThoai').value,
+        matKhau: document.getElementById('matKhau').value,
+        diaChi: document.getElementById('diaChi').value
+      };
 
-  const result = await res.json();
-  alert(result.message);
+      try {
+        const res = await fetch('https://d-l5f3.onrender.com/api_khachhang/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
 
- 
-  if (res.ok) {
-    window.location.href = 'https://khuongn2k3.github.io/DoAn1/login_account.html';
-  }
-});
+        const result = await res.json();
 
+        // Hiển thị thông báo
+        alert(result.message || 'Đăng ký thành công');
+
+        // Nếu đăng ký thành công thì chuyển hướng
+        if (res.ok) {
+          window.location.href = 'https://khuongn2k3.github.io/DoAn1/login_account.html';
+        }
+      } catch (error) {
+        alert("Lỗi khi đăng ký: " + error.message);
+      }
+    });
   </script>
 </body>
 </html>
