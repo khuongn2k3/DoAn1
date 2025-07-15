@@ -6,6 +6,8 @@ const khachHangSchema = new mongoose.Schema({
   soDienThoai: String,
   matKhau: { type: String, required: true },
   diaChi: String
+  },{
+    versionKey: false 
 });
 
 module.exports = mongoose.model('khachhang', khachHangSchema, 'khachhang');
