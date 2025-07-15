@@ -1,20 +1,20 @@
 .avatar-options {
   display: flex;
   gap: 10px;
+  margin: 10px 0;
   justify-content: center;
-  margin-top: 10px;
 }
 
-.avatar-options img {
+.avatar-option {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  cursor: pointer;
   border: 2px solid transparent;
-  transition: transform 0.2s, border 0.2s;
+  cursor: pointer;
+  object-fit: cover;
+  transition: border 0.3s ease;
 }
 
-.avatar-options img:hover {
-  transform: scale(1.1);
+.avatar-option.selected {
   border: 2px solid #4e54c8;
 }
