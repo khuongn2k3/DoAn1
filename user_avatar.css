@@ -1,13 +1,13 @@
 .avatar-options {
   display: flex;
   gap: 10px;
-  margin: 10px 0;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .avatar-option {
-  width: 60px;
-  height: 60px;
+  width: 30px; /* nhỏ hơn ½ so với 60px ban đầu */
+  height: 30px;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
@@ -17,4 +17,19 @@
 
 .avatar-option.selected {
   border: 2px solid #4e54c8;
+}
+
+/* Nút chọn */
+#moChonAnhBtn {
+  padding: 8px 14px;
+  background-color: #4e54c8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#moChonAnhBtn:hover {
+  background-color: #3b40a1;
 }
