@@ -5,7 +5,7 @@ const khachHangSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   soDienThoai: String,
   matKhau: { type: String, required: true },
-  diaChi: String
+  diaChi: StringString,
   anhDaiDien: { type: String, default: '' } 
   },{
     versionKey: false 
