@@ -67,10 +67,16 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
    // Hiện các ảnh đại diện khi bấm nút
-  document.getElementById('Btn_choseimg').addEventListener('click', () => {
-    document.getElementById('choseimg').style.display = 'block';
-  });
+  const btnToggle = document.getElementById('Btn_choseimg');
+  const avatarBox = document.getElementById('choseimg');
 
+  btnToggle.addEventListener('click', () => {
+    if (avatarBox.style.display === 'none' || avatarBox.style.display === '') {
+      avatarBox.style.display = 'block';
+    } else {
+      avatarBox.style.display = 'none';
+    }
+  });
   // Xử lý chọn ảnh
   const avatarOptions = document.querySelectorAll('.avatar-option');
   avatarOptions.forEach(img => {
