@@ -10,4 +10,4 @@ const tourSchema = new mongoose.Schema({
   hinhAnh: String,
 });
 
-module.exports = mongoose.model('tour', tourSchema);
+module.exports = mongoose.model('tour', tourSchema , 'tour');
