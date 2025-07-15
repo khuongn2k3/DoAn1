@@ -17,28 +17,28 @@
 
   <script>
     document.getElementById('formDangNhap').addEventListener('submit', async function(e) {
-      e.preventDefault();
+  e.preventDefault();
 
-      const data = {
-        email: email.value,
-        matKhau: matKhau.value
-      };
+  const data = {
+    email: email.value,
+    matKhau: matKhau.value
+  };
 
-      const res = await fetch('https://https://d-l5f3.onrender.com/khachhang/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+  const res = await fetch('https://your-server.com/khachhang/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
 
-      const result = await res.json();
-      alert(result.message);
+  const result = await res.json();
+  alert(result.message);
 
-      if (res.ok) {
-        localStorage.setItem('khachHangId', result.khach._id);
-        // Ví dụ chuyển sang trang chủ:
-        window.location.href = "index.html";
-      }
-    });
+  if (res.ok) {
+    localStorage.setItem('khachHangId', result.khach._id);
+    window.location.href = 'https://username.github.io/DoAn1/index.html';
+  }
+});
+
   </script>
 </body>
 </html>
