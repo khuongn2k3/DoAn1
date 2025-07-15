@@ -35,6 +35,16 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
+// GET thông tin khách hàng theo ID
+router.get('/:id', async (req, res) => {
+  try {
+    const khachHang = await KhachHang.findById(req.params.id).select('-matKhau');
+    if (!khachHang) return res.status(404).json({ message: 'Không tìm thấy' });
+    res.json(khachHang);
+  } catch (err) {
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+});
 
 module.exports = router;
 
