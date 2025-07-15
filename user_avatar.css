@@ -32,4 +32,6 @@
   cursor: pointer;
   margin-top: 10px;
   display: inline-block;
+  width: auto !important; 
+  max-width: fit-content;
 }
