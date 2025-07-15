@@ -3,7 +3,7 @@ body {
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
-.user-avatar img {
+.menu .user-avatar img {
   width: 36px;
   height: 36px;
   border-radius: 60%;
