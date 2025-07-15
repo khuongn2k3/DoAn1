@@ -66,13 +66,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
-  // Chọn ảnh đại diện từ danh sách có sẵn
-   const avatarOptions = document.querySelectorAll('.avatar-option');
+   // Hiện các ảnh đại diện khi bấm nút
+  document.getElementById('moChonAnhBtn').addEventListener('click', () => {
+    document.getElementById('chonAnhDaiDien').style.display = 'block';
+  });
+
+  // Xử lý chọn ảnh
+  const avatarOptions = document.querySelectorAll('.avatar-option');
   avatarOptions.forEach(img => {
     img.addEventListener('click', async () => {
       const selectedAvatar = img.getAttribute('src');
 
-      // Giao diện: đánh dấu ảnh đã chọn
       avatarOptions.forEach(i => i.classList.remove('selected'));
       img.classList.add('selected');
 
@@ -85,13 +89,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const data = await res.json();
         if (res.ok) {
-          alert("Cập nhật ảnh đại diện thành công!");
+          alert("Đã cập nhật ảnh đại diện!");
           document.querySelector('.sidebar img').src = selectedAvatar;
         } else {
-          alert(data.message || "Không thể cập nhật ảnh.");
+          alert(data.message || "Lỗi cập nhật.");
         }
       } catch (err) {
-        console.error(err);
         alert("Lỗi khi gửi yêu cầu.");
       }
     });
