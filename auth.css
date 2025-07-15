@@ -49,14 +49,14 @@ body {
 .auth-container button:hover {
   background-color: #45a049;
 }
-.user-icon {
-  font-size: 60px;
-  color: black;
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
   cursor: pointer;
-  margin-top: 50px;
-  transition: transform 0.2s ease;
+  border: 2px solid #ccc;
 }
-
 .user-icon:hover {
   transform: scale(1.1);
   color: orange;
