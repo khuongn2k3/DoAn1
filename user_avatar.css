@@ -31,7 +31,4 @@
   border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
-  display: inline-block;
-  width: auto !important; 
-  max-width: fit-content;
 }
