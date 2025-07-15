@@ -5,9 +5,9 @@
   margin-top: 10px;
 }
 
-.avatar-option {
-  width: 20px; 
-  height: 20px;
+#choseimg .avatar-option {
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
@@ -15,10 +15,13 @@
   transition: border 0.3s ease;
 }
 
-.avatar-option.selected {
-  border: 2px solid #4e54c8;
+#choseimg .avatar-option.selected {
+  border-color: #4e54c8;
 }
 
+#choseimg .avatar-option:hover {
+  border-color: #4e54c8;
+  box-shadow: 0 0 4px rgba(78, 84, 200, 0.5);
 /* Nút chọn */
 #Btn_choseimg {
   padding: 8px 14px;
@@ -28,8 +31,4 @@
   border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
-}
-
-.avatar-option:hover {
-  border-color: #4e54c8; 
 }
