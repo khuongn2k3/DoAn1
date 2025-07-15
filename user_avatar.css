@@ -6,8 +6,8 @@
 }
 
 #choseimg .avatar-option {
-  width: 40px !important;
-  height: 40px !important;
+  width: 10px !important;
+  height: 10px !important;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
