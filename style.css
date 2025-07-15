@@ -3,7 +3,14 @@ body {
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
-
+.user-avatar img {
+  width: 36px;
+  height: 36px;
+  border-radius: 60%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #ccc;
+}
 /* Navbar */
 .navbar {
   display: flex;
