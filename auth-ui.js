@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       
       if (data && data.email) {
-        const avatarUrl = data.anhDaiDien || 'images/user.png';
+        const avatarUrl = data.anhDaiDien || 'avatar/user.png';
         authArea.innerHTML = `
           <div class="user-avatar" onclick="location.href='user.html'" title="Trang cá nhân">
-            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='images/user.png'" />
+            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='avatar/user.png'" />
           </div>
         `;
       } else {
