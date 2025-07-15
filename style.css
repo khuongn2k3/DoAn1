@@ -3,14 +3,14 @@ body {
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
-#authArea {
+.menu #authArea {
   margin-left: auto;
   display: flex;
   align-items: center;
   padding-right: 30px;
 }
 
-.user-avatar img {
+.menu .user-avatar img {
   width: 36px;
   height: 36px;
   border-radius: 50%;
