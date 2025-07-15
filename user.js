@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
    // Hiện các ảnh đại diện khi bấm nút
-  document.getElementById('moChonAnhBtn').addEventListener('click', () => {
-    document.getElementById('chonAnhDaiDien').style.display = 'block';
+  document.getElementById('Btn_choseimg').addEventListener('click', () => {
+    document.getElementById('choseimg').style.display = 'block';
   });
 
   // Xử lý chọn ảnh
