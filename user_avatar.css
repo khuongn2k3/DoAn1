@@ -6,7 +6,7 @@
 }
 
 .avatar-option {
-  width: 30px; /* nhỏ hơn ½ so với 60px ban đầu */
+  width: 30px; 
   height: 30px;
   border-radius: 50%;
   border: 2px solid transparent;
@@ -31,5 +31,5 @@
 }
 
 #choseimg:hover {
-  background-color: #3b40a1;
+  border: 2px solid #4e54c8;
 }
