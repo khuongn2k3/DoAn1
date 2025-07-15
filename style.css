@@ -3,13 +3,20 @@ body {
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
-.menu .user-avatar img {
+#authArea {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.user-avatar img {
   width: 36px;
   height: 36px;
-  border-radius: 60%;
+  border-radius: 50%;
   object-fit: cover;
-  cursor: pointer;
   border: 2px solid #ccc;
+  cursor: pointer;
 }
 /* Navbar */
 .navbar {
