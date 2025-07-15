@@ -47,7 +47,11 @@
         const params = new URLSearchParams(window.location.search);
         return params.get(param);
       }
-  
+  function handleEnter(event) {
+    if (event.key === 'Enter') {
+    search();
+    }
+  }
       // Lấy tham số từ URL
   function getQueryParam(param) {
     const params = new URLSearchParams(window.location.search);
