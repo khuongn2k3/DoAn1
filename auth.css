@@ -50,8 +50,8 @@ body {
   background-color: #45a049;
 }
 .user-avatar img {
-  width: 10px;
-  height: 10px;
+  width: 36px;
+  height: 36px;
   border-radius: 60%;
   object-fit: cover;
   cursor: pointer;
