@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       const res = await fetch(`https://d-l5f3.onrender.com/api_khachhang/${khachHangId}`);
       const data = await res.json();
 
-      // Kiểm tra hợp lệ - có dữ liệu người dùng
+      
       if (data && data.email) {
+        const avatarUrl = data.anhDaiDien || 'images/user.png';
         authArea.innerHTML = `
-          <div class="user-icon" onclick="location.href='user.html'" title="Trang cá nhân">
-            <i class="fas fa-user-circle"></i>
+          <div class="user-avatar" onclick="location.href='user.html'" title="Trang cá nhân">
+            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='images/user.png'" />
           </div>
         `;
       } else {
