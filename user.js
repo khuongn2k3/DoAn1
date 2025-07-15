@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Đăng xuất
-  document.getElementById('btnDangXuat').addEventListener('click', () => {
+  document.getElementById('Btn_logout').addEventListener('click', () => {
     localStorage.removeItem('khachHangId');
     window.location.href = 'login_account.html';
   });
