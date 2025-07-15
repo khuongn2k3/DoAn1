@@ -22,6 +22,7 @@
 #choseimg .avatar-option:hover {
   border-color: #4e54c8;
   box-shadow: 0 0 4px rgba(78, 84, 200, 0.5);
+}
 /* Nút chọn */
 #Btn_choseimg {
   padding: 5px 10px;
