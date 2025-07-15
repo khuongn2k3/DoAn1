@@ -57,9 +57,4 @@ body {
   cursor: pointer;
   border: 2px solid #ccc;
 }
-.user-icon:hover {
-  transform: scale(1.1);
-  color: orange;
-}
-
 
