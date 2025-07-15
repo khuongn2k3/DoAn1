@@ -6,8 +6,8 @@
 }
 
 .avatar-option {
-  width: 30px; 
-  height: 30px;
+  width: 15px; 
+  height: 15px;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
@@ -31,5 +31,5 @@
 }
 
 .avatar-option:hover {
-  border: 2px solid #4e54c8;
+  border-color: #4e54c8; 
 }
