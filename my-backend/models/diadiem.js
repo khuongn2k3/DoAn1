@@ -7,4 +7,4 @@ const diaDiemSchema = new mongoose.Schema({
   url: String
 });
 
-module.exports = mongoose.model('diadiem', diaDiemSchema);
+module.exports = mongoose.model('diadiem', diaDiemSchema, 'diadiem');
