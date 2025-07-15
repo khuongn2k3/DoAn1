@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (khachHangId) {
     authArea.innerHTML = `
-      <div class="user-icon" onclick="location.href='trangcanhan.html'" title="Trang cá nhân">
+      <div class="user-icon" onclick="location.href='user.html'" title="Trang cá nhân">
         <i class="fas fa-user-circle"></i>
       </div>
     `;
