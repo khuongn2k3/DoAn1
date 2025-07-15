@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-const DiaDiem = require('./models/diadiem');
+const apiRoutes = require('./routes/api'); // ✅ Import route
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,20 +17,10 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ Đã kết nối MongoDB'))
   .catch((err) => console.error('❌ Lỗi kết nối MongoDB:', err.message));
 
-// API tìm kiếm
-app.get('/search', async (req, res) => {
-  const keyword = req.query.q || '';
-  try {
-    const results = await diadiem.find({
-      title: { $regex: keyword, $options: 'i' }
-    });
-    res.json(results);
-  } catch (error) {
-    console.error('Lỗi tìm kiếm:', error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
-});
+// Sử dụng route từ routes/api.js
+app.use('/', apiRoutes);
 
 app.listen(PORT, () => {
-  console.log(` Server đang chạy tại http://localhost:${PORT}`);
+  console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
 });
+
