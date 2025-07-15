@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const DiaDiem = require('../models/diadiem'); // ✅ Model
+const DiaDiem = require('../models/diadiem'); 
 
 // API tìm kiếm địa danh
 router.get('/search', async (req, res) => {
