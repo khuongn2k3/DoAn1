@@ -6,6 +6,7 @@ const khachHangSchema = new mongoose.Schema({
   soDienThoai: String,
   matKhau: { type: String, required: true },
   diaChi: String
+  anhDaiDien: { type: String, default: '' } 
   },{
     versionKey: false 
 });
