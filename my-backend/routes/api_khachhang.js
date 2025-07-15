@@ -45,6 +45,27 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
+router.post('/change-password', async (req, res) => {
+  const { khachHangId, oldPassword, newPassword } = req.body;
+
+  try {
+    const khachHang = await KhachHang.findById(khachHangId);
+    if (!khachHang) {
+      return res.status(404).json({ message: 'Không tìm thấy khách hàng.' });
+    }
+
+    if (khachHang.matKhau !== oldPassword) {
+      return res.status(401).json({ message: 'Mật khẩu cũ không đúng.' });
+    }
+
+    khachHang.matKhau = newPassword;
+    await khachHang.save();
+
+    res.json({ message: 'Đổi mật khẩu thành công.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Lỗi server.' });
+  }
+});
 
 module.exports = router;
 
