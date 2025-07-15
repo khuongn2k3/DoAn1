@@ -49,12 +49,3 @@ body {
 .auth-container button:hover {
   background-color: #45a049;
 }
-.user-avatar img {
-  width: 10px;
-  height: 10px;
-  border-radius: 60%;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid #ccc;
-}
-
