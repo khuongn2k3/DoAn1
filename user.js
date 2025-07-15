@@ -67,39 +67,33 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
   // Chọn ảnh đại diện từ danh sách có sẵn
-  const avatarOptions = document.querySelectorAll('.avatar-option');
+   const avatarOptions = document.querySelectorAll('.avatar-option');
   avatarOptions.forEach(img => {
-    img.addEventListener('click', () => {
+    img.addEventListener('click', async () => {
+      const selectedAvatar = img.getAttribute('src');
+
+      // Giao diện: đánh dấu ảnh đã chọn
       avatarOptions.forEach(i => i.classList.remove('selected'));
       img.classList.add('selected');
-      selectedAvatar = img.src;
-    });
-  });
 
-  // Lưu ảnh đại diện mới
-  document.getElementById('saveAvatarBtn').addEventListener('click', async () => {
-    if (!selectedAvatar) {
-      alert("Vui lòng chọn ảnh đại diện.");
-      return;
-    }
+      try {
+        const res = await fetch(`https://d-l5f3.onrender.com/api_khachhang/${khachHangId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ anhDaiDien: selectedAvatar })
+        });
 
-    try {
-      const res = await fetch(`https://d-l5f3.onrender.com/api_khachhang/${khachHangId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ anhDaiDien: selectedAvatar })
-      });
-
-      if (res.ok) {
-        alert("Cập nhật ảnh đại diện thành công!");
-        // Cập nhật lại ảnh bên sidebar ngay lập tức
-        document.querySelector('.sidebar img').src = selectedAvatar;
-      } else {
-        alert("Không thể cập nhật ảnh.");
+        const data = await res.json();
+        if (res.ok) {
+          alert("Cập nhật ảnh đại diện thành công!");
+          document.querySelector('.sidebar img').src = selectedAvatar;
+        } else {
+          alert(data.message || "Không thể cập nhật ảnh.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Lỗi khi gửi yêu cầu.");
       }
-    } catch (err) {
-      console.error(err);
-      alert("Lỗi khi gửi yêu cầu.");
-    }
+    });
   });
 });
