@@ -23,6 +23,18 @@ mongoose.connect(MONGO_URI)
 app.use('/', apiRoutes);
 app.use('/api_khachhang', khachHangRoutes);
 
+app.get('/user', (req, res) => {
+  res.sendFile(path.join(__dirname, 'User', 'user.html'));
+});
+
+app.get('/user', (req, res) => {
+  res.sendFile(path.join(__dirname,'register_account.html'));
+});
+
+app.get('/user', (req, res) => {
+  res.sendFile(path.join(__dirname,'login_account.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
 });
