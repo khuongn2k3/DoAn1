@@ -16,8 +16,8 @@ app.use(express.json());
 
 // Kết nối MongoDB
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ Đã kết nối MongoDB'))
-  .catch((err) => console.error('❌ Lỗi kết nối MongoDB:', err.message));
+  .then(() => console.log('Đã kết nối MongoDB'))
+  .catch((err) => console.error('Lỗi kết nối MongoDB:', err.message));
 
 // Sử dụng route từ routes/api.js
 app.use('/', apiRoutes);
@@ -28,11 +28,11 @@ app.get('/user', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-  res.sendFile(path.join(__dirname,'register_account.html'));
+  res.sendFile(path.join(__dirname, 'Auth' ,'register_account.html'));
 });
 
 app.get('/user', (req, res) => {
-  res.sendFile(path.join(__dirname,'login_account.html'));
+  res.sendFile(path.join(__dirname, 'Auth','login_account.html'));
 });
 
 app.listen(PORT, () => {
