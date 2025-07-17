@@ -10,3 +10,4 @@ router.post('/login', async (req, res) => {
 
   res.json({ _id: admin._id, hoTen: admin.hoTen });
 });
+module.exports = router;
