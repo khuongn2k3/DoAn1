@@ -10,6 +10,7 @@ const MONGO_URI = process.env.MONGO_URI || require('./secret').MONGO_URI;
 
 const apiRoutes = require('./routes/api'); 
 const khachHangRoutes = require('./routes/api_khachhang');
+const adminRoutes = require('./routes/admin');
 
 app.use(cors());
 app.use(express.json());
@@ -22,6 +23,7 @@ mongoose.connect(MONGO_URI)
 // Sử dụng route từ routes/api.js
 app.use('/', apiRoutes);
 app.use('/api_khachhang', khachHangRoutes);
+app.use('/api_admin', adminRoutes);
 
 app.get('/user', (req, res) => {
   res.sendFile(path.join(__dirname, 'User', 'user.html'));
