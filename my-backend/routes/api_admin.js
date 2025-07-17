@@ -1,13 +1,36 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const Admin = require('../models/admin');
 
-router.post('/login', async (req, res) => {
-  const { email, matKhau } = req.body;
-  const admin = await Admin.findOne({ email, matKhau });
+// API tạm thời để tạo tài khoản admin
+router.post('/create-admin', async (req, res) => {
+  try {
+    const { hoTen, email, matKhau } = req.body;
 
-  if (!admin) return res.status(401).json({ message: 'Sai tài khoản hoặc mật khẩu' });
+    // Kiểm tra email đã tồn tại 
+    const existing = await Admin.findOne({ email });
+    if (existing) {
+      return res.status(400).json({ message: 'Admin đã tồn tại' });
+    }
 
-  res.json({ _id: admin._id, hoTen: admin.hoTen });
+    // Mã hoá mật khẩu
+    const hashedPassword = await bcrypt.hash(matKhau, 10);
+
+    const newAdmin = new Admin({
+      hoTen,
+      email,
+      matKhau: hashedPassword,
+      avatar: 'admin1.jpg'
+    });
+
+    await newAdmin.save();
+
+    res.json({ message: 'Tạo admin thành công', adminId: newAdmin._id });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
 });
+
 module.exports = router;
