@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function showLoginRegister(container) {
     container.innerHTML = `
-      <a href="login_account.html" class="btn-login">Đăng Nhập</a>
-      <a href="register_account.html" class="btn-register">Đăng Ký</a>
+      <a href="Auth/login_account.html" class="btn-login">Đăng Nhập</a>
+      <a href="Auth/register_account.html" class="btn-register">Đăng Ký</a>
     `;
   }
 });
