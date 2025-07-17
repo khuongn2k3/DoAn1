@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || require('./secret').MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI
 
 const apiRoutes = require('./routes/api'); 
 const khachHangRoutes = require('./routes/api_khachhang');
