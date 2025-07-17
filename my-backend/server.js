@@ -10,7 +10,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 const apiRoutes = require('./routes/api'); 
 const khachHangRoutes = require('./routes/api_khachhang');
-const adminRoutes = require('./routes/admin_admin');
+const adminRoutes = require('./routes/api_admin');
 
 app.use(cors());
 app.use(express.json());
