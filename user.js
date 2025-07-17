@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const newPass = document.getElementById('newPassword').value;
 
     if (!oldPass || !newPass) {
-      alert("Vui lòng nhập đủ mật khẩu.");
+      alert("Vui lòng nhập đúng mật khẩu.");
       return;
     }
 
