@@ -29,11 +29,11 @@ app.get('/user', (req, res) => {
   res.sendFile(path.join(__dirname, 'User', 'user.html'));
 });
 
-app.get('/user', (req, res) => {
+app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'Auth' ,'register_account.html'));
 });
 
-app.get('/user', (req, res) => {
+app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'Auth','login_account.html'));
 });
 
