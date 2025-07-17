@@ -5,7 +5,6 @@ const adminSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   matKhau: { type: String, required: true },
   avatar: { type: String, default: 'admin1.jpg' },
-  ngayTao: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Admin', adminSchema);
