@@ -65,7 +65,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       alert("Lỗi kết nối server.");
     }
   });
-
+ document.querySelectorAll('.avatar-option').forEach(img => {
+    const fileName = img.getAttribute('data-avatar');
+    img.src = `${AVATAR_BASE_URL}/${fileName}`;
+  });
    // Hiện các ảnh đại diện khi bấm nút
   const btnToggle = document.getElementById('Btn_choseimg');
   const avatarBox = document.getElementById('choseimg');
