@@ -1,0 +1,21 @@
+.content p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: justify;
+}
+.content h1{
+    color: orange;
+}
+.content img{
+    height:auto;
+    width:800px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    text-align: justify;
+}
+.content {
+    text-align: center;
+    margin-bottom: 20px;
+    
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Du Lich Việt Nam</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="SearchStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href = "index.html">
+          <img class="logo" src="image\vietnam-tourism-logo.png" alt="Vietnam Tourism Logo" height="50">
+        </a>
+        <div class="menu">
+          <div class="dropdown">
+            <a href="#section-menu">Trang Chủ</a>  
+          </div>
+          <div class="dropdown">
+            <a href="#">Các nơi để đi</a>
+            <div class="dropdown-menu">
+              <a href="#">Miền Bắc</a>
+              <a href="#">Miền Trung</a>
+              <a href="#">Miền Nam</a>
+            </div>
+          </div>
+          <a href="#">Lên kế hoạch</a>
+          <div id="search-container">
+            <input type="text" id="search-input" placeholder="Nhập từ khóa tìm kiếm..." autocomplete="off" oninput="showSuggestions(this.value)" onkeypress="handleEnter(event)" />
+            <div id="suggestions"></div>
+            <button onclick="search()"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+    </div>
+    <div class="search-title">
+        <h1 style="margin-left:200px; padding-top: 50px;">Kết quả tìm kiếm</h1>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+      const input = document.getElementById('search-input');
+      const resultsDiv = document.getElementById('results');
+  
+      function getQueryParam(param) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(param);
+      }
+  function handleEnter(event) {
+    if (event.key === 'Enter') {
+    search();
+    }
+  }
+      // Lấy tham số từ URL
+  function getQueryParam(param) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(param);
+  }
+
+  // Gọi API và hiển thị kết quả
+  async function displayResults(query) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+
+    if (!query) {
+      resultsDiv.innerHTML = '<p>Vui lòng nhập từ khóa để tìm kiếm.</p>';
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://d-l5f3.onrender.com/search?q=${encodeURIComponent(query)}`);
+      const data = await response.json();
+
+      if (data.length === 0) {
+        resultsDiv.innerHTML = '<p>Không tìm thấy kết quả phù hợp.</p>';
+      } else {
+        resultsDiv.innerHTML = data.map(item => `
+          <div class="result-item">
+            <a href="${item.url}" target="_blank" style="text-decoration:none; color: black;">
+              <img src="${item.image}" alt="${item.image}" style="width:200px; float:left; margin-right:15px; border-radius:20px;"/>
+              <h3>${item.title}</h3>
+            </a>
+            <p>${item.description}</p>
+            <div style="clear: both;"></div>
+          </div>
+        `).join('');
+      }
+    } catch (error) {
+      console.error(error);
+      resultsDiv.innerHTML = '<p>Lỗi khi tìm kiếm. Vui lòng thử lại sau.</p>';
+    }
+  }
+
+  // Hàm tìm kiếm khi nhấn nút
+  function search() {
+    const keyword = input.value.trim();
+    if (keyword) {
+      history.replaceState(null, '', `?q=${encodeURIComponent(keyword)}`);
+      displayResults(keyword);
+    }
+  }
+  // Khi trang tải xong
+  window.onload = () => {
+    const input = document.getElementById('search-input');
+    const query = getQueryParam('q');
+
+    if (query) {
+      input.value = query;
+      displayResults(query);
+    } else {
+      document.getElementById('results').innerHTML = '<p>Vui lòng nhập từ khóa để tìm kiếm.</p>';
+    }
+  };
+    </script>
+
+</body>
+</html>

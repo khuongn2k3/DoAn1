@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Du Lịch Việt Nam - Trang Cá Nhân</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../SearchStyle.css" />
+  <link rel="stylesheet" href="user_avatar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #f4f6fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-content {
+      display: flex;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      gap: 30px;
+    }
+
+    .sidebar {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .sidebar img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .sidebar h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .sidebar button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #4d67d3;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .sidebar button:hover {
+      background-color: #00217c;
+    }
+
+    .content-area {
+      flex: 3;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .content-area h2 {
+      margin-bottom: 25px;
+      color: #4e54c8;
+      font-size: 26px;
+    }
+    .content-area button {
+      width:100%;
+    }
+    .user-field {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .user-field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .user-field span {
+      display: block;
+      background-color: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    #passwordForm {
+      margin-top: 30px;
+      border-top: 1px solid #2400eb;
+      padding-top: 20px;
+      display: none;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #6f00ff;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    #btnSubmitChange {
+      background: #4e54c8;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #btnSubmitChange:hover {
+      background: #3b40a1;
+    }
+
+    #statusMessage {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <a href="../index.html">
+      <img class="logo" src="../image/vietnam-tourism-logo.png" alt="Vietnam Tourism Logo" height="50">
+    </a>
+    <div class="menu">
+      <a href="#section-menu">Trang Chủ</a>
+      <div class="dropdown">
+        <a href="#">Các nơi để đi</a>
+        <div class="dropdown-menu">
+          <a href="#">Miền Bắc</a>
+          <a href="#">Miền Trung</a>
+          <a href="#">Miền Nam</a>
+        </div>
+      </div>
+      <a href="../Plan/plan.html">Lên kế hoạch</a>
+      <div id="search-container">
+        <input type="text" id="search-input" placeholder="Nhập từ khóa tìm kiếm..." oninput="showSuggestions(this.value)" onkeypress="handleEnter(event)" />
+        <div id="suggestions"></div>
+        <button onclick="search()"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Sidebar trái -->
+    <div class="sidebar">
+      <img src="" alt="User Avatar" />
+      <button id="Btn_choseimg">Đổi ảnh đại diện</button>
+      <div id="choseimg" style="display: none; margin-top: 10px;">
+        <div class="avatar-options">
+          <img src="/avatar/avatar1.jpg" class="avatar-option" />
+          <img src="/avatar/avatar2.jpg" class="avatar-option" />
+          <img src="/avatar/avatar3.jpg" class="avatar-option" />
+        </div>
+      </div>
+      <h3 id="sidebarName">Tên Khách Hàng</h3>
+      <button id="Btn_logout">Đăng xuất</button>
+    </div>
+    <!-- Nội dung phải -->
+    <div class="content-area">
+      <h2>Thông tin cá nhân</h2>
+      <div id="userInfo">
+        <div class="user-field"><label>Họ tên:</label><span id="hoTen">Đang tải...</span></div>
+        <div class="user-field"><label>Email:</label><span id="email">Đang tải...</span></div>
+        <div class="user-field"><label>Số điện thoại:</label><span id="soDienThoai">Đang tải...</span></div>
+        <div class="user-field"><label>Địa chỉ:</label><span id="diaChi">Đang tải...</span></div>
+      </div>
+
+      <button class="btn-password" onclick="document.getElementById('passwordForm').style.display='block'">Đổi mật khẩu</button>
+
+      <div id="passwordForm">
+        <h3>Đổi mật khẩu</h3>
+        <input type="password" id="oldPassword" placeholder="Mật khẩu cũ" />
+        <input type="password" id="newPassword" placeholder="Mật khẩu mới" />
+        <button id="btnSubmitChange">Xác nhận đổi mật khẩu</button>
+        <div id="statusMessage"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-content">
+    <div class="newsletter">
+      <h2>ĐĂNG KÝ NHẬN BẢN TIN CỦA CHÚNG TÔI</h2>
+      <p>Nhận những câu chuyện du lịch mới nhất từ ​​Du Lịch Việt Nam mỗi tháng qua hộp thư đến của bạn.</p>
+      <input type="email" placeholder="Your email">
+      <button>ĐĂNG KÝ</button>
+    </div>
+    <div class="follow-us">
+      <h2>THEO DÕI CHÚNG TÔI</h2>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>Chào mừng bạn đến với trang web chính thức của Du lịch Việt Nam. Truy cập các trang mạng xã hội của chúng tôi để biết thêm cảm hứng du lịch.</p>
+    </div>
+  </div>
+  <div class="footer">
+    © 2025 OFFICIAL WEBSITE DU LICH VIET NAM
+  </div>
+  <script src="../config.js"></script>
+  <script src="user.js"></script>
+</body>
+</html>

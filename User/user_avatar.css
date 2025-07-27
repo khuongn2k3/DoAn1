@@ -1,0 +1,26 @@
+.avatar-options {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#choseimg .avatar-option {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  object-fit: cover;
+  transition: border 0.3s ease;
+}
+
+#choseimg .avatar-option.selected {
+  border-color: #4e54c8;
+}
+
+#choseimg .avatar-option:hover {
+  border-color: #4e54c8;
+  box-shadow: 0 0 4px rgba(78, 84, 200, 0.5);
+}
+#Btn_choseimg {}

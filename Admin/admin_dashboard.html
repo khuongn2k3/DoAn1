@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin_dashboard.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>Quản trị</h2>
+      <div class="admin-profile">
+        <img id="adminAvatar" src="" alt="avatar"/>
+        <p id="adminName">Admin</p>
+      </div>
+      <ul>
+        <li data-tab="overview">Tổng quan</li>
+        <li data-tab="users">Khách hàng</li>
+        <li data-tab="tours">Tour</li>
+        <li data-tab="orders">Đặt vé</li>
+        <li id="logoutBtn">Đăng xuất</li>
+      </ul>
+    </aside>
+    <main class="main-content">
+        <section id="overview" class="tab-content active">
+            <h2>Tổng quan</h2>
+            <div class="stats">
+            <div class="card"><h3>Khách hàng</h3><p id="userCount">0</p></div>
+            <div class="card"><h3>Tour</h3><p id="tourCount">0</p></div>
+            <div class="card"><h3>Đơn đặt vé</h3><p id="orderCount">0</p></div>
+            </div>
+        </section>
+
+        <section id="users" class="tab-content">
+            <h2>Danh sách khách hàng</h2>
+            <table>
+            <thead>
+                <tr><th>Họ tên</th><th>Email</th><th>Số điện thoại</th><th>Địa chỉ</th><th>Thao tác</th></tr>
+            </thead>
+            <tbody id="userList"></tbody>
+            </table>
+        </section>
+
+        <section id="tours" class="tab-content">
+            <h2>Danh sách tour</h2>
+            <div style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+              <input
+                type="text"
+                id="searchKeyword"
+                placeholder="Tìm theo từ khóa chung (tên tour, địa điểm, loại tour...)"
+                style="flex: 1; padding: 8px; font-size: 16px;"
+              />
+            
+              <select id="searchLoaiDiaDiem">
+                <option value="">-- Loại địa điểm --</option>
+                <option value="Biển">Biển</option>
+                <option value="Núi">Núi</option>
+                <option value="Rừng">Rừng</option>
+                <option value="Thành phố">Thành phố</option>
+              </select>
+            
+              <select id="searchLoaiTour">
+                <option value="">-- Loại tour --</option>
+                <option value="Gia đình">Gia đình</option>
+                <option value="Cặp đôi">Cặp đôi</option>
+                <option value="Team-building">Team-building</option>
+                <option value="Khám phá">Khám phá</option>
+                <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
+              </select>
+            
+              <select id="searchTrangThai">
+                <option value="">-- Trạng thái --</option>
+                <option value="Hiển thị">Hiển thị</option>
+                <option value="Ẩn">Ẩn</option>
+              </select>
+            
+              <button onclick="searchTourDropdown()">Tìm kiếm</button>
+              <button onclick="clearSearchFilter()">Xóa lọc</button>
+            </div>
+            <button onclick="moFormTour()">+ Thêm tour</button>
+            <table>
+                <thead>
+                  <tr>
+                    <th>Tên tour</th>
+                    <th>Loại địa điểm</th>
+                    <th>Phương tiện</th>
+                    <th>Điểm khởi hành</th>
+                    <th>Điểm đến</th>
+                    <th>Loại tour</th>
+                    <th>Ngày/Đêm</th>
+                    <th>Giá người lớn</th>
+                    <th>Giá trẻ em</th>
+                    <th>Giá trẻ nhỏ</th>
+                    <th>Dịch vụ thêm</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="tourList"></tbody>
+              </table>
+              <div id="tourModal" class="modal">
+                <div class="modal-content">
+                  <span class="close" onclick="dongFormTour()">&times;</span>
+                  <h2 id="modalTitle">Thêm Tour</h2>
+                  <form id="tourForm">
+                    <input type="hidden" name="_id" />
+              
+                    <label>Tên Tour</label>
+                      <input type="text" name="tenTour" required />
+                    
+                    <label>Loại Địa Điểm</label>
+                      <select name="loaiDiaDiem">
+                        <option value="Biển">Biển</option>
+                        <option value="Núi">Núi</option>
+                        <option value="Rừng">Rừng</option>
+                        <option value="Thành phố">Thành phố</option>
+                        <option value="Khác">Khác</option>
+                      </select>
+                      
+                    <label>Phương Tiện Di Chuyển</label>
+                    <div class="custom-dropdown" id="dropdownPhuongTien">
+                      <div class="dropdown-selected">-- Chọn phương tiện --</div>
+                      <div class="dropdown-options">
+                        <div class="transport-option">
+                          <label>Máy bay</label>
+                          <input type="checkbox" name="phuongTien" value="Máy bay" />
+                        </div>
+                        <div class="transport-option">
+                          <label>Xe khách</label>
+                          <input type="checkbox" name="phuongTien" value="Xe khách" />
+                        </div>
+                        <div class="transport-option">
+                          <label>Tàu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                          <input type="checkbox" name="phuongTien" value="Tàu" />
+                        </div>
+                        <div class="transport-option">
+                          <label>Xe buýt</label>
+                          <input type="checkbox" name="phuongTien" value="Xe buýt" />
+                        </div>
+                      </div>
+                    </div>
+                    <label>Mô Tả</label>
+                      <textarea name="moTa"></textarea>
+              
+                    <label>Điểm Khởi Hành</label>
+                      <input type="text" name="diemKhoiHanh" />
+              
+                    <label>Điểm Đến</label>
+                      <input type="text" name="diemDen" />
+              
+                    <label>Loại Tour</label>
+                      <select name="loaiTour">
+                        <option value="Gia đình">Gia đình</option>
+                        <option value="Cặp đôi">Cặp đôi</option>
+                        <option value="Team-building">Team-building</option>
+                        <option value="Khám phá">Khám phá</option>
+                        <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
+                      </select>
+                    
+                    <div class="form-row">
+                        <label>Thời gian tour</label>
+                        <input type="number" name="soNgay" min="1" placeholder="Số ngày" required />
+                        <input type="number" name="soDem" min="0" placeholder="Số đêm" required />
+                    </div>  
+
+                    <label>Giá Người Lớn</label>
+                      <input type="number" name="giaNguoiLon" required />
+              
+                    <label>Giá Trẻ Em</label>
+                      <input type="number" name="giaTreEm" />
+              
+                    <label>Giá Trẻ Nhỏ</label>
+                      <input type="number" name="giaTreNho" />
+
+                    <label>Dịch vụ thêm</label>
+                      <div id="dichVuThemContainer">
+                        <div class="dichvu-row">
+                          <input type="text" name="dichVuThemTen[]" placeholder="Tên dịch vụ" />
+                          <input type="number" name="dichVuThemGia[]" placeholder="Giá dịch vụ" />
+                          <button type="button" onclick="xoaDichVu(this)">X</button>
+                        </div>
+                      </div>
+                      <button type="button" onclick="themDichVu()">+ Thêm dịch vụ</button>
+                      
+                    <label for="anhDaiDien">Chọn ảnh đại diện:</label>
+                      <input type="file" id="anhDaiDien" name="hinhAnh" accept="image/*" />
+                      <div id="previewContainer">
+                        <img id="previewImage" src="" alt="Ảnh xem trước" style="max-width: 200px; display: none; margin-top: 10px;" />
+                      </div>
+                      <input type="hidden" name="hinhAnhCu" />
+                    <label>Lịch Trình</label>
+                      <textarea name="lichTrinh"></textarea>
+              
+                    <label>Trạng Thái</label>
+                      <select name="trangThai">
+                        <option value="Hiển thị">Hiển thị</option>
+                        <option value="Ẩn">Ẩn</option>
+                      </select>
+              
+                    <button type="submit">Lưu</button>
+                  </form>
+                </div>
+              </div>       
+        </section>
+      <section id="orders" class="tab-content">
+
+        <h2>Danh sách đặt vé</h2>
+        <table><thead><tr><th>Khách hàng</th><th>Tour</th><th>Ngày đặt</th></tr></thead><tbody id="orderList"></tbody></table>
+      </section>
+    </main>
+  </div>
+  <script src="../config.js"></script>
+  <script src="admin_dashboard.js"></script>
+  <script src="admin_dashboard_search.js"></script>
+</body>
+</html>

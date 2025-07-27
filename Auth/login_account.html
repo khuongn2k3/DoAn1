@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Đăng nhập</h2>
+    <form id="formDangNhap">
+      <input type="email" placeholder="Email" id="email" required>
+      <input type="password" placeholder="Mật khẩu" id="matKhau" required>
+      <button type="submit">Đăng nhập</button>
+      <div class="form-links">
+        <a id="linkTrangChu">&larr; Quay lại trang chủ</a>
+        <a href="register_account.html">Chưa có tài khoản ?</a>
+      </div>
+    </form>
+  </div>
+  <script src="../config.js"></script>
+  <script>
+    document.getElementById('linkTrangChu').href = REDIRECT_URL;
+    document.getElementById('formDangNhap').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const data = {
+        email: email.value,
+        matKhau: matKhau.value
+      };
+
+      const res = await fetch(`${API_BASE_URL}/api_khachhang/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+        alert(result.message);
+
+      if (res.ok) {
+        localStorage.setItem('khachHangId', result.khach._id);
+        window.location.href = REDIRECT_URL;
+      }
+    });
+  </script>
+</body>
+</html>
+
