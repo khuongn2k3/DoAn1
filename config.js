@@ -11,3 +11,6 @@ const REDIRECT_URL = isLocal
 const ADMIN_REDIRECT_URL = isLocal
   ? 'http://127.0.0.1:5500/Admin/admin_dashboard.html'
   : 'https://khuongn2k3.github.io/DoAn1/Admin/admin_dashboard.html';
+  const AVATAR_BASE_URL = isLocal
+  ? 'http://127.0.0.1:5500/avatar'
+  : 'https://khuongn2k3.github.io/DoAn1/avatar';
