@@ -1,46 +1,47 @@
-/* plan.css */
-
-* {
+#page-plan * {
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-body {
+#page-plan body {
   background-color: #f5f7fa;
   color: #333;
   padding: 20px;
 }
 
-.container {
+#page-plan .container {
   display: grid;
-  grid-template-columns: 250px 1fr 300px;
+  grid-template-columns: 250px 600px 400px;
   gap: 20px;
+  background-color: #fde8fb;
+  padding: 20px;
 }
 
 /* LEFT PANEL */
-#left-panel {
+#page-plan #left-panel {
   background-color: #fff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
 }
 
-#left-panel h3 {
+#page-plan #left-panel h3 {
   margin-bottom: 16px;
   font-size: 20px;
   color: #2c3e50;
 }
 
-#left-panel label {
+#page-plan #left-panel label {
   display: block;
   margin-top: 12px;
   font-weight: 600;
 }
 
-#left-panel input[type="text"],
-#left-panel select {
+#page-plan #left-panel input[type="text"],
+#page-plan #left-panel select {
   width: 100%;
   padding: 8px 10px;
   margin-top: 6px;
@@ -49,7 +50,7 @@ body {
   background-color: #fdfdfd;
 }
 
-button {
+#page-plan button {
   margin-top: 20px;
   padding: 10px;
   width: 100%;
@@ -62,10 +63,10 @@ button {
   transition: 0.3s ease;
 }
 
-button:hover {
+#page-plan button:hover {
   background-color: #2980b9;
 }
-.reset-btn {
+#page-plan .reset-btn {
   margin-top: 8px;
   padding: 6px 12px;
   background-color: #ccc;
@@ -75,16 +76,16 @@ button:hover {
   cursor: pointer;
 }
 
-.reset-btn:hover {
+#page-plan .reset-btn:hover {
   background-color: #bbb;
 }
 
-.custom-dropdown {
+#page-plan .custom-dropdown {
   position: relative;
   margin-top: 6px;
 }
 
-.dropdown-header {
+#page-plan .dropdown-header {
   padding: 10px;
   background-color: #ecf0f1;
   border: 1px solid #ccc;
@@ -92,7 +93,7 @@ button:hover {
   cursor: pointer;
 }
 
-.dropdown-list {
+#page-plan .dropdown-list {
   display: none;
   margin-top: 6px;
   border: 1px solid #ccc;
@@ -101,18 +102,18 @@ button:hover {
   padding: 10px;
 }
 
-.custom-dropdown.open .dropdown-list {
+#page-plan .custom-dropdown.open .dropdown-list {
   display: block;
 }
 
-.dropdown-list label {
+#page-plan .dropdown-list label {
   display: block;
   margin-bottom: 8px;
   font-weight: normal;
 }
 
 /* CENTER PANEL */
-.center-panel {
+#page-plan .center-panel {
   background-color: #fff;
   border-radius: 12px;
   padding: 20px;
@@ -120,68 +121,94 @@ button:hover {
 
   position: relative;
   padding-bottom: 60px; 
-  overflow: hidden;
+  overflow-y:auto;
+  max-height: calc(100vh - 60px); 
 }
 
-#tourList h2 {
+#page-plan #tourList h2 {
   margin-bottom: 16px;
   font-size: 22px;
   color: #2c3e50;
 }
+#page-plan section h3 {
+  text-align: left;
+  background-color: #fde8fb;
+  padding: 5px 5px;
+  border-radius: 10px;
+  text-align: center;
+}
 
-.tour-grid {
+#page-plan .tour-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.tour-item {
+#page-plan .tour-item {
   background: #fff;
-  border: 1px solid #ccc;
+  border: 2px solid #70baf7;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 1px 5px rgba(0,0,0,0.1);
   cursor: pointer;
   transition: transform 0.2s;
 }
-.tour-item:hover {
+#page-plan .tour-item:hover {
   transform: scale(1.01);
 }
-.tour-item img {
+#page-plan .tour-item img {
   width: 100%;
-  height: 180px;
+  height: 100px;
   object-fit: cover;
 }
-.tour-item-content {
-  padding: 12px;
+#page-plan .tour-item-content {
+  padding: 1px;
 }
-.tour-item-content h4 {
+#page-plan .tour-item-content h4 {
   margin: 0;
   font-size: 1.2em;
   color: #222;
+  background-color: #fde8fb;
+  border-radius: 10px;
+  text-align: center;
 }
-.tour-item-content p {
+#page-plan .tour-item-content p {
   font-size: 0.9em;
   color: #555;
   margin: 5px 0;
 }
-
+#page-plan .image-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+#page-plan .image-carousel button {
+  background-color: #eee;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+#page-plan .image-carousel img {
+  max-width: 300px;
+  border-radius: 8px;
+}
 /* Phân trang */
-.pagination-container {
-  position: absolute;
-  bottom: 16px;
-  left: 20px;
-  z-index: 10;
+#page-plan .pagination-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 
-.pagination {
+#page-plan .pagination {
   display: flex;
   gap: 6px;
 }
 
-/* Nút phân trang nhỏ, bo góc */
-.pagination button {
+#page-plan .pagination button {
   all: unset;
   display: inline-flex;
   align-items: center;
@@ -197,74 +224,125 @@ button:hover {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.pagination button:hover,
-.pagination button.active {
+#page-plan .pagination button:hover,
+#page-plan .pagination button.active {
   background-color: #1976d2;
   color: white;
 }
 
-.pagination button:disabled {
+#page-plan .pagination button:disabled {
   opacity: 0.5;
   cursor: default;
 }
-#tourDetails {
-  margin-top: 30px;
-}
-
-.tour-detail-content {
+#page-plan .tour-detail-content.vertical {
   display: flex;
+  flex-direction: column;
   gap: 20px;
-  margin-bottom: 20px;
 }
 
-.tour-detail-content img {
-  width: 300px;
-  height: 200px;
+#page-plan #tourDetails {
+  padding: 16px;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-y: auto;
+}
+
+#page-plan .tour-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#page-plan .image-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+#page-plan .image-carousel img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
   object-fit: cover;
-  border-radius: 12px;
 }
 
-.tour-info h3 {
+#page-plan .image-carousel button {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 12px;
   font-size: 20px;
-  color: #2c3e50;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+#page-plan #prevImageBtn {
+  left: 10px;
+  width:20px;
+  background:none;
+}
+
+#page-plan #nextImageBtn {
+  right: 10px;
+  width:20px;
+  background:none;
+}
+
+#page-plan .tour-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#page-plan .tour-info h3 {
+  font-size: 24px;
+  color: #333;
   margin-bottom: 8px;
 }
 
-.tour-info p {
-  margin-bottom: 6px;
+#page-plan .tour-info p {
+  font-size: 16px;
+  color: #444;
+  margin: 4px 0;
 }
 
-.hidden {
+#page-plan .hidden {
   display: none;
 }
 
-#relatedTours h4 {
+#page-plan #relatedTours h4 {
   margin-bottom: 10px;
 }
 
-.right-panel.hidden {
+#page-plan .right-panel.hidden {
   display: none;
 }
-.right-panel {
+#page-plan .right-panel {
   background-color: #fff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.right-panel h2 {
+#page-plan .right-panel h2 {
   margin-bottom: 16px;
   font-size: 20px;
   color: #2c3e50;
 }
-
-#bookingForm label {
+#page-plan #bookingForm label {
   margin-top: 12px;
   display: block;
   font-weight: 600;
 }
 
-#bookingForm input {
+#page-plan #bookingForm input {
   width: 100%;
   padding: 8px 10px;
   margin-top: 6px;
@@ -273,50 +351,47 @@ button:hover {
   background-color: #fdfdfd;
 }
 
-#bookingForm button {
+#page-plan #bookingForm button {
   margin-top: 20px;
 }
 
 
 @media (max-width: 1024px) {
-  .container {
+  #page-plan .container {
     grid-template-columns: 1fr;
   }
 
-  .tour-detail-content {
+  #page-plan .tour-detail-content {
     flex-direction: column;
   }
 }
-.hidden {
-  display: none;
-}
 
-.extra-info {
+#page-plan .extra-info {
   margin-top: 10px;
 }
 
-.transport-icon {
+#page-plan .transport-icon {
   margin-right: 8px;
   font-size: 20px;
 }
 
-.btn-dat-ngay {
+#page-plan .btn-dat-ngay {
   margin-top: 10px;
-  background-color: #3498db;
+  background-color: #4aa1f3;
   color: white;
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
-.dich-vu-them-list {
+#page-plan .dich-vu-them-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-.dich-vu-item label {
+#page-plan .dich-vu-item label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -327,16 +402,102 @@ button:hover {
   transition: background 0.2s;
 }
 
-.dich-vu-item label:hover {
+#page-plan .dich-vu-item label:hover {
   background: #e9ecef;
 }
 
-.dv-ten {
+#page-plan .dv-ten {
   font-weight: 500;
 }
 
-.dv-gia {
+#page-plan .dv-gia {
   color: #28a745;
   margin-left: auto;
   font-weight: bold;
+}
+#page-plan .favorite-section {
+  font-size: 20px;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+#page-plan .favorite-section:hover {
+  color: #c0392b;
+}
+#page-plan i.fas.fa-heart {
+  font-family: "Font Awesome 5 Free";
+}
+#page-plan .review-block {
+  margin-top: 10px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+#page-plan .review-item {
+  border-bottom: 1px dashed #ccc;
+  padding: 5px 0;
+}
+
+#page-plan .review-item p {
+  margin: 4px 0;
+}
+#page-plan .reviews {
+  margin-top: 20px;
+  border-top: 2px solid #ddd;
+  padding-top: 15px;
+  font-size: 20px;
+  max-width:100%;
+}
+
+#page-plan .reviews h4, .reviews h5 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+#page-plan #reviewForm {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fde8fb;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+
+#page-plan #reviewForm label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+#page-plan #reviewForm select {
+  border-radius: 10px;
+}
+#page-plan #otherReviews{
+  overflow-y: auto;
+  max-height: 500px;
+}
+#page-plan .review #otherReviewsList  {
+  word-wrap: break-word;   
+  white-space: normal;
+}#page-plan .review #myreview  {
+  word-wrap: break-word;   
+  white-space: normal;  
+}
+#page-plan .tour-image-wrapper {
+  position: relative;
+}
+
+#page-plan .tour-image-wrapper i.fas.fa-heart {
+  font-family: "Font Awesome 5 Free";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 15px;
+  color: gray;
+  transition: color 0.3s;
+}
+
+#page-plan .tour-image-wrapper i.fas.fa-heart.active {
+  color: red;
 }

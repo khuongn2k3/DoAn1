@@ -10,18 +10,20 @@ const datTourSchema = new mongoose.Schema({
   soNguoiLon: { type: Number, default: 1 },
   soTreEm: { type: Number, default: 0 },
   soTreNho: { type: Number, default: 0 },
-
-  dichVuThem: [String],                             
-
+  dichVuThem: [
+    {
+      ten: { type: String, required: true },
+      gia: { type: Number, required: true }
+    }
+  ],
   tongTien: { type: Number },                      
   trangThai: {
     type: String,
-    enum: ['CHO_XAC_NHAN', 'DA_XAC_NHAN', 'DA_THANH_TOAN', 'DANG_DIEN_RA', 'DA_HOAN_THANH', 'DA_HUY'],
+    enum: ['CHO_XAC_NHAN', 'DA_XAC_NHAN', 'DANG_DIEN_RA', 'DA_HOAN_THANH', 'DA_HUY'],
     default: 'CHO_XAC_NHAN'
   },
   ngayDat: { type: Date, default: Date.now },
   ngayXacNhan: { type: Date },
-  ngayThanhToan: { type: Date },
   ngayHuy: { type: Date }
 });
 

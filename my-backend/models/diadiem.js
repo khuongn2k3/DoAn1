@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const diaDiemSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+  mien: String,
+  tenDiaDiem: String,
+  moTa: String,
   image: String,
   url: String
 });

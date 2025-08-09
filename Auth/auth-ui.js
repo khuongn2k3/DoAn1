@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (data && data.email) {
         const avatarUrl = data.anhDaiDien || 'avatar/user.png';
         authArea.innerHTML = `
-          <div class="user-avatar" onclick="location.href='User/user.html'" title="Trang cá nhân">
-            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='avatar/user.png'" />
+          <div class="user-avatar" onclick="location.href='../User/user.html'" title="Trang cá nhân">
+            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='avatar/usernew.png'" />
           </div>
         `;
       } else {
-        // Không hợp lệ: xóa localStorage
+
         localStorage.removeItem('khachHangId');
         showLoginRegister(authArea);
       }

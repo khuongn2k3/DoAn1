@@ -3,116 +3,204 @@
 <head>
   <meta charset="UTF-8" />
   <title>Lên kế hoạch du lịch</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="plan.css" />
 </head>
 <body>
-  <div class="container">
-
-    <!-- Bên trái: Tìm kiếm & chủ đề -->
-    <div id="left-panel">
-        <h3>Tìm kiếm Tour</h3>
-      
-        <!-- Tên tour -->
-        <div class="search-box">
-            <label for="inputTenTour">Tên tour</label>
-            <input type="text" id="inputTenTour" placeholder="Nhập tên tour...">
-        </div>
-      
-        <!-- Loại địa điểm -->
-        <label for="selectDiaDiem">Loại địa điểm</label>
-        <select id="selectDiaDiem">
-          <option value="">-- Tất cả --</option>
-          <option value="Biển">Biển</option>
-          <option value="Núi">Núi</option>
-          <option value="Rừng">Rừng</option>
-          <option value="Thành Phố">Thành Phố</option>
-        </select>
-      
-        <!-- Phương tiện -->
-        <div class="search-box">
-            <label>Phương tiện</label>
-            <div class="custom-dropdown" id="dropdownPhuongTien">
-              <div class="dropdown-header" onclick="toggleDropdown('dropdownPhuongTien')">Chọn phương tiện</div>
-              <div class="dropdown-list">
-                <label><input type="checkbox" value="Máy bay"> Máy bay</label>
-                <label><input type="checkbox" value="Xe khách"> Xe khách</label>
-                <label><input type="checkbox" value="Tàu hoả"> Tàu hoả</label>
-                <label><input type="checkbox" value="Ô tô"> Thuyền</label>
-              </div>
-            </div>
-        </div>          
-      
-        <!-- Loại tour -->
-        <label for="selectLoaiTour">Loại tour</label>
-        <select id="selectLoaiTour">
-          <option value="">-- Tất cả --</option>
-          <option value="Gia đình">Gia đình</option>
-          <option value="Cặp đôi">Cặp đôi</option>
-          <option value="Team-building">Team-building</option>
-          <option value="Khám phá">Khám phá</option>
-          <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
-        </select>
-      
-        <!-- Nút tìm -->
-        <button onclick="timKiemTour()">Tìm Tour</button>
-        <button onclick="resetBoLoc()" class="reset-btn">Đặt lại</button>
-      </div>
-
-    <main class="center-panel">
-      <section id="tourList">
-        <h2>Các tour du lịch</h2>
-        <div id="tourGrid" class="tour-grid"></div>
-        <div class="pagination-container">
-          <div class="pagination" id="pagination"></div>
-        </div>
-      </section>
-
-      <section id="tourDetails" class="hidden">
-        <div class="tour-detail-content">
-          <img id="tourImage" src="" alt="Hình ảnh tour" />
-          <div class="tour-info">
-            <h3 id="tourTitle"></h3>
-            <p id="tourDescription"></p>
-            <p><strong>Giá người lớn:</strong> <span id="tourPriceAdult"></span></p>
-            <p><strong>Giá trẻ em:</strong> <span id="tourPriceChild"></span></p>
-            <p><strong>Giá trẻ nhỏ:</strong> <span id="tourPriceInfant"></span></p>
-            <p><strong>Thời gian:</strong> <span id="tourDuration"></span></p>
+  <div id="page-index">
+    <div class="navbar">
+      <a href = "../index.html">
+        <img class="logo" src="../image\vietnam-tourism-logo.png" alt="Vietnam Tourism Logo" height="50">
+      </a>
+      <div class="menu">
+          <a href="../index.html">Trang Chủ</a>  
+        <div class="dropdown">
+          <a href="#">Các nơi để đi</a>
+          <div class="dropdown-menu">
+            <a href="../Diadiem/mienbac.html">Miền Bắc</a>
+            <a href="../Diadiem/mientrung.html">Miền Trung</a>
+            <a href="../Diadiem/miennam.html">Miền Nam</a>
           </div>
-          <div id="extraTourInfo" class="extra-info hidden"></div>
         </div>
-      </section>
-    </main>
+      </div> 
+      <div class="auth-buttons" id="authArea"></div>
+    </div>
 
-    <aside class="right-panel hidden">
-      <h2>Đặt lịch tour</h2>
-      <form id="bookingForm">
-        <input type="hidden" name="tourId" id="tourId">
-    
-        <label for="ngayKhoiHanh">Ngày khởi hành:</label>
-        <input type="date" name="ngayKhoiHanh" required>
-    
-        <label for="gioKhoiHanh">Giờ khởi hành:</label>
-        <input type="time" name="gioKhoiHanh">
-    
-        <label for="soNguoiLon">Người lớn:</label>
-        <input type="number" name="soNguoiLon" min="1" value="1">
-    
-        <label for="soTreEm">Trẻ em:</label>
-        <input type="number" name="soTreEm" min="0" value="0">
-    
-        <label for="soTreNho">Trẻ nhỏ:</label>
-        <input type="number" name="soTreNho" min="0" value="0">
-    
-        <div id="dichVuThemContainer"></div>
+    <div id="page-plan" style="margin-top: 50px;" >
+      <div class="container">
 
-        <p><strong>Tổng tiền:</strong> <span id="tongTien">0</span> VND</p>
+        <div id="left-panel">
+            <h3>Tìm kiếm Tour</h3>
+          
+            <div class="search-box">
+                <label for="inputTenTour">Tên tour</label>
+                <input type="text" id="inputTenTour" placeholder="Nhập tên tour...">
+            </div>
+          
+            <!-- Loại địa điểm -->
+            <label for="selectDiaDiem">Loại địa điểm</label>
+            <select id="selectDiaDiem">
+              <option value="">-- Tất cả --</option>
+              <option value="Biển">Biển</option>
+              <option value="Núi">Núi</option>
+              <option value="Rừng">Rừng</option>
+              <option value="Thành Phố">Thành Phố</option>
+            </select>
+          
+            <!-- Phương tiện -->
+            <div class="search-box">
+                <label>Phương tiện</label>
+                <div class="custom-dropdown" id="dropdownPhuongTien">
+                  <div class="dropdown-header" onclick="toggleDropdown('dropdownPhuongTien')">Chọn phương tiện</div>
+                  <div class="dropdown-list">
+                    <label><input type="checkbox" value="Máy bay"> Máy bay</label>
+                    <label><input type="checkbox" value="Xe khách"> Xe khách</label>
+                    <label><input type="checkbox" value="Tàu hoả"> Tàu hoả</label>
+                    <label><input type="checkbox" value="Ô tô"> Ô tô</label>
+                  </div>
+                </div>
+            </div>          
+          
+            <!-- Loại tour -->
+            <label for="selectLoaiTour">Loại tour</label>
+            <select id="selectLoaiTour">
+              <option value="">-- Tất cả --</option>
+              <option value="Gia đình">Gia đình</option>
+              <option value="Cặp đôi">Cặp đôi</option>
+              <option value="Team-building">Team-building</option>
+              <option value="Khám phá">Khám phá</option>
+              <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
+            </select>
+          
+            <!-- Nút tìm -->
+            <button onclick="timKiemTour()">Tìm Tour</button>
+            <button onclick="resetBoLoc()" class="reset-btn">Đặt lại</button>
+          </div>
+
+        <main class="center-panel">
+          <section id="tourList">
+            <h2>Các tour du lịch</h2>
+            <div id="tourGrid" class="tour-grid"></div>
+            <div class="pagination-container">
+              <div class="pagination" id="pagination"></div>
+            </div>
+          </section>
+        </main>
+
+        <aside class="right-panel hidden" id="rightPanel">
+          
+          <section id="tourDetails" class="hidden">
+            <div class="tour-detail-content">
+              <div class="image-carousel">
+                <button id="prevImageBtn">&lt;</button>
+                <img id="tourImage" src="" alt="Hình ảnh tour" />
+                <button id="nextImageBtn">&gt;</button>
+              </div>        
+              <div class="tour-info">
+                <h3 id="tourTitle"></h3>
+                <div class="favorite-section">
+                  <i id="favoriteIcon" class="fas fa-heart" style="cursor: pointer; "></i>
+                  <span id="favoriteText">Thêm vào yêu thích</span>
+                </div>
+                <p id="tourDescription"></p>
+                <p><strong>Giá người lớn:</strong> <span id="tourPriceAdult"></span></p>
+                <p><strong>Giá trẻ em:</strong> <span id="tourPriceChild"></span></p>
+                <p><strong>Giá trẻ nhỏ:</strong> <span id="tourPriceInfant"></span></p>
+                <p><strong>Thời gian:</strong> <span id="tourDuration"></span></p>
+                <p><strong>Lịch Trình:</strong> <br><span id="tourSchedule"></span></p>
+                <div id="extraTourInfo" class="extra-info hidden"></div>
+                <button class="btn-dat-ngay">Đặt Ngay</button>
+              </div>
+              <section class="reviews">
+                <h4>Đánh giá từ khách hàng</h4>
+            
+                <div id="myReview" class="review-block hidden">
+                  <h5>Đánh giá của bạn</h5>
+                  <div id="myReviewContent"></div>
+                </div>
+
+                <div id="otherReviews" style="overflow-y:auto" class="review-block">
+                  <h5>Mọi người nói gì</h5>
+                  <div id="otherReviewsList"></div>
+                </div>
+  
+                <form id="reviewForm">
+                  <input type="hidden" name="tourId" id="ReviewTourId">
+                  <h5>Viết đánh giá mới</h5>
+                  <label for="soSao"></label>
+                  <select name="soSao" required>
+                    <option value="5">5 sao</option>
+                    <option value="4">4 sao</option>
+                    <option value="3">3 sao</option>
+                    <option value="2">2 sao</option>
+                    <option value="1">1 sao</option>
+                  </select>
+              
+                  <label for="noiDung">Nội dung:</label>
+                  <textarea name="noiDung" required placeholder="Chia sẻ trải nghiệm của bạn"></textarea>
+              
+                  <button type="submit">Gửi đánh giá</button>
+                </form>
+              </section>
+            </div>
+          </section>  
+         
+            <form id="bookingForm" class="hidden">
+              <button type="button" class="btn-quay-lai" style="text-align: left; color: #3498db; background: none;">← Quay lại chi tiết tour</button>
+              <h2>Đặt lịch tour</h2>
+              <input type="hidden" name="tourId" id="BookingTourId">
+          
+              <label for="ngayKhoiHanh">Ngày khởi hành:</label>
+              <input type="date" name="ngayKhoiHanh" required>
+          
+              <label for="gioKhoiHanh">Giờ khởi hành:</label>
+              <input type="time" name="gioKhoiHanh">
+          
+              <label for="soNguoiLon">Người lớn:</label>
+              <input type="number" name="soNguoiLon" min="1" value="1">
+          
+              <label for="soTreEm">Trẻ em:</label>
+              <input type="number" name="soTreEm" min="0" value="0">
+          
+              <label for="soTreNho">Trẻ nhỏ:</label>
+              <input type="number" name="soTreNho" min="0" value="0">
+          
+              <div id="dichVuThemContainer"></div>
+
+              <p><strong>Tổng tiền:</strong> <span id="tongTien">0</span> VND</p>
+              
+              <button type="submit">Đặt Tour</button>
+            </form>
+        </aside>
         
-        <button type="submit">Đặt Tour</button>
-      </form>
-    </aside>
+      </div>
+    </div>
 
+    <div class="footer-content">
+      <div class="newsletter">
+        <h2>ĐĂNG KÝ NHẬN BẢN TIN CỦA CHÚNG TÔI</h2>
+        <p>Nhận những câu chuyện du lịch mới nhất từ ​​Du Lịch Việt Nam mỗi tháng qua hộp thư đến của bạn.</p>
+        <input type="email" placeholder="Your email">
+        <button>ĐĂNG KÝ</button>
+      </div>
+      <div class="follow-us">
+        <h2>THEO DÕI CHÚNG TÔI</h2>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-pinterest-p"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>Chào mừng bạn đến với trang web chính thức của Du lịch Việt Nam. Truy cập các trang mạng xã hội của chúng tôi để biết thêm cảm hứng du lịch.</p>
+      </div>
+    </div>
+    <div class="footer">© 2025 OFFICIAL WEBSITE DU LICH VIET NAM</div>
   </div>
   <script src="../config.js"></script>
+  <script src="../script.js"></script>
+  <script src="../Auth/auth-ui.js"></script>
   <script src="plan.js"></script>
 </body>
 </html>

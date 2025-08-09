@@ -1,0 +1,222 @@
+#page-user body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f4f6fa;
+    margin: 0;
+    padding: 0;
+}
+#page-user .main-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    gap: 30px;
+    background-color: #fde8fb;
+}
+#page-user .sidebar {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+#page-user .sidebar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+#page-user .sidebar h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+#page-user .sidebar button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    color: rgb(255, 255, 255);
+    background-color: #62b4f7;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    border:none;
+}
+#page-user .sidebar button:hover {
+    background-color: #6020ff;
+}
+#page-user .content-area {
+    flex: 3;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+#page-user .content-area h2 {
+    margin-bottom: 25px;
+    color: #4e54c8;
+    font-size: 26px;
+}
+#page-user .content-area button {
+    width:100%;
+}
+#page-user .user-field {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+#page-user .user-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+#page-user .user-field span {
+    display: block;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+}
+#page-user #passwordForm {
+    margin-top: 30px;
+    border-top: 1px solid #2400eb;
+    padding-top: 20px;
+    display: none;
+}
+#page-user input[type="password"] {
+    width: 97%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #6f00ff;
+    border-radius: 6px;
+    font-size: 16px;
+}
+#page-user #btnSubmitChange {
+    background: #4e54c8;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#page-user #btnSubmitChange:hover {
+    background: #3b40a1;
+}
+#page-user #statusMessage {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+#page-user .tour-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fefefe;
+    text-align: center;
+}   #page-user .tour-item h4{
+    font-size: 20px;
+}   
+#page-user .tour-item button {
+    min-width: 120px;
+    padding: 6px 15px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}     
+#page-user .tour-item .btn-chitiet {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+}
+#page-user .tour-item .btn-huy {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+#page-user .chitiet-tour ul {
+    padding-left: 20px;
+}
+#page-user .chitiet-tour {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+    border-radius: 5px;
+}
+#page-user .tab-tour {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+#page-user .tab-buttons {
+    flex: 1;
+    background-color: #e3f2fd; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#page-user .tab-buttons button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#page-user .tab-buttons button:hover {
+    background-color: #1976d2;
+}
+#page-user .tab-buttons button.active {
+    background-color: #1565c0;
+}
+/*---------------------------------------------*/
+#page-user .tour-item img {
+    max-width: 100%;
+}
+#page-user #favoriteTours {
+    margin-top: 20px;
+}
+#page-user .tour-favoritelist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
+
+    max-height: 400px;      
+    overflow-y: auto;       
+    padding-right: 10px
+}
+#page-user  #favoriteTours h2 {
+    font-size: 24px;
+    color:#f04fe2;
+    margin-bottom: 20px;
+}  
+#page-user .tourfavorite-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+#page-user .tourfavorite-buttons button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+} 
+#page-user .btn-detail {
+    background-color: #6200ff;
+    color: #fff;
+}
+#page-user .btn-remove {
+    background-color: #ff4444;
+    color: #fff;
+}
+ 

@@ -1,15 +1,15 @@
-body {
+body#page-index {
   margin: 0;
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
-#authArea {
+#page-index #authArea {
   margin-left: auto;
   display: flex;
   align-items: center;
   padding-right: 30px;
 }
-.user-avatar img {
+#page-index .user-avatar img {
   width: 36px;
   height: 36px;
   margin-top:10px;
@@ -19,7 +19,7 @@ body {
   cursor: pointer;
 }
 /* Navbar */
-.navbar {
+#page-index .navbar {
   display: flex;
   align-items: center;
   background-color: rgb(88, 208, 255);
@@ -29,9 +29,10 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: rgb(88, 208, 255) ;
   padding-left: 200px;
+  border-radius: 5px;
 }
 
-.logo {
+#page-index .logo {
   height: 130px; 
   position: absolute;
   top: -20px;  
@@ -40,24 +41,24 @@ body {
   
 }
 
-.menu {
+#page-index .menu {
   display: flex;
   gap: 20px;
   padding: 5px 5px;
   margin-bottom: 20px;
 }
-.menu a {
+#page-index .menu a {
   margin-left: 10px;
   font-size: 17px;
   margin-top: 20px;
   font-family: bold;
 }
-.dropdown {
+#page-index .dropdown {
   position: relative;
   margin-top: 20px;
 }
 
-.dropdown-menu {
+#page-index .dropdown-menu {
   display: none;
   position: absolute;
   top: 100%;
@@ -68,11 +69,11 @@ body {
   z-index: 999;
 }
 
-.dropdown:hover .dropdown-menu {
+#page-index .dropdown:hover .dropdown-menu {
   display: block;
 }
 
-.dropdown-menu a {
+#page-index .dropdown-menu a {
   padding: 10px 15px;
   display: block;
   text-decoration: none;
@@ -80,22 +81,22 @@ body {
   
 }
 
-.dropdown-menu a:hover {
+#page-index .dropdown-menu a:hover {
   background-color: #f0f0f0;
 }
 
-.menu a {
+#page-index .menu a {
   text-decoration: none;
   color: black;
   font-weight: 500;
 }
-.auth-buttons {
+#page-index .auth-buttons {
   display: flex;
   gap: 5px;
   margin-top: -5px;
 }
 
-.auth-buttons a {
+#page-index .auth-buttons a {
   text-decoration: none;
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
@@ -106,12 +107,12 @@ body {
   border-radius: 20px;
 }
 
-.auth-buttons a:hover {
+#page-index .auth-buttons a:hover {
   background-color: yellow;
 }
 
 /* Banner */
-.banner {
+#page-index .banner {
   background-size: cover;
   height: 90vh;
   color: white;
@@ -123,7 +124,7 @@ body {
   text-shadow: 2px 2px 4px #000;
   overflow: hidden;
 }
-.background-video {
+#page-index .background-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -133,7 +134,7 @@ body {
   z-index: 0;
 }
 
-.banner-content {
+#page-index .banner-content {
   position: relative;
   z-index: 1;
   text-align: center;
@@ -147,8 +148,16 @@ body {
     opacity: 1;
   }
 }
+#page-index #search-container{
+  padding-top: 20px;
+}
+#page-index #search-input{
+  border-radius: 10px;
+}#page-index #search-container button{
+  border-radius: 10px;
+}
 /* Section Menu */
-.section-menu {
+#page-index .section-menu {
   display: flex;
   justify-content: center;
   gap: 40px;
@@ -156,18 +165,18 @@ body {
   border-bottom: 1px solid #ddd;
 }
 
-.section-menu a {
+#page-index .section-menu a {
   text-decoration: none;
   color: #333;
   padding: 10px;
   border-bottom: 3px solid transparent;
 }
-.section-menu a:hover {
+#page-index .section-menu a:hover {
   border-bottom: 3px solid orange;
   color: orange;
 }
 
-section {
+#page-index section {
   padding: 60px 20px;
   max-width: 1200px;
   height: 400px;
@@ -179,7 +188,7 @@ section {
   position: relative;
   z-index: 1;
 }
-section::before {
+#page-index section::before {
   content: "";
   position: absolute;
   top: 0; left: 0;
@@ -187,39 +196,39 @@ section::before {
   background: rgba(255,255,255,0.4);
   z-index: -1;
 }
-section h2{
+#page-index section h2{
   color:orange;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
 }
-section p{
+#page-index section p{
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
 }
 
-section h3{
+#page-index section h3{
   text-align: left;
   background-color: orange;
   padding: 5px 5px;
 }
-.section-background {
+#page-index .section-background {
   background: url('image/nen2.jpg') no-repeat center center;
   background-size: cover;
   width: 100%;
   padding: 60px 0px;
   position: relative;
 }
-#tongquan {
+#page-index #tongquan {
   display:block;
   font-weight: bold;
   font-size: 20px;
 }
-#khampha, #thugian, #giaitri  {
+#page-index #khampha, #thugian, #giaitri  {
   display:none;
 }
-button {
+#page-indexbutton {
   display: block;
   background-color: rgb(155, 153, 150);
   color: white;
@@ -228,14 +237,14 @@ button {
   cursor: pointer;
   font-weight: bold;
 }
-button:hover {
+#page-index button:hover {
   background-color: rgb(180, 179, 178);
 }
 
-.hidden {
+#page-index.hidden {
   display: none;
 }
-.footer-content {
+#page-index .footer-content {
   display: flex;
   justify-content: space-around;
   padding: 30px 20px;
@@ -244,21 +253,21 @@ button:hover {
   margin: 0 auto;
   background-color: rgb(255, 255, 255);
 }
-.newsletter, .follow-us {
+#page-index .newsletter, .follow-us {
   width: 35%;
 }
-.newsletter h2, .follow-us h2 {
+#page-index .newsletter h2, .follow-us h2 {
   color: orange;
   font-size: 20px;
 }
-.newsletter input[type="email"] {
+#page-index .newsletter input[type="email"] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.newsletter button {
+#page-index .newsletter button {
   background-color: #b71c1c;
   color: white;
   padding: 10px 20px;
@@ -267,15 +276,15 @@ button:hover {
   cursor: pointer;
   font-size: 16px;
 }
-.newsletter button:hover {
+#page-index .newsletter button:hover {
   background-color: #a01717;
 }
-.social-icons {
+#page-index .social-icons {
   display: flex;
   gap: 10px;
   margin: 20px 0;
 }
-.social-icons a {
+#page-index .social-icons a {
   width: 40px;
   height: 40px;
   background-color: orange;
@@ -287,10 +296,10 @@ button:hover {
   color: white;
   font-size: 20px;
 }
-.social-icons a:hover {
+#page-index .social-icons a:hover {
   background-color: orange;
 }
-.footer {
+#page-index .footer {
   text-align: center;
   padding: 20px;
   background-color: #f7adad;

@@ -68,9 +68,8 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-  }
-  
-  .post-card-diadiem {
+}
+.post-card-diadiem {
     display: block;
     background: #fff;
     border-radius: 10px;
@@ -82,20 +81,17 @@
     color: inherit;
     position: relative;
     height: 200px; 
-  }
-  
-  .post-card-diadiem img {
+ }
+.post-card-diadiem img {
     width: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.3s ease;
-  }
-  
-  .post-card-diadiem:hover img {
+}
+.post-card-diadiem:hover img {
     transform: scale(1.1);
-  }
-  
-  
+}
+
   
   
   

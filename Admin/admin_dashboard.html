@@ -15,10 +15,10 @@
         <p id="adminName">Admin</p>
       </div>
       <ul>
-        <li data-tab="overview">Tổng quan</li>
-        <li data-tab="users">Khách hàng</li>
-        <li data-tab="tours">Tour</li>
-        <li data-tab="orders">Đặt vé</li>
+        <li data-tab="overview">Thống kê</li>
+        <li data-tab="users">Quản lý Khách hàng</li>
+        <li data-tab="tours">Quản lý Tour</li>
+        <li data-tab="orders">Quản lý Đơn đặt Tour</li>
         <li id="logoutBtn">Đăng xuất</li>
       </ul>
     </aside>
@@ -26,21 +26,66 @@
         <section id="overview" class="tab-content active">
             <h2>Tổng quan</h2>
             <div class="stats">
-            <div class="card"><h3>Khách hàng</h3><p id="userCount">0</p></div>
-            <div class="card"><h3>Tour</h3><p id="tourCount">0</p></div>
-            <div class="card"><h3>Đơn đặt vé</h3><p id="orderCount">0</p></div>
+            <div class="card"><h3>Tổng số Khách hàng</h3><p id="userCount">0</p></div>
+            <div class="card"><h3>Tổng số Tour</h3><p id="tourCount">0</p></div>
+            <div class="card"><h3>Tổng số Đơn đặt Tour</h3><p id="orderCount">0</p></div>
             </div>
         </section>
 
         <section id="users" class="tab-content">
             <h2>Danh sách khách hàng</h2>
-            <table>
-            <thead>
-                <tr><th>Họ tên</th><th>Email</th><th>Số điện thoại</th><th>Địa chỉ</th><th>Thao tác</th></tr>
-            </thead>
-            <tbody id="userList"></tbody>
-            </table>
+            <div style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+              <input
+                type="text"
+                id="searchUserKeyword"
+                placeholder="Tìm theo tên, email hoặc số điện thoại..."
+                style="flex: 1; padding: 8px; font-size: 16px;"
+                data-type="user"
+              />
+              <button onclick="searchUser()">Tìm kiếm</button>
+              <button onclick="clearSearchUser()">Xóa lọc</button>
+            </div>
+            <button onclick="moFormUser()">+ Thêm Khách hàng</button>
+            <div class="scrollable-table">
+              <table>
+                <thead>
+                    <tr>
+                      <th>Họ tên</th>
+                      <th>Email</th>
+                      <th>Số điện thoại</th>
+                      <th>Địa chỉ</th>
+                      <th>Thao tác</th>
+                    </tr>
+                </thead>
+              <tbody id="userList"></tbody>
+              </table>
+            </div>
         </section>
+        <div id="userModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="dongFormUser()">&times;</span>
+            <h2 id="modalUserTitle">Thêm Khách Hàng</h2>
+            <form id="userForm">
+              <input type="hidden" name="_id" />
+        
+              <label>Họ tên</label>
+              <input type="text" name="hoTen" required />
+        
+              <label>Email</label>
+              <input type="email" name="email" required />
+        
+              <label>Số điện thoại</label>
+              <input type="text" name="soDienThoai" />
+        
+              <label>Địa chỉ</label>
+              <input type="text" name="diaChi" />
+        
+              <div class="form-actions">
+                <button type="submit">Lưu</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <section id="tours" class="tab-content">
             <h2>Danh sách tour</h2>
@@ -50,6 +95,7 @@
                 id="searchKeyword"
                 placeholder="Tìm theo từ khóa chung (tên tour, địa điểm, loại tour...)"
                 style="flex: 1; padding: 8px; font-size: 16px;"
+                data-type="tour"
               />
             
               <select id="searchLoaiDiaDiem">
@@ -76,29 +122,31 @@
               </select>
             
               <button onclick="searchTourDropdown()">Tìm kiếm</button>
-              <button onclick="clearSearchFilter()">Xóa lọc</button>
+              <button onclick="clearSearchTourFilter()">Xóa lọc</button>
             </div>
             <button onclick="moFormTour()">+ Thêm tour</button>
-            <table>
-                <thead>
-                  <tr>
-                    <th>Tên tour</th>
-                    <th>Loại địa điểm</th>
-                    <th>Phương tiện</th>
-                    <th>Điểm khởi hành</th>
-                    <th>Điểm đến</th>
-                    <th>Loại tour</th>
-                    <th>Ngày/Đêm</th>
-                    <th>Giá người lớn</th>
-                    <th>Giá trẻ em</th>
-                    <th>Giá trẻ nhỏ</th>
-                    <th>Dịch vụ thêm</th>
-                    <th>Trạng thái</th>
-                    <th>Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody id="tourList"></tbody>
-              </table>
+            <div class="scrollable-table">
+              <table>
+                  <thead>
+                    <tr>
+                      <th>Tên tour</th>
+                      <th>Loại địa điểm</th>
+                      <th>Phương tiện</th>
+                      <th>Điểm khởi hành</th>
+                      <th>Điểm đến</th>
+                      <th>Loại tour</th>
+                      <th>Ngày/Đêm</th>
+                      <th>Giá người lớn</th>
+                      <th>Giá trẻ em</th>
+                      <th>Giá trẻ nhỏ</th>
+                      <th>Dịch vụ thêm</th>
+                      <th>Trạng thái</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tourList"></tbody>
+                </table>
+              </div>
               <div id="tourModal" class="modal">
                 <div class="modal-content">
                   <span class="close" onclick="dongFormTour()">&times;</span>
@@ -132,11 +180,15 @@
                         </div>
                         <div class="transport-option">
                           <label>Tàu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                          <input type="checkbox" name="phuongTien" value="Tàu" />
+                          <input type="checkbox" name="phuongTien" value="Tàu hỏa" />
                         </div>
                         <div class="transport-option">
-                          <label>Xe buýt</label>
-                          <input type="checkbox" name="phuongTien" value="Xe buýt" />
+                          <label>Ô tô</label>
+                          <input type="checkbox" name="phuongTien" value="Ô tô" />
+                        </div>
+                        <div class="transport-option">
+                          <label>Tàu Thủy</label>
+                          <input type="checkbox" name="phuongTien" value="Tàu Thủy" />
                         </div>
                       </div>
                     </div>
@@ -183,12 +235,11 @@
                       </div>
                       <button type="button" onclick="themDichVu()">+ Thêm dịch vụ</button>
                       
-                    <label for="anhDaiDien">Chọn ảnh đại diện:</label>
-                      <input type="file" id="anhDaiDien" name="hinhAnh" accept="image/*" />
-                      <div id="previewContainer">
-                        <img id="previewImage" src="" alt="Ảnh xem trước" style="max-width: 200px; display: none; margin-top: 10px;" />
-                      </div>
+                      <label for="anhDaiDien">Chọn ảnh:</label>
+                      <input type="file" id="anhDaiDien" name="hinhAnh" accept="image/*" multiple />
+                      <div id="previewContainer" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;"></div>
                       <input type="hidden" name="hinhAnhCu" />
+                      
                     <label>Lịch Trình</label>
                       <textarea name="lichTrinh"></textarea>
               
@@ -204,11 +255,93 @@
               </div>       
         </section>
       <section id="orders" class="tab-content">
+        <h2>Danh sách đặt Tour</h2>
+        <div style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; ">
 
-        <h2>Danh sách đặt vé</h2>
-        <table><thead><tr><th>Khách hàng</th><th>Tour</th><th>Ngày đặt</th></tr></thead><tbody id="orderList"></tbody></table>
+          <input
+            type="text"
+            id="searchOrderKeyword"
+            placeholder="Tìm theo khách hàng, tên tour, điểm đến..."
+            style="flex: 1; padding: 8px; font-size: 16px;"
+            data-type="Order"
+          />
+    
+          <select id="searchOrderStatus">
+            <option value="">-- Trạng thái --</option>
+            <option value="CHO_XAC_NHAN">Chờ xác nhận</option>
+            <option value="DA_XAC_NHAN">Đã xác nhận</option>
+            <option value="DANG_DIEN_RA">Đang diễn ra</option>
+            <option value="DA_HOAN_THANH">Đã hoàn thành</option>
+            <option value="DA_HUY">Đã hủy</option>
+          </select>
+          
+          <input
+            type="date"
+            id="searchTuNgay"
+            style="padding: 8px; font-size: 16px;"
+            placeholder="Từ ngày"
+          />
+          <input
+            type="date"
+            id="searchDenNgay"
+            style="padding: 8px; font-size: 16px;"
+            placeholder="Đến ngày"
+          />
+
+          <select id="searchLoaiTour_Order">
+            <option value="">-- Loại tour --</option>
+            <option value="Gia đình">Gia đình</option>
+            <option value="Cặp đôi">Cặp đôi</option>
+            <option value="Team-building">Team-building</option>
+            <option value="Khám phá">Khám phá</option>
+            <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
+          </select>
+      
+          <select id="searchDichVuThem">
+            <option value="">-- Dịch vụ thêm --</option>
+            <option value="Vé máy bay">Vé máy bay</option>
+            <option value="Xe đưa đón">Xe đưa đón</option>
+            <option value="Hướng dẫn viên">Hướng dẫn viên</option>
+            <option value="Khách sạn 2 sao">Khách sạn 2 sao</option>
+            <option value="Khách sạn 3 sao">Khách sạn 3 sao</option>
+            <option value="Khách sạn 4 sao">Khách sạn 3 sao</option>
+          </select>
+          <td>
+            <div class="action-buttons">
+              <button onclick="searchOrderDropdown()">Tìm kiếm</button>
+              <button onclick="clearOrderFilter()">Xóa lọc</button>
+            </div>
+          </td>
+        </div>
+        <div class="scrollable-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Khách hàng</th>
+                <th>Tour</th>
+                <th>Ngày đặt</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="orderList"></tbody>
+          </table>
+        </div>
       </section>
     </main>
+  </div>
+  <div id="orderDetailModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="dongChiTietDatTour()">&times;</span>
+      <h2>Chi tiết đặt tour</h2>
+      <div id="orderDetailContent" style="line-height: 1.8;"></div>
+    </div>
+  </div>
+  <div id="tourDetailModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="dongChiTietTour()">&times;</span>
+      <div id="tourDetailContent"></div>
+    </div>
   </div>
   <script src="../config.js"></script>
   <script src="admin_dashboard.js"></script>

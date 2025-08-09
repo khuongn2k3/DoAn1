@@ -2,21 +2,21 @@ const express = require('express');
 const router = express.Router();
 const Tour = require('../models/tour');
 const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
-// Cấu hình Multer
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/image'); // Lưu trong public/image
+    cb(null, 'public/image');
   },
   filename: function (req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
+    const ext = path.extname(file.originalname);
+    const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9) + ext;
     cb(null, uniqueName);
   }
 });
-
 const upload = multer({ storage });
 
-// Lấy danh sách tất cả tour
 router.get('/', async (req, res) => {
   try {
     const tours = await Tour.find().sort({ ngayTao: -1 });
@@ -76,11 +76,21 @@ router.post('/', async (req, res) => {
 // Cập nhật tour
 router.put('/:id', async (req, res) => {
   try {
-    const updatedTour = await Tour.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedTour) return res.status(404).json({ error: 'Không tìm thấy tour để cập nhật' });
-    res.json(updatedTour);
-  } catch (err) {
-    res.status(400).json({ error: 'Lỗi khi cập nhật tour' });
+    const tourId = req.params.id;
+    const tour = await Tour.findById(tourId);
+    if (!tour) return res.status(404).json({ success: false, message: 'Tour không tồn tại' });
+
+    // Cập nhật dữ liệu
+    const updatedData = {
+      ...req.body,
+      hinhAnh: req.body.hinhAnh || tour.hinhAnh, 
+    };
+
+    const updatedTour = await Tour.findByIdAndUpdate(tourId, updatedData, { new: true });
+    res.json({ success: true, tour: updatedTour });
+  } catch (error) {
+    console.error("Lỗi cập nhật tour:", error);
+    res.status(500).json({ success: false, message: "Lỗi server" });
   }
 });
 
@@ -94,13 +104,32 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Lỗi khi xóa tour' });
   }
 });
-router.post('/upload-image', upload.single('hinhAnh'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ success: false, message: 'Không có file nào được tải lên' });
+router.post('/upload-images', upload.fields([
+  { name: 'hinhAnh', maxCount: 10 },
+  { name: 'hinhAnhCu[]', maxCount: 20 }  
+]), (req, res) => {
+  try {
+    const imagePaths = (req.files['hinhAnh'] || []).map(file => `/image/${file.filename}`);
+
+    let hinhAnhCu = req.body['hinhAnhCu'] || req.body['hinhAnhCu[]'];
+    const cuArray = Array.isArray(hinhAnhCu) ? hinhAnhCu : (hinhAnhCu ? [hinhAnhCu] : []);
+
+    cuArray.forEach(oldImgPath => {
+      const filename = path.basename(oldImgPath).trim();;
+      const filePath = path.join(__dirname, '../public/image', filename);
+      console.log('Đang xử lý xóa ảnh:', filePath);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+        console.log('Đã xóa:', filename);
+      } else {
+        console.warn('Không tìm thấy ảnh:', filePath);
+      }
+    });
+
+    res.json({ success: true, hinhAnh: imagePaths });
+  } catch (error) {
+    console.error('Lỗi upload ảnh:', error);
+    res.status(500).json({ success: false, message: 'Lỗi upload ảnh', error });
   }
-
-  const imagePath = `/image/${req.file.filename}`;
-  return res.status(200).json({ success: true, path: imagePath });
 });
-
 module.exports = router;

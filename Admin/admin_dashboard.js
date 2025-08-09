@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Tabs
   const tabs = document.querySelectorAll('.sidebar li');
   const contents = document.querySelectorAll('.tab-content');
   tabs.forEach(tab => {
@@ -40,6 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('adminId');
       localStorage.removeItem('adminName');
       window.location.href = REDIRECT_URL;
+    }
+    else{
+      window.location.href = ADMIN_REDIRECT_URL;
     }
   });
 });
@@ -80,9 +82,9 @@ try {
       const res = await fetch(`${API_BASE_URL}/api_dattour`);
       if (res.ok) orders = await res.json();
     } catch (err) {
-      console.error('Lỗi đặt vé:', err);
+      console.error('Lỗi đặt Tour:', err);
     }
-  // Tổng quan
+
     document.getElementById('userCount').textContent = users.length;
     document.getElementById('tourCount').textContent = tours.length;
     document.getElementById('orderCount').textContent = orders.length;
@@ -97,13 +99,12 @@ try {
         <td>${u.soDienThoai || ''}</td>
         <td>${u.diaChi || ''}</td>
         <td>
-        <button onclick="xoaKhachHang('${u._id}', this)">Xoá</button>
+        <button onclick="suaKhachHang('${u._id}')">Sửa</button>
+        <button style="background-color:red; onclick="xoaKhachHang('${u._id}', this)">Xoá</button>
         </td>
     `;
     userList.appendChild(row);
     });
-
-  
       // Danh sách tour
       const tourList = document.getElementById('tourList');
       tourList.innerHTML = '';
@@ -112,7 +113,7 @@ try {
         const row = document.createElement('tr');
         const ptArray = Array.isArray(t.phuongTien)
         ? t.phuongTien
-        : t.phuongTien?.split(',').map(pt => pt.trim()); // tách chuỗi nếu cần
+        : t.phuongTien?.split(',').map(pt => pt.trim()); 
 
         row.innerHTML = `
           <td>${t.tenTour}</td>
@@ -145,7 +146,7 @@ try {
           <td>${t.trangThai || 'Hiển thị'}</td>
           <td>
             <button onclick="suaTour('${t._id}')">Sửa</button>
-            <button onclick="xoaTour('${t._id}', this)">Xoá</button>
+            <button style="background-color:red;" onclick="xoaTour('${t._id}', this)">Xoá</button>
           </td>
         `;
         tourList.appendChild(row);
@@ -154,15 +155,102 @@ try {
       const orderList = document.getElementById('orderList');
       orderList.innerHTML = '';
       orders.forEach(o => {
-        orderList.innerHTML += `<tr><td>${o.hoTenKhach}</td><td>${o.tenTour}</td><td>${new Date(o.ngayDat).toLocaleDateString()}</td></tr>`;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${o.khachHangId?.hoTen || ''}</td>
+          <td>${o.tourId?.tenTour || ''}</td>
+          <td>${new Date(o.ngayDat).toLocaleDateString()}</td>
+          <td>
+            <select onchange="doiTrangThaiDatTour('${o._id}', this.value)">
+              <option value="CHO_XAC_NHAN" ${o.trangThai === 'CHO_XAC_NHAN' ? 'selected' : ''}>Chờ xác nhận</option>
+              <option value="DA_XAC_NHAN" ${o.trangThai === 'DA_XAC_NHAN' ? 'selected' : ''}>Đã xác nhận</option>
+              <option value="DANG_DIEN_RA" ${o.trangThai === 'DANG_DIEN_RA' ? 'selected' : ''}>Đang diễn ra</option>
+              <option value="DA_HOAN_THANH" ${o.trangThai === 'DA_HOAN_THANH' ? 'selected' : ''}>Đã hoàn thành</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="xemChiTietTour('${o.tourId?._id || o.tourId}')">Chi tiết tour</button>
+            <button onclick='xemChiTietDatTour(${JSON.stringify(o).replace(/'/g, "\\'")})'>Chi tiết đặt</button>
+          </td>
+        `;
+        orderList.appendChild(row);
       });
+      
   
     } catch (error) {
       console.error("Lỗi khi tải dữ liệu:", error);
     }
   }
   
-  // Xoá khách hàng
+  function moFormUser(user = null) {
+    const modal = document.getElementById('userModal');
+    const form = document.getElementById('userForm');
+    const title = document.getElementById('modalUserTitle');
+    form.reset();
+  
+    if (user) {
+      title.textContent = 'Sửa Thông tin khách hàng';
+      form.elements['_id'].value = user._id || '';
+      form.elements['hoTen'].value = user.hoTen || '';
+      form.elements['email'].value = user.email || '';
+      form.elements['soDienThoai'].value = user.soDienThoai || '';
+      form.elements['diaChi'].value = user.diaChi || '';
+    } else {
+      title.textContent = 'Thêm Khách hàng mới';
+      form.elements['_id'].value = ''; 
+    }
+  
+    modal.style.display = 'block';
+  }
+  document.getElementById('userForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+  
+    const form = e.target;
+    const data = {
+      hoTen: form.elements['hoTen'].value.trim(),
+      email: form.elements['email'].value.trim(),
+      soDienThoai: form.elements['soDienThoai'].value.trim(),
+      diaChi: form.elements['diaChi'].value.trim(),
+    };
+  
+    const id = form.elements['_id'].value;
+    const method = id ? 'PUT' : 'POST';
+    const url = id
+      ? `${API_BASE_URL}/api_khachhang/${id}`
+      : `${API_BASE_URL}/api_khachhang`;
+  
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+  
+      const resData = await res.json();
+      if (!res.ok) throw new Error(resData.message || 'Lỗi khi lưu khách hàng');
+  
+      alert(id ? 'Cập nhật thành công!' : 'Thêm khách hàng thành công!');
+      dongFormUser();
+      loadData();
+    } catch (err) {
+      console.error(err);
+      alert('Lỗi khi gửi dữ liệu khách hàng');
+    }
+  });
+  function dongFormUser() {
+    document.getElementById('userModal').style.display = 'none';
+  }
+  async function suaKhachHang(id) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api_khachhang/${id}`);
+      if (!res.ok) throw new Error('Không tìm thấy khách hàng');
+      const user = await res.json();
+      moFormUser(user);
+    } catch (err) {
+      console.error('Lỗi khi tải khách hàng:', err);
+      alert('Không thể tải thông tin khách hàng!');
+    }
+  }
   async function xoaKhachHang(id, btn) {
     if (!confirm('Bạn có chắc chắn muốn xoá khách hàng này?')) return;
   
@@ -181,12 +269,12 @@ try {
     }
   }
   function moFormTour(tour = null) {
+    
     const modal = document.getElementById('tourModal');
     const form = document.getElementById('tourForm');
     document.getElementById('modalTitle').textContent = tour ? 'Sửa Tour' : 'Thêm Tour';
     form.reset();
   
-    // Gán dữ liệu nếu đang sửa
     if (tour) {
       form.elements['_id'].value = tour._id || '';
       form.elements['tenTour'].value = tour.tenTour || '';
@@ -200,7 +288,6 @@ try {
       form.elements['giaNguoiLon'].value = tour.giaNguoiLon || 0;
       form.elements['giaTreEm'].value = tour.giaTreEm || 0;
       form.elements['giaTreNho'].value = tour.giaTreNho || 0;
-      form.elements['hinhAnhCu'].value = tour.hinhAnh || '';
       form.elements['lichTrinh'].value = tour.lichTrinh || '';
       form.elements['trangThai'].value = tour.trangThai || 'Hiển thị';
   
@@ -226,21 +313,29 @@ try {
           dvContainer.appendChild(row);
         });
       }
-  
-      if (tour.hinhAnh) {
-        const previewImage = document.getElementById('previewImage');
-        previewImage.src = `${API_BASE_URL}/${tour.hinhAnh}`;
-        previewImage.style.display = 'block';
+
+      if (Array.isArray(tour.hinhAnh)) {
+        const previewContainer = document.getElementById('previewContainer');
+        previewContainer.innerHTML = '';
+        tour.hinhAnh.forEach(img => {
+          const image = document.createElement('img');
+          image.src = `${API_BASE_URL}${img}`;
+          image.style.maxWidth = '150px';
+          image.style.margin = '5px';
+          previewContainer.appendChild(image);
+        });
+      
+        form.elements['hinhAnhCu'].value = JSON.stringify(tour.hinhAnh);
       }
     } else {
-      const previewImage = document.getElementById('previewImage');
-      previewImage.src = '';
-      previewImage.style.display = 'none';
-
+      const previewContainer = document.getElementById('previewContainer');
+      if (previewContainer) previewContainer.innerHTML = '';
+    
       const dvContainer = document.getElementById('dichVuThemContainer');
       dvContainer.innerHTML = '';
+      form.elements['hinhAnhCu'].value = '';
     }
-  
+       
     modal.style.display = 'block';
   }
   
@@ -255,36 +350,51 @@ try {
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    
-    const hinhAnhFile = form.querySelector('input[name="hinhAnh"]').files[0];
-    let imagePath = '';
+    const hinhAnhFiles = form.querySelector('input[name="hinhAnh"]').files;
+    let imagePaths = [];
 
-    if (hinhAnhFile) {
+    if (hinhAnhFiles.length > 0) {
       const imageForm = new FormData();
-      imageForm.append('hinhAnh', hinhAnhFile);
-    
+      for (let i = 0; i < hinhAnhFiles.length; i++) {
+        imageForm.append('hinhAnh', hinhAnhFiles[i]); 
+      }
+      const hinhAnhCu = form.elements['hinhAnhCu'].value;
+      if (hinhAnhCu) {
+        try {
+          const cuArray = JSON.parse(hinhAnhCu); 
+          cuArray.forEach(oldImg => {
+            imageForm.append('hinhAnhCu[]', oldImg);
+          });
+        } catch (e) {
+          console.error('Lỗi ảnh cũ:', e);
+        }
+      }
       try {
-        const uploadRes = await fetch(`${API_BASE_URL}/api_tour/upload-image`, {
+        const uploadRes = await fetch(`${API_BASE_URL}/api_tour/upload-images`, {
           method: 'POST',
           body: imageForm,
         });
         const uploadData = await uploadRes.json();
-    
+
         if (!uploadRes.ok || !uploadData.success) {
           throw new Error(uploadData.message || 'Upload ảnh thất bại');
         }
-    
-        imagePath = uploadData.path;
-        data.hinhAnh = imagePath;
+
+        imagePaths = uploadData.hinhAnh;
+        data.hinhAnh = imagePaths; 
       } catch (err) {
         console.error("Lỗi khi upload ảnh:", err);
         alert("Không thể tải ảnh lên!");
         return;
       }
     } else {
-      data.hinhAnh = form.elements['hinhAnhCu'].value || '';
+      let cu = form.elements['hinhAnhCu'].value;
+      try {
+        data.hinhAnh = cu ? JSON.parse(cu) : [];
+      } catch (e) {
+        data.hinhAnh = [];
+      }
     }
-    
     data.phuongTien = Array.from(form.querySelectorAll('input[name="phuongTien"]:checked'))
       .map(cb => cb.value);
     const soNgay = Number(form.querySelector('input[name="soNgay"]').value);
@@ -302,8 +412,6 @@ try {
         dichVuThem.push({ ten, gia });
       }
     }
-
-    console.log("Dịch vụ thêm gửi đi:", dichVuThem);
     data.dichVuThem = dichVuThem;
     data.soNgay = soNgay;
     data.soDem = soDem;
@@ -368,19 +476,29 @@ try {
     }
   }
   document.getElementById('anhDaiDien').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    const previewImage = document.getElementById('previewImage');
+    const files = event.target.files;
+    const previewContainer = document.getElementById('previewContainer');
   
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        previewImage.src = e.target.result;
-        previewImage.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    } else {
-      previewImage.src = '';
-      previewImage.style.display = 'none';
+    // Xóa preview cũ
+    previewContainer.innerHTML = '';
+  
+    if (files && files.length > 0) {
+      Array.from(files).forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+  
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.style.maxWidth = '150px';
+          img.style.marginRight = '10px';
+          img.style.marginBottom = '10px';
+          img.style.border = '1px solid #ccc';
+          img.style.borderRadius = '4px';
+          previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
     }
   });
   function themDichVu() {
@@ -394,7 +512,97 @@ try {
     `;
     container.appendChild(row);
   }
-  
   function xoaDichVu(btn) {
     btn.parentElement.remove();
   }
+  async function doiTrangThaiDatTour(id, trangThaiMoi) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api_dattour/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trangThai: trangThaiMoi }),
+      });
+  
+      if (!res.ok) throw new Error('Cập nhật thất bại');
+      alert('Cập nhật trạng thái thành công!');
+    } catch (err) {
+      console.error(err);
+      alert('Lỗi khi cập nhật trạng thái');
+    }
+  }
+  
+  async function xemChiTietTour(tourId) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api_tour/${tourId}`);
+      if (!res.ok) throw new Error('Không tìm thấy tour');
+      const tour = await res.json();
+      const content = document.getElementById('tourDetailContent');
+      content.innerHTML = `
+        <h3>${tour.tenTour}</h3>
+        <p><strong>Loại địa điểm:</strong> ${tour.loaiDiaDiem || ''}</p>
+        <p><strong>Điểm khởi hành:</strong> ${tour.diemKhoiHanh || ''}</p>
+        <p><strong>Điểm đến:</strong> ${tour.diemDen || ''}</p>
+        <p><strong>Loại tour:</strong> ${tour.loaiTour || ''}</p>
+        <p><strong>Thời gian:</strong> ${tour.thoiGian || `${tour.soNgay || 0} ngày ${tour.soDem || 0} đêm`}</p>
+        <p><strong>Phương tiện:</strong> ${
+          Array.isArray(tour.phuongTien) ? tour.phuongTien.join(', ') : tour.phuongTien
+        }</p>
+        <p><strong>Giá người lớn:</strong> ${tour.giaNguoiLon?.toLocaleString()} đ</p>
+        <p><strong>Giá trẻ em:</strong> ${tour.giaTreEm?.toLocaleString()} đ</p>
+        <p><strong>Giá trẻ nhỏ:</strong> ${tour.giaTreNho?.toLocaleString()} đ</p>
+        <p><strong>Lịch trình:</strong> ${tour.lichTrinh || 'Không có'}</p>
+        <p><strong>Dịch vụ thêm:</strong> ${
+          (tour.dichVuThem || []).length
+            ? tour.dichVuThem.map(dv => `${dv.ten} (${dv.gia.toLocaleString()}đ)`).join(', ')
+            : 'Không có'
+        }</p>
+        <div><strong>Hình ảnh:</strong><br>
+          ${
+            (tour.hinhAnh || []).length
+              ? tour.hinhAnh.map(img => `<img src="${API_BASE_URL}${img}" style="max-width:300px;margin:5px;">`).join('')
+              : 'Không có'
+          }
+        </div>
+      `;
+      document.getElementById('tourDetailModal').style.display = 'block';
+    } catch (err) {
+      console.error(err);
+      alert('Lỗi khi xem chi tiết tour');
+    }
+  }
+  
+  function xemChiTietDatTour(order) {
+    try {
+      const o = typeof order === 'string' ? JSON.parse(order) : order;
+      const content = document.getElementById('orderDetailContent');
+  
+      content.innerHTML = `
+        <p><strong>Khách hàng:</strong> ${o.khachHangId?.hoTen || ''}</p>
+        <p><strong>Tour:</strong> ${o.tourId?.tenTour || ''}</p>
+        <p><strong>Ngày đặt:</strong> ${new Date(o.ngayDat).toLocaleDateString()}</p>
+        <p><strong>Khởi hành:</strong> ${new Date(o.ngayKhoiHanh).toLocaleDateString()} ${o.gioKhoiHanh || ''}</p>
+        <p><strong>Người lớn:</strong> ${o.soNguoiLon}</p>
+        <p><strong>Trẻ em:</strong> ${o.soTreEm}</p>
+        <p><strong>Trẻ nhỏ:</strong> ${o.soTreNho}</p>
+        <p><strong>Dịch vụ thêm:</strong> ${
+          (o.dichVuThem || []).length > 0
+            ? o.dichVuThem.map(d => `${d.ten} (${d.gia.toLocaleString()}đ)`).join(', ')
+            : 'Không có'
+        }</p>
+        <p><strong>Tổng tiền:</strong> ${o.tongTien?.toLocaleString()} đ</p>
+        <p><strong>Trạng thái:</strong> ${o.trangThai}</p>
+      `;
+  
+      document.getElementById('orderDetailModal').style.display = 'block';
+    } catch (err) {
+      console.error(err);
+      alert('Lỗi khi xem chi tiết đặt tour');
+    }
+  }
+  function dongChiTietTour() {
+    document.getElementById('tourDetailModal').style.display = 'none';
+  }
+  function dongChiTietDatTour() {
+    document.getElementById('orderDetailModal').style.display = 'none';
+  }
+  

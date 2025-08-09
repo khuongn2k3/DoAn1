@@ -1,0 +1,55 @@
+#page-diadiem .content p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: justify;
+}
+#page-diadiem .content h1{
+    color: orange;
+    font-size: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+#page-diadiem .content img{
+    height:auto;
+    width:800px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    text-align: justify;
+}
+#page-diadiem .content {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+#page-diadiem .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgb(218, 214, 208);
+}
+#page-diadiem .post-card-diadiem {
+    display: block;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    height: 200px; 
+ }
+#page-diadiem .post-card-diadiem img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+#page-diadiem .post-card-diadiem:hover img {
+    transform: scale(1.1);
+}

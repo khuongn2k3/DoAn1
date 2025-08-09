@@ -4,37 +4,32 @@
     <title>Du Lich Việt Nam</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="stylegallery.css" />
-    <link rel="stylesheet" href="SearchStyle.css" />
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
   </head>
 <body>
-    
+  <div id="page-index">
     <div class="navbar">
       <a href = "index.html">
         <img class="logo" src="image\vietnam-tourism-logo.png" alt="Vietnam Tourism Logo" height="50">
       </a>
       <div class="menu">
-          <a href="#section-menu">Trang Chủ</a>  
+        <a href="#section-menu">Trang Chủ</a>  
         <div class="dropdown">
           <a href="#">Các nơi để đi</a>
           <div class="dropdown-menu">
-            <a href="#">Miền Bắc</a>?
-            <a href="#">Miền Trung</a>
-            <a href="#">Miền Nam</a>
+            <a href="Diadiem/mienbac.html">Miền Bắc</a>
+            <a href="Diadiem/mientrung.html">Miền Trung</a>
+            <a href="Diadiem/miennam.html">Miền Nam</a>
           </div>
         </div> 
-        <a href="plan.html" id="btnplan">Lên kế hoạch</a>
+        <a href="#" id="btnplan">Lên kế hoạch</a>
         <div id="search-container">
-          <input type="text" id="search-input" placeholder="Nhập từ khóa tìm kiếm..." autocomplete="off" oninput="showSuggestions(this.value)" onkeypress="handleEnter(event)"/>
-          <div id="suggestions"></div>
+          <input type="text" id="search-input" placeholder="Nhập từ khóa tìm kiếm..." autocomplete="off"  onkeypress="handleEnter(event)"/>
           <button onclick="search()"><i class="fas fa-search"></i></button>
         </div>
-        
       </div> 
-        <div class="auth-buttons" id="authArea"></div>
-        
+      <div class="auth-buttons" id="authArea"></div>
     </div>
   
     <!-- Banner -->
@@ -56,40 +51,47 @@
     </div>
   
     <!-- Content -->
-  <div class="section-background">
-    <section id="tongquan">
-      <h2 >DU LỊCH VIỆT NAM</h2>
-      <p>Việt Nam rộng mở chào đón du khách từ khắp nơi trên thế giới!</p>
-      <p>Chúng tôi vô cùng hân hoan chào đón các bạn đến đây để chiêm ngưỡng những cảnh quan tuyệt đẹp, thả hồn mình trên những bãi biển cát trắng, trải nghiệm nền văn hóa độc đáo và giàu bản sắc, cũng như gặp gỡ những con người thân thiện nhất.</p>
-      <p>Đặc biệt, bạn còn có thể thưởng thức ẩm thực tuyệt vời tại các nhà hàng được Michelin đánh giá cao, hoặc tham gia vào các sự kiện văn hóa, âm nhạc, thể thao và du lịch quy mô lớn đặc sắc!</p>
-      <p>Hãy sống hết mình tại Việt Nam!</p>
-    </section>
-    <section id="khampha">
-      <div class="post-container" id="PostContainer">
-        <div class="post-card visible">
-            <a href="vuonhongdalat.html">
+    <div class="section-background">
+      <section id="tongquan">
+        <h2 >DU LỊCH VIỆT NAM</h2>
+        <p>Việt Nam rộng mở chào đón du khách từ khắp nơi trên thế giới!</p>
+        <p>Chúng tôi vô cùng hân hoan chào đón các bạn đến đây để chiêm ngưỡng những cảnh quan tuyệt đẹp, thả hồn mình trên những bãi biển cát trắng, trải nghiệm nền văn hóa độc đáo và giàu bản sắc, cũng như gặp gỡ những con người thân thiện nhất.</p>
+        <p>Đặc biệt, bạn còn có thể thưởng thức ẩm thực tuyệt vời tại các nhà hàng được Michelin đánh giá cao, hoặc tham gia vào các sự kiện văn hóa, âm nhạc, thể thao và du lịch quy mô lớn đặc sắc!</p>
+        <p>Hãy sống hết mình tại Việt Nam!</p>
+      </section>
+      <section id="khampha">
+        <div class="post-container" id="PostContainer">
+          <div class="post-card visible">
+            <a href="Diadiem/vuonhongdalat.html">
               <img src="image/vuonhong.jpg" alt="Đà Lạt">
             </a>
             <h3>THIÊN NHIÊN</h3>
             <p>VƯỜN HỒNG - ĐỊA ĐIỂM DU LỊCH "XANH" TẠI ĐÀ LẠT</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/vuonhong.jpg" >
-            <h3>Thiên Nhiên</h3>
-            <p>Persimmons Garden – Green Travel Spots</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
-            <h3>Lịch Sử</h3>
-            <p>Khám phá các di tích lịch sử nổi tiếng...</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
-            <h3>Ẩm Thực</h3>
-            <p>Thưởng thức đặc sản miền Trung...</p>
-        </div>
-        <div class="post-card">
-            <img src="image/nen1.jpg" >
+          </div>
+          <div class="post-card visible">
+            <a href="Diadiem/langluatruyenthong.html">
+              <img src="image/langluatruyenthong.jpg" alt="Đà Lạt">
+            </a>
+            <h3>VĂN HÓA</h3>
+            <p>DẠO QUANH NHỮNG LÀNG LỤA TRUYỀN THỐNG CỔ XƯA CỦA VIỆT NAM</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Lịch Sử</h3>
+              <p>Khám phá các di tích lịch sử nổi tiếng...</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Ẩm Thực</h3>
+              <p>Thưởng thức đặc sản miền Trung...</p>
+          </div>
+          <div class="post-card">
+              <img src="image/nen1.jpg" >
+              <h3>Phiêu Lưu</h3>
+              <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+          </div>
+          <div class="post-card">
+            <img src="https://via.placeholder.com/200x120" >
             <h3>Phiêu Lưu</h3>
             <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
         </div>
@@ -98,33 +100,33 @@
           <h3>Phiêu Lưu</h3>
           <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
       </div>
-      <div class="post-card">
-        <img src="https://via.placeholder.com/200x120" >
-        <h3>Phiêu Lưu</h3>
-        <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-    </div>
-        <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
-    </section>
-  
-    <section id="thugian">
-      <div class="post-container" id="PostContainer">
-        <div class="post-card visible">
-            <img src="image/vuonhong2.jpg" >
-            <h3>Thiên Nhiên</h3>
-            <p>Persimmons Garden – Green Travel Spots</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
-            <h3>Lịch Sử</h3>
-            <p>Khám phá các di tích lịch sử nổi tiếng...</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
-            <h3>Ẩm Thực</h3>
-            <p>Thưởng thức đặc sản miền Trung...</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
+          <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
+      </section>
+    
+      <section id="thugian">
+        <div class="post-container" id="PostContainer">
+          <div class="post-card visible">
+              <img src="image/vuonhong2.jpg" >
+              <h3>Thiên Nhiên</h3>
+              <p>Persimmons Garden – Green Travel Spots</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Lịch Sử</h3>
+              <p>Khám phá các di tích lịch sử nổi tiếng...</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Ẩm Thực</h3>
+              <p>Thưởng thức đặc sản miền Trung...</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Phiêu Lưu</h3>
+              <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+          </div>
+          <div class="post-card">
+            <img src="https://via.placeholder.com/200x120" >
             <h3>Phiêu Lưu</h3>
             <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
         </div>
@@ -133,33 +135,33 @@
           <h3>Phiêu Lưu</h3>
           <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
       </div>
-      <div class="post-card">
-        <img src="https://via.placeholder.com/200x120" >
-        <h3>Phiêu Lưu</h3>
-        <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-    </div>
-        <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
-    </section>
-  
-    <section id="giaitri">
-      <div class="post-container" id="PostContainer">
-        <div class="post-card visible">
-            <img src="image/vuonhong3.jpg" >
-            <h3>Thiên Nhiên</h3>
-            <p>Persimmons Garden – Green Travel Spots</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
-            <h3>Lịch Sử</h3>
-            <p>Khám phá các di tích lịch sử nổi tiếng...</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
-            <h3>Ẩm Thực</h3>
-            <p>Thưởng thức đặc sản miền Trung...</p>
-        </div>
-        <div class="post-card visible">
-            <img src="image/nen1.jpg" >
+          <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
+      </section>
+    
+      <section id="giaitri">
+        <div class="post-container" id="PostContainer">
+          <div class="post-card visible">
+              <img src="image/vuonhong3.jpg" >
+              <h3>Thiên Nhiên</h3>
+              <p>Persimmons Garden – Green Travel Spots</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Lịch Sử</h3>
+              <p>Khám phá các di tích lịch sử nổi tiếng...</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Ẩm Thực</h3>
+              <p>Thưởng thức đặc sản miền Trung...</p>
+          </div>
+          <div class="post-card visible">
+              <img src="image/nen1.jpg" >
+              <h3>Phiêu Lưu</h3>
+              <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+          </div>
+          <div class="post-card">
+            <img src="https://via.placeholder.com/200x120" >
             <h3>Phiêu Lưu</h3>
             <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
         </div>
@@ -168,65 +170,62 @@
           <h3>Phiêu Lưu</h3>
           <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
       </div>
-      <div class="post-card">
-        <img src="https://via.placeholder.com/200x120" >
-        <h3>Phiêu Lưu</h3>
-        <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+          <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
+      </section>
     </div>
-        <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
-    </section>
-  </div>
-  <br><br><br>
+ 
+    <br><br><br>
 
-  <h2 id="diadiem">NHỮNG ĐỊA ĐIỂM PHẢI XEM</h2>
-  <p class="description">
-    Tham gia chuyến tham quan 360 độ đến một số kỳ quan thiên nhiên và điểm tham quan văn hóa hấp dẫn nhất của đất nước ngay tại đây.
-  </p>
+    <h2 id="diadiem">NHỮNG ĐỊA ĐIỂM PHẢI XEM</h2>
+    <p class="description">
+      Tham gia chuyến tham quan 360 độ đến một số kỳ quan thiên nhiên và điểm tham quan văn hóa hấp dẫn nhất của đất nước ngay tại đây.
+    </p>
 
-  <div class="grid">
-    <a href="#" class="post-card-diadiem">
-      <img src="image/HaLongTbn.jpg" alt="Huế">
-    </a>
-    <a href="#" class="post-card-diadiem">
-      <img src="image/HaNoiTbn.jpg" alt="Hà Nội">
-    </a>
-    <a href="#" class="post-card-diadiem">
-      <img src="image/HoiAnTbn.jpg" alt="Hội An">
-    </a>
-    <a href="#" class="post-card-diadiem">
-      <img src="image/HueTbn.jpg" alt="Huế">
-    </a>
-    <a href="#" class="post-card-diadiem">
-      <img src="image/PhongNhaTbn.jpg" alt="Phong Nha">
-    </a>
-    <a href="#" class="post-card-diadiem">
-      <img src="image/MySonTbn.jpg" alt="Mỹ Sơn">
-    </a>
-  </div>
-
-  <div class="footer-content">
-    <div class="newsletter">
-        <h2>ĐĂNG KÝ NHẬN BẢN TIN CỦA CHÚNG TÔI</h2>
-        <p>Nhận những câu chuyện du lịch mới nhất từ ​​Du Lịch Việt Nam mỗi tháng qua hộp thư đến của bạn.
-          .</p>
-        <input type="email" placeholder="Your email">
-        <button>ĐĂNG KÝ</button>
+    <div class="grid">
+      <a href="#" class="post-card-diadiem">
+        <img src="image/HaLongTbn.jpg" alt="Huế">
+      </a>
+      <a href="#" class="post-card-diadiem">
+        <img src="image/HaNoiTbn.jpg" alt="Hà Nội">
+      </a>
+      <a href="#" class="post-card-diadiem">
+        <img src="image/HoiAnTbn.jpg" alt="Hội An">
+      </a>
+      <a href="#" class="post-card-diadiem">
+        <img src="image/HueTbn.jpg" alt="Huế">
+      </a>
+      <a href="#" class="post-card-diadiem">
+        <img src="image/PhongNhaTbn.jpg" alt="Phong Nha">
+      </a>
+      <a href="#" class="post-card-diadiem">
+        <img src="image/MySonTbn.jpg" alt="Mỹ Sơn">
+      </a>
     </div>
-    <div class="follow-us">
-        <h2>THEO DÕI CHÚNG TÔI</h2>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-pinterest-p"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-        <p>Chào mừng bạn đến với trang web chính thức của Du lịch Việt Nam. Truy cập các trang mạng xã hội của chúng tôi để biết thêm cảm hứng du lịch..</p>
+
+    <div class="footer-content">
+      <div class="newsletter">
+          <h2>ĐĂNG KÝ NHẬN BẢN TIN CỦA CHÚNG TÔI</h2>
+          <p>Nhận những câu chuyện du lịch mới nhất từ ​​Du Lịch Việt Nam mỗi tháng qua hộp thư đến của bạn.
+            .</p>
+          <input type="email" placeholder="Your email">
+          <button>ĐĂNG KÝ</button>
+      </div>
+      <div class="follow-us">
+          <h2>THEO DÕI CHÚNG TÔI</h2>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+          <p>Chào mừng bạn đến với trang web chính thức của Du lịch Việt Nam. Truy cập các trang mạng xã hội của chúng tôi để biết thêm cảm hứng du lịch..</p>
+      </div>
     </div>
-  </div>
-<div class="footer">
-    © 2025 OFFICIAL WEBSITE DU LICH VIET NAM
-</div>
+    <div class="footer">
+        © 2025 OFFICIAL WEBSITE DU LICH VIET NAM
+    </div>
+  </div>  
   <script src="config.js"></script>
   <script src="script.js"></script>
   <script src="Auth/auth-ui.js"></script>

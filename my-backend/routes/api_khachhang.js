@@ -29,7 +29,28 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
+router.post('/', async (req, res) => {
+  try {
+    const { hoTen, email, soDienThoai, diaChi } = req.body;
 
+    const existing = await KhachHang.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'Email đã được đăng ký' });
+    const hashedPassword = await bcrypt.hash('123456', 10); 
+    const khach = new KhachHang({
+      hoTen,
+      email,
+      soDienThoai,
+      diaChi,
+      matKhau: hashedPassword, 
+    });
+
+    await khach.save();
+    res.status(201).json({ message: 'Thêm khách hàng thành công', khach });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Lỗi server khi thêm khách hàng' });
+  }
+});
 // Đăng nhập
 router.post('/login', async (req, res) => {
   const { email, matKhau } = req.body;
@@ -49,12 +70,27 @@ router.post('/login', async (req, res) => {
 // PUT ảnh đại diện
 router.put('/:id', async (req, res) => {
   try {
-    const { anhDaiDien } = req.body;
-    const result = await KhachHang.findByIdAndUpdate(req.params.id, { anhDaiDien }, { new: true });
-    if (!result) return res.status(404).send("Không tìm thấy người dùng");
-    res.json(result);
+    const { hoTen, email, soDienThoai, diaChi, anhDaiDien } = req.body;
+
+    const updateData = {};
+    if (hoTen) updateData.hoTen = hoTen;
+    if (email) updateData.email = email;
+    if (soDienThoai) updateData.soDienThoai = soDienThoai;
+    if (diaChi) updateData.diaChi = diaChi;
+    if (anhDaiDien) updateData.anhDaiDien = anhDaiDien;
+
+    const khach = await KhachHang.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+
+    if (!khach) return res.status(404).json({ message: 'Không tìm thấy khách hàng' });
+
+    res.json({ message: 'Cập nhật khách hàng thành công', khach });
   } catch (err) {
-    res.status(500).send("Lỗi server");
+    console.error('Lỗi cập nhật:', err);
+    res.status(500).json({ message: 'Lỗi server khi cập nhật khách hàng' });
   }
 });
 // GET thông tin khách hàng theo ID

@@ -40,6 +40,7 @@
 
       if (res.ok) {
         localStorage.setItem('khachHangId', result.khach._id);
+        localStorage.setItem('hoTen', result.khach.hoTen);
         window.location.href = REDIRECT_URL;
       }
     });

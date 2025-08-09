@@ -21,7 +21,7 @@ const tourSchema = new mongoose.Schema({
       gia: { type: Number, required: true }
     }
   ],
-  hinhAnh: { type: String },
+  hinhAnh: [String],
   lichTrinh: { type: String },
 
   trangThai: { type: String, default: "Hiển thị" },   
