@@ -300,7 +300,9 @@
   flex-direction: column;
   gap: 10px;
 }
-
+#page-plan .tour-info p {
+  text-align: justify;
+}
 #page-plan .tour-info h3 {
   font-size: 24px;
   color: #333;
@@ -335,6 +337,10 @@
   margin-bottom: 16px;
   font-size: 20px;
   color: #2c3e50;
+}
+#page-plan #bookingForm {
+  overflow-y: auto;
+  max-height: 500px;
 }
 #page-plan #bookingForm label {
   margin-top: 12px;

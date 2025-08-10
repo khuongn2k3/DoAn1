@@ -230,7 +230,6 @@ function showTourDetail(tour) {
   loadDanhGia(tour._id); 
 }
 
-// Tìm kiếm tour
 function timKiemTour() {
   const tenTour = document.getElementById('inputTenTour').value.trim();
   const loaiDiaDiem = document.getElementById('selectDiaDiem').value;

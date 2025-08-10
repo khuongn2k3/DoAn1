@@ -19,17 +19,13 @@
         <a id="linkTrangChu">&larr; Quay lại trang chủ</a>
         <a href="login_account.html">Đã có tài khoản &rarr;</a>
       </div>
-      
     </form>
-    
   </div>
   <script src="../config.js"></script>
   <script>
     document.getElementById('linkTrangChu').href = REDIRECT_URL;
     document.getElementById('formDangKy').addEventListener('submit', async function(e) {
       e.preventDefault();
-
-      // Lấy giá trị từ input
       const data = {
         hoTen: document.getElementById('hoTen').value,
         email: document.getElementById('email').value,
@@ -37,20 +33,14 @@
         matKhau: document.getElementById('matKhau').value,
         diaChi: document.getElementById('diaChi').value
       };
-
       try {
         const res = await fetch(`${API_BASE_URL}/api_khachhang/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-
         const result = await res.json();
-
-        // Hiển thị thông báo
         alert(result.message || 'Đăng ký thành công');
-
-        // Nếu đăng ký thành công thì chuyển hướng
         if (res.ok) {
           window.location.href = 'login_account.html';
         }

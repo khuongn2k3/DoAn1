@@ -18,7 +18,6 @@ body#page-index {
   border: 2px solid #ccc;
   cursor: pointer;
 }
-/* Navbar */
 #page-index .navbar {
   display: flex;
   align-items: center;
@@ -38,9 +37,8 @@ body#page-index {
   top: -20px;  
   left: 50px;  
   z-index: 2;
-  
+  border-radius: 10px;
 }
-
 #page-index .menu {
   display: flex;
   gap: 20px;
@@ -53,12 +51,16 @@ body#page-index {
   margin-top: 20px;
   font-family: bold;
 }
+#page-index .menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
 #page-index .dropdown {
   position: relative;
   margin-top: 20px;
 }
-
-#page-index .dropdown-menu {
+#page-index .dropdown > .dropdown-menu {
   display: none;
   position: absolute;
   top: 100%;
@@ -67,28 +69,41 @@ body#page-index {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   min-width: 160px;
   z-index: 999;
+  border-radius: 10px;
 }
-
-#page-index .dropdown:hover .dropdown-menu {
+#page-index .dropdown:hover > .dropdown-menu {
   display: block;
 }
-
 #page-index .dropdown-menu a {
   padding: 10px 15px;
   display: block;
-  text-decoration: none;
-  color: black;
-  
+  margin-bottom: 10px;
+  white-space: nowrap;
 }
-
 #page-index .dropdown-menu a:hover {
-  background-color: #f0f0f0;
+  background-color: #e6f3ff;
+  border-radius: 10px;
+  font-weight: bold;
 }
-
-#page-index .menu a {
-  text-decoration: none;
-  color: black;
-  font-weight: 500;
+#page-index .dropdown-submenu {
+  position: relative;
+}
+#page-index .dropdown-submenu > .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 160px;
+  z-index: 1000;
+  border-radius: 10px;
+}
+#page-index .dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.dropdown-menu a::before {
+  content: "> ";
 }
 #page-index .auth-buttons {
   display: flex;
@@ -111,7 +126,6 @@ body#page-index {
   background-color: yellow;
 }
 
-/* Banner */
 #page-index .banner {
   background-size: cover;
   height: 90vh;
@@ -197,7 +211,7 @@ body#page-index {
   z-index: -1;
 }
 #page-index section h2{
-  color:orange;
+  color:rgb(240, 177, 4);
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -252,33 +266,18 @@ body#page-index {
   gap:30px;
   margin: 0 auto;
   background-color: rgb(255, 255, 255);
+  border-top: solid orange 2px;
+  font-size: 15px;
+  margin-top: 20px;
 }
-#page-index .newsletter, .follow-us {
+#page-index .contact-us, .follow-us {
   width: 35%;
 }
-#page-index .newsletter h2, .follow-us h2 {
+#page-index .contact-us h2, .follow-us h2 {
   color: orange;
   font-size: 20px;
 }
-#page-index .newsletter input[type="email"] {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-#page-index .newsletter button {
-  background-color: #b71c1c;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-#page-index .newsletter button:hover {
-  background-color: #a01717;
-}
+
 #page-index .social-icons {
   display: flex;
   gap: 10px;

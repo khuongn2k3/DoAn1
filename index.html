@@ -16,11 +16,38 @@
       <div class="menu">
         <a href="#section-menu">Trang Chủ</a>  
         <div class="dropdown">
-          <a href="#">Các nơi để đi</a>
+          <a href="">Các nơi để đi</a>
           <div class="dropdown-menu">
-            <a href="Diadiem/mienbac.html">Miền Bắc</a>
-            <a href="Diadiem/mientrung.html">Miền Trung</a>
-            <a href="Diadiem/miennam.html">Miền Nam</a>
+
+            <div class="dropdown-submenu">
+              <a href="Diadiem/mienbac.html">Miền Bắc</a>
+              <div class="dropdown-menu">
+                <a href="Diadiem/hanoi.html">Hà Nội</a>
+                <a href="Diadiem/halong.html">Hạ Long</a>
+                <a href="Diadiem/sapa.html">Sa Pa</a>
+                <a href="Diadiem/ninhbinh.html">Ninh Bình</a>
+              </div>
+            </div>
+
+            <div class="dropdown-submenu">
+              <a href="Diadiem/mientrung.html">Miền Trung</a>
+              <div class="dropdown-menu">
+                <a href="Diadiem/hoian.html">Hội An</a>
+                <a href="Diadiem/hue.html">Huế</a>
+                <a href="Diadiem/phongnha.html">Phong Nha</a>
+                <a href="Diadiem/dalat.html">Đà Lạt</a>
+              </div>
+            </div>
+
+            <div class="dropdown-submenu">
+              <a href="Diadiem/miennam.html">Miền Nam</a>
+              <div class="dropdown-menu">
+                <a href="Diadiem/tp_hcm.html">TP.HCM</a>
+                <a href="Diadiem/cantho.html">Cần Thơ</a>
+                <a href="Diadiem/chaudoc.html.html">Châu Đốc</a>
+                <a href="Diadiem/phuquoc.html">Phú Quốc</a>
+              </div>
+            </div>
           </div>
         </div> 
         <a href="#" id="btnplan">Lên kế hoạch</a>
@@ -32,7 +59,6 @@
       <div class="auth-buttons" id="authArea"></div>
     </div>
   
-    <!-- Banner -->
     <div class="banner">
       <video autoplay muted loop playsinline class="background-video">
         <source src="video\trailer1.mp4" type="video/mp4">
@@ -41,7 +67,6 @@
         Chào mừng đến Du Lịch Việt Nam
       </div>
     </div>
-    <!-- Section Menu -->
     <div class="section-menu" id="section-menu">
       <a href="javascript:void(0);" onclick="showSection('tongquan')">TỔNG QUAN</a>
       <a href="javascript:void(0);" onclick="showSection('khampha')">KHÁM PHÁ</a>
@@ -50,7 +75,6 @@
       
     </div>
   
-    <!-- Content -->
     <div class="section-background">
       <section id="tongquan">
         <h2 >DU LỊCH VIỆT NAM</h2>
@@ -62,114 +86,133 @@
       <section id="khampha">
         <div class="post-container" id="PostContainer">
           <div class="post-card visible">
-            <a href="Diadiem/vuonhongdalat.html">
-              <img src="image/vuonhong.jpg" alt="Đà Lạt">
-            </a>
-            <h3>THIÊN NHIÊN</h3>
-            <p>VƯỜN HỒNG - ĐỊA ĐIỂM DU LỊCH "XANH" TẠI ĐÀ LẠT</p>
-          </div>
-          <div class="post-card visible">
             <a href="Diadiem/langluatruyenthong.html">
               <img src="image/langluatruyenthong.jpg" alt="Đà Lạt">
+              <div class="overlay">
+                <h3><strong>VĂN HÓA</strong></h3>
+                <p id="content"><strong>DẠO QUANH NHỮNG LÀNG LỤA TRUYỀN THỐNG CỔ XƯA CỦA VIỆT NAM</strong></p>
+              </div>
             </a>
-            <h3>VĂN HÓA</h3>
-            <p>DẠO QUANH NHỮNG LÀNG LỤA TRUYỀN THỐNG CỔ XƯA CỦA VIỆT NAM</p>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Lịch Sử</h3>
-              <p>Khám phá các di tích lịch sử nổi tiếng...</p>
+            <a href="Diadiem/vuonhongdalat.html">
+              <img src="image/vuonhong.jpg">
+              <div class="overlay">
+                <h3><strong>THIÊN NHIÊN</strong></h3>
+                <p id="content"><strong>VƯỜN HỒNG - ĐỊA ĐIỂM DU LỊCH "XANH" TẠI ĐÀ LẠT</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Ẩm Thực</h3>
-              <p>Thưởng thức đặc sản miền Trung...</p>
+            <a href="Diadiem/hothacba.html">
+              <img src="image/hothacba.jpg">
+              <div class="overlay">
+                <h3><strong>THIÊN NHIÊN</strong></h3>
+                <p id="content"><strong>HỒ THÁC BÀ - ĐIỂM DU LỊCH NỔI TIẾNG CỦA YÊN BÁI</strong></p>
+              </div>
+            </a>
           </div>
-          <div class="post-card">
-              <img src="image/nen1.jpg" >
-              <h3>Phiêu Lưu</h3>
-              <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+          <div class="post-card visible">
+            <a href="Diadiem/bientaynam.html">
+              <img src="image/bientaynam.jpg">
+              <div class="overlay">
+                <h3><strong>BIỂN</strong></h3>
+                <p id="content"><strong>ÁNH HOÀNG HÔN TRÊN BIỂN TÂY NAM</strong></p>
+              </div>
+            </a>
           </div>
-          <div class="post-card">
-            <img src="https://via.placeholder.com/200x120" >
-            <h3>Phiêu Lưu</h3>
-            <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-        </div>
-        <div class="post-card">
-          <img src="https://via.placeholder.com/200x120" >
-          <h3>Phiêu Lưu</h3>
-          <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-      </div>
+          <div class="post-card ">
+            <a href="Diadiem/nghiduong_capdoi.html">
+              <img src="image/nghiduong_capdoi.jpg">
+              <div class="overlay">
+                <h3><strong>SANG TRỌNG</strong></h3>
+                <p id="content"><strong>NHỮNG NƠI NGHĨ DƯỠNG TUYỆT VỜI NHẤT DÀNH CHO CÁC CẶP ĐÔI</strong></p>
+              </div>
+            </a>
+          </div>
           <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
+        </div>
       </section>
     
       <section id="thugian">
         <div class="post-container" id="PostContainer">
           <div class="post-card visible">
-              <img src="image/vuonhong2.jpg" >
-              <h3>Thiên Nhiên</h3>
-              <p>Persimmons Garden – Green Travel Spots</p>
+            <a href="Diadiem/phuquoc_unitedcenter.html">
+              <img src="image/phuquoc_unitedcenter.jpg">
+              <div class="overlay">
+                <h3><strong>GIA ĐÌNH</strong></h3>
+                <p id="content"><strong>NGÀY GIA ĐÌNH TẠI TRUNG TÂM PHÚ QUỐC UNITED CENTER</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Lịch Sử</h3>
-              <p>Khám phá các di tích lịch sử nổi tiếng...</p>
+            <a href="Diadiem/suckhoe_nhatrang.html">
+              <img src="image/suckhoe_nhatrang.jpg">
+              <div class="overlay">
+                <h3><strong>GIA ĐÌNH</strong></h3>
+                <p id="content"><strong>NHỮNG TRẢI NGHIỆM CHĂM SÓC TỐT NHẤT TẠI NHA TRANG</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Ẩm Thực</h3>
-              <p>Thưởng thức đặc sản miền Trung...</p>
+            <a href="Diadiem/vinpearl_nhatrang.html">
+              <img src="image/vinpearl_nhatrang.jpg">
+              <div class="overlay">
+                <h3><strong>GIA ĐÌNH</strong></h3>
+                <p id="content"><strong>KỲ NGHỈ VUI VẺ TẠI VINPEARL NHA TRANG</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Phiêu Lưu</h3>
-              <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+            <a href="Diadiem/nghiduong_capdoi.html">
+              <img src="image/nghiduong_capdoi.jpg">
+              <div class="overlay">
+                <h3><strong>SANG TRỌNG</strong></h3>
+                <p id="content"><strong>NHỮNG NƠI NGHĨ DƯỠNG TUYỆT VỜI NHẤT DÀNH CHO CÁC CẶP ĐÔI</strong></p>
+              </div>
+            </a>
           </div>
-          <div class="post-card">
-            <img src="https://via.placeholder.com/200x120" >
-            <h3>Phiêu Lưu</h3>
-            <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-        </div>
-        <div class="post-card">
-          <img src="https://via.placeholder.com/200x120" >
-          <h3>Phiêu Lưu</h3>
-          <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-      </div>
           <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
       </section>
     
       <section id="giaitri">
         <div class="post-container" id="PostContainer">
           <div class="post-card visible">
-              <img src="image/vuonhong3.jpg" >
-              <h3>Thiên Nhiên</h3>
-              <p>Persimmons Garden – Green Travel Spots</p>
+            <a href="Diadiem/phuquoc_unitedcenter.html">
+              <img src="image/phuquoc_unitedcenter.jpg">
+              <div class="overlay">
+                <h3><strong>GIA ĐÌNH</strong></h3>
+                <p id="content"><strong>NGÀY GIA ĐÌNH TẠI TRUNG TÂM PHÚ QUỐC UNITED CENTER</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Lịch Sử</h3>
-              <p>Khám phá các di tích lịch sử nổi tiếng...</p>
+            <a href="Diadiem/hothacba.html">
+              <img src="image/hothacba.jpg">
+              <div class="overlay">
+                <h3><strong>THIÊN NHIÊN</strong></h3>
+                <p id="content"><strong>HỒ THÁC BÀ - ĐIỂM DU LỊCH NỔI TIẾNG CỦA YÊN BÁI</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Ẩm Thực</h3>
-              <p>Thưởng thức đặc sản miền Trung...</p>
+            <a href="Diadiem/vinpearl_nhatrang.html">
+              <img src="image/vinpearl_nhatrang.jpg">
+              <div class="overlay">
+                <h3><strong>GIA ĐÌNH</strong></h3>
+                <p id="content"><strong>KỲ NGHỈ VUI VẺ TẠI VINPEARL NHA TRANG</strong></p>
+              </div>
+            </a>
           </div>
           <div class="post-card visible">
-              <img src="image/nen1.jpg" >
-              <h3>Phiêu Lưu</h3>
-              <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
+            <a href="Diadiem/nghiduong_capdoi.html">
+              <img src="image/nghiduong_capdoi.jpg">
+              <div class="overlay">
+                <h3><strong>CẶP ĐÔI</strong></h3>
+                <p id="content"><strong>NHỮNG NƠI NGHĨ DƯỠNG TUYỆT VỜI NHẤT DÀNH CHO CÁC CẶP ĐÔI</strong></p>
+              </div>
+            </a>
           </div>
-          <div class="post-card">
-            <img src="https://via.placeholder.com/200x120" >
-            <h3>Phiêu Lưu</h3>
-            <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-        </div>
-        <div class="post-card">
-          <img src="https://via.placeholder.com/200x120" >
-          <h3>Phiêu Lưu</h3>
-          <p>Trải nghiệm leo núi tại Đà Nẵng...</p>
-      </div>
           <button class="more-btn" id="moreBtn"><i class="fas fa-arrow-right"></i></button>
       </section>
     </div>
@@ -182,33 +225,32 @@
     </p>
 
     <div class="grid">
-      <a href="#" class="post-card-diadiem">
-        <img src="image/HaLongTbn.jpg" alt="Huế">
+      <a href="Diadiem/halong.html" class="post-card-diadiem">
+        <img src="image/HaLongTbn.jpg" alt="Hạ Long">
       </a>
-      <a href="#" class="post-card-diadiem">
+      <a href="Diadiem/hanoi.html" class="post-card-diadiem">
         <img src="image/HaNoiTbn.jpg" alt="Hà Nội">
       </a>
-      <a href="#" class="post-card-diadiem">
+      <a href="Diadiem/hoian.html" class="post-card-diadiem">
         <img src="image/HoiAnTbn.jpg" alt="Hội An">
       </a>
-      <a href="#" class="post-card-diadiem">
+      <a href="Diadiem/hue.html" class="post-card-diadiem">
         <img src="image/HueTbn.jpg" alt="Huế">
       </a>
-      <a href="#" class="post-card-diadiem">
+      <a href="Diadiem/phongnha.html" class="post-card-diadiem">
         <img src="image/PhongNhaTbn.jpg" alt="Phong Nha">
       </a>
-      <a href="#" class="post-card-diadiem">
-        <img src="image/MySonTbn.jpg" alt="Mỹ Sơn">
+      <a href="Diadiem/dalat.html" class="post-card-diadiem">
+        <img src="image/DaLatTbn.jpg" alt="Đà Lạt">
       </a>
     </div>
 
     <div class="footer-content">
-      <div class="newsletter">
-          <h2>ĐĂNG KÝ NHẬN BẢN TIN CỦA CHÚNG TÔI</h2>
-          <p>Nhận những câu chuyện du lịch mới nhất từ ​​Du Lịch Việt Nam mỗi tháng qua hộp thư đến của bạn.
-            .</p>
-          <input type="email" placeholder="Your email">
-          <button>ĐĂNG KÝ</button>
+      <div class="contact-us">
+        <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
+        <p>Gọi ngay để được tư vấn và hỗ trợ thông tin du lịch nhanh chóng.</p>
+        <p><strong>Hotline:</strong> <a href="tel:19001234">1900 1234</a></p>
+        <p><strong>Zalo:</strong> <a href="https://zalo.me/0377767324" target="_blank">0377 767 324</a></p>
       </div>
       <div class="follow-us">
           <h2>THEO DÕI CHÚNG TÔI</h2>

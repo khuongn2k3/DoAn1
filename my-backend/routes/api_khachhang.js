@@ -2,8 +2,10 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const KhachHang = require('../models/khachhang');
+const DatTour = require('../models/dattour');
+const Favorite = require('../models/favorite');
+const DanhGia = require('../models/danhgia');
 
-// Đăng ký
 router.post('/register', async (req, res) => {
   try {
     
@@ -51,7 +53,6 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server khi thêm khách hàng' });
   }
 });
-// Đăng nhập
 router.post('/login', async (req, res) => {
   const { email, matKhau } = req.body;
   try {
@@ -67,7 +68,6 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
-// PUT ảnh đại diện
 router.put('/:id', async (req, res) => {
   try {
     const { hoTen, email, soDienThoai, diaChi, anhDaiDien } = req.body;
@@ -93,7 +93,6 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server khi cập nhật khách hàng' });
   }
 });
-// GET thông tin khách hàng theo ID
 router.get('/:id', async (req, res) => {
   try {
     const khachHang = await KhachHang.findById(req.params.id).select('-matKhau');
@@ -120,13 +119,11 @@ router.post('/change-password', async (req, res) => {
       return res.status(404).json({ message: 'Không tìm thấy khách hàng.' });
     }
 
-    // So sánh oldPassword với mật khẩu đã hash trong DB
     const isMatch = await bcrypt.compare(oldPassword, khachHang.matKhau);
     if (!isMatch) {
       return res.status(401).json({ message: 'Mật khẩu cũ không đúng.' });
     }
 
-    // Hash mật khẩu mới trước khi lưu
     const saltRounds = 10;
     const hashedNewPassword = await bcrypt.hash(newPassword, saltRounds);
 
@@ -141,13 +138,17 @@ router.post('/change-password', async (req, res) => {
 });
 router.delete('/:id', async (req, res) => {
   try {
-    const khach = await KhachHang.findByIdAndDelete(req.params.id);
-    if (!khach) {
-      return res.status(404).json({ message: 'Không tìm thấy khách hàng' });
-    }
-    res.json({ message: 'Xoá khách hàng thành công' });
+    const khId = req.params.id;
+    const kh = await KhachHang.findByIdAndDelete(khId);
+
+    if (!kh) return res.status(404).json({ message: 'Không tìm thấy khách hàng' });
+    await DatTour.deleteMany({ khachHangId: khId });
+    await Favorite.deleteMany({ khachHangId: khId });
+    await DanhGia.deleteMany({ khachHangId: khId });
+
+    res.json({ message: 'Xóa khách hàng, các đặt tour, danh sách yêu thích và đánh giá thành công' });
   } catch (err) {
-    console.error('Lỗi khi xoá khách hàng:', err);
+    console.error('Lỗi khi xóa khách hàng:', err);
     res.status(500).json({ message: 'Lỗi server' });
   }
 });

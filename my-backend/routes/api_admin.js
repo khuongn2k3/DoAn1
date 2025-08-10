@@ -3,18 +3,15 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const Admin = require('../models/admin');
 
-// API tạm thời để tạo tài khoản admin
 router.post('/create-admin', async (req, res) => {
   try {
     const { hoTen, email, matKhau } = req.body;
 
-    // Kiểm tra email đã tồn tại 
     const existing = await Admin.findOne({ email });
     if (existing) {
       return res.status(400).json({ message: 'Tài khoản đã tồn tại' });
     }
 
-    // Mã hoá mật khẩu
     const hashedPassword = await bcrypt.hash(matKhau, 10);
 
     const newAdmin = new Admin({
@@ -51,7 +48,6 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
-// Lấy thông tin admin theo ID
 router.get('/:id', async (req, res) => {
   try {
     const admin = await Admin.findById(req.params.id);
@@ -68,6 +64,4 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
-
-
 module.exports = router;

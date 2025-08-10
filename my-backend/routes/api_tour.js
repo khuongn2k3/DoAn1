@@ -61,7 +61,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Tạo tour mới
 router.post('/', async (req, res) => {
     try {
       const newTour = new Tour(req.body);
@@ -73,14 +72,12 @@ router.post('/', async (req, res) => {
     }
   });
   
-// Cập nhật tour
 router.put('/:id', async (req, res) => {
   try {
     const tourId = req.params.id;
     const tour = await Tour.findById(tourId);
     if (!tour) return res.status(404).json({ success: false, message: 'Tour không tồn tại' });
 
-    // Cập nhật dữ liệu
     const updatedData = {
       ...req.body,
       hinhAnh: req.body.hinhAnh || tour.hinhAnh, 
@@ -94,7 +91,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Xóa tour
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await Tour.findByIdAndDelete(req.params.id);

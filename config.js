@@ -1,5 +1,3 @@
-// config.js
-
 const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 const API_BASE_URL = isLocal
@@ -18,5 +16,8 @@ const AUTH_BASE_URL = isLocal
   ? 'http://127.0.0.1:5500/'
   : 'https://khuongn2k3.github.io/DoAn1/';
 const PLAN_BASE_URL = isLocal
-  ? 'http://127.0.0.1:5500/Plan/Plan.html'
-  : 'https://khuongn2k3.github.io/DoAn1/Plan/Plan.html';
+  ? 'http://127.0.0.1:5500/Plan/plan.html'
+  : 'https://khuongn2k3.github.io/DoAn1/Plan/plan.html';
+const USER_BASE_URL = isLocal
+? 'http://127.0.0.1:5500/User/user.html'
+: 'https://khuongn2k3.github.io/DoAn1/User/user.html';

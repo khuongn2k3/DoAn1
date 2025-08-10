@@ -1,35 +1,48 @@
 #page-diadiem .content p {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
     text-align: justify;
+    font-size: 15px;
 }
 #page-diadiem .content h1{
     color: orange;
     font-size: 20px;
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
+    font-family: 'Roboto', sans-serif;
 }
 #page-diadiem .content img{
-    height:auto;
-    width:800px;
+    height:60%;
+    width: 700px;
     margin-top: 20px;
     margin-bottom: 10px;
     object-fit: cover;
     text-align: justify;
+    border-radius: 10px;
 }
 #page-diadiem .content {
     text-align: center;
     margin-bottom: 20px;
     margin-top: 50px;
 }
+#page-diadiem .grid-container{
+    max-width: 100%;
+    background-color: rgb(255, 228, 228);
+    border-radius: 10px;
+}
+#page-diadiem .grid-container p{
+    text-align: center;
+    font-size: 30px; 
+    color:#d1bc00;
+    font-family: 'Roboto', sans-serif;
+}
 #page-diadiem .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 10px;
-    max-width: 100%;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgb(218, 214, 208);
 }
 #page-diadiem .post-card-diadiem {
     display: block;
@@ -42,14 +55,31 @@
     text-decoration: none;
     color: inherit;
     position: relative;
-    height: 200px; 
+    height: 180px;
  }
 #page-diadiem .post-card-diadiem img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.3s ease;
 }
 #page-diadiem .post-card-diadiem:hover img {
     transform: scale(1.1);
+}
+#page-diadiem .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+}
+#page-diadiem .overlay #content{
+    font-size: 13px;
+    color:#d1bc00;
+    font-family: 'Roboto', sans-serif;
+    text-align: justify;
 }

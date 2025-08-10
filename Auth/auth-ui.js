@@ -8,17 +8,15 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
       const res = await fetch(`${API_BASE_URL}/api_khachhang/${khachHangId}`);
       const data = await res.json();
-
       
       if (data && data.email) {
-        const avatarUrl = data.anhDaiDien || 'avatar/user.png';
+        const avatarUrl = data.anhDaiDien || '../avatar/usernew.png';
         authArea.innerHTML = `
-          <div class="user-avatar" onclick="location.href='../User/user.html'" title="Trang cá nhân">
-            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='avatar/usernew.png'" />
+          <div class="user-avatar" onclick="location.href='${USER_BASE_URL}'" title="Trang cá nhân">
+            <img src="${avatarUrl}" alt="Avatar" onerror="this.src='${AVATAR_BASE_URL}/usernew.png'" />
           </div>
         `;
       } else {
-
         localStorage.removeItem('khachHangId');
         showLoginRegister(authArea);
       }

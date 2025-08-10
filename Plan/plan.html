@@ -14,15 +14,42 @@
         <img class="logo" src="../image\vietnam-tourism-logo.png" alt="Vietnam Tourism Logo" height="50">
       </a>
       <div class="menu">
-          <a href="../index.html">Trang Chủ</a>  
+        <a href="../index.html">Trang Chủ</a>  
         <div class="dropdown">
-          <a href="#">Các nơi để đi</a>
+          <a href="">Các nơi để đi</a>
           <div class="dropdown-menu">
-            <a href="../Diadiem/mienbac.html">Miền Bắc</a>
-            <a href="../Diadiem/mientrung.html">Miền Trung</a>
-            <a href="../Diadiem/miennam.html">Miền Nam</a>
+
+            <div class="dropdown-submenu">
+              <a href="../Diadiem/mienbac.html">Miền Bắc</a>
+              <div class="dropdown-menu">
+                <a href="../Diadiem/hanoi.html">Hà Nội</a>
+                <a href="../Diadiem/halong.html">Hạ Long</a>
+                <a href="../Diadiem/sapa.html">Sa Pa</a>
+                <a href="../Diadiem/ninhbinh.html">Ninh Bình</a>
+              </div>
+            </div>
+
+            <div class="dropdown-submenu">
+              <a href="../Diadiem/mientrung.html">Miền Trung</a>
+              <div class="dropdown-menu">
+                <a href="../Diadiem/hoian.html">Hội An</a>
+                <a href="../Diadiem/hue.html">Huế</a>
+                <a href="../Diadiem/phongnha.html">Phong Nha</a>
+                <a href="../Diadiem/dalat.html">Đà Lạt</a>
+              </div>
+            </div>
+
+            <div class="dropdown-submenu">
+              <a href="../Diadiem/miennam.html">Miền Nam</a>
+              <div class="dropdown-menu">
+                <a href="../Diadiem/tp_hcm.html">TP.HCM</a>
+                <a href="../Diadiem/cantho.html">Cần Thơ</a>
+                <a href="../Diadiem/chaudoc.html.html">Châu Đốc</a>
+                <a href="../Diadiem/phuquoc.html">Phú Quốc</a>
+              </div>
+            </div>
           </div>
-        </div>
+        </div> 
       </div> 
       <div class="auth-buttons" id="authArea"></div>
     </div>
@@ -38,7 +65,6 @@
                 <input type="text" id="inputTenTour" placeholder="Nhập tên tour...">
             </div>
           
-            <!-- Loại địa điểm -->
             <label for="selectDiaDiem">Loại địa điểm</label>
             <select id="selectDiaDiem">
               <option value="">-- Tất cả --</option>
@@ -48,7 +74,6 @@
               <option value="Thành Phố">Thành Phố</option>
             </select>
           
-            <!-- Phương tiện -->
             <div class="search-box">
                 <label>Phương tiện</label>
                 <div class="custom-dropdown" id="dropdownPhuongTien">
@@ -62,7 +87,6 @@
                 </div>
             </div>          
           
-            <!-- Loại tour -->
             <label for="selectLoaiTour">Loại tour</label>
             <select id="selectLoaiTour">
               <option value="">-- Tất cả --</option>
@@ -73,7 +97,6 @@
               <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
             </select>
           
-            <!-- Nút tìm -->
             <button onclick="timKiemTour()">Tìm Tour</button>
             <button onclick="resetBoLoc()" class="reset-btn">Đặt lại</button>
           </div>
@@ -178,11 +201,11 @@
     </div>
 
     <div class="footer-content">
-      <div class="newsletter">
-        <h2>ĐĂNG KÝ NHẬN BẢN TIN CỦA CHÚNG TÔI</h2>
-        <p>Nhận những câu chuyện du lịch mới nhất từ ​​Du Lịch Việt Nam mỗi tháng qua hộp thư đến của bạn.</p>
-        <input type="email" placeholder="Your email">
-        <button>ĐĂNG KÝ</button>
+      <div class="contact-us">
+        <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
+        <p>Gọi ngay để được tư vấn và hỗ trợ thông tin du lịch nhanh chóng.</p>
+        <p><strong>Hotline:</strong> <a href="tel:19001234">1900 1234</a></p>
+        <p><strong>Zalo:</strong> <a href="https://zalo.me/0377767324" target="_blank">0377 767 324</a></p>
       </div>
       <div class="follow-us">
         <h2>THEO DÕI CHÚNG TÔI</h2>
