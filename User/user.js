@@ -94,13 +94,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     alert("Lỗi khi tải thông tin người dùng.");
   }
 
-  // Đăng xuất
   document.getElementById('Btn_logout').addEventListener('click', () => {
     localStorage.removeItem('khachHangId');
     window.location.href = REDIRECT_URL;
   });
 
-  // Đổi mật khẩu
   document.getElementById('btnSubmitChange').addEventListener('click', async () => {
     const oldPass = document.getElementById('oldPassword').value;
     const newPass = document.getElementById('newPassword').value;
@@ -135,7 +133,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     img.src = `${AVATAR_BASE_URL}/${fileName}`;
   });
 
-   // Hiện các ảnh đại diện khi bấm nút
   const btnToggle = document.getElementById('Btn_choseimg');
   const avatarBox = document.getElementById('choseimg');
 
@@ -146,7 +143,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       avatarBox.style.display = 'none';
     }
   });
-  // Xử lý chọn ảnh
   const avatarOptions = document.querySelectorAll('.avatar-option');
   avatarOptions.forEach(img => {
     img.addEventListener('click', async () => {
@@ -210,7 +206,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.error("Lỗi khi tải tour", err);
     }
   }
-  // Hàm lấy lịch sử tour
   async function taiLichSuTour() {
     try {
       const res = await fetch(`${API_BASE_URL}/api_dattour/lichsu/${khachHangId}`);
@@ -279,12 +274,10 @@ async function toggleChiTiet(datTourId, tourId, btn) {
   detailDiv.style.display = 'block';
 
   try {
-    // Lấy thông tin đặt tour
     const resDatTour = await fetch(`${API_BASE_URL}/api_dattour/${datTourId}`);
     if (!resDatTour.ok) throw new Error("Không lấy được thông tin đặt tour");
     const datTour = await resDatTour.json();
 
-    // Lấy thông tin tour nếu chưa có
     let tour = datTour.tourId;
     if (!tour || !tour.tenTour) {
       const resTour = await fetch(`${API_BASE_URL}/api_tour/${tourId}`);
