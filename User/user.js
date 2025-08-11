@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('sidebarName').textContent = data.hoTen;
 
     const avatarImg = document.querySelector('.sidebar img');
-    avatarImg.src = `${AVATAR_BASE_URL}/${data.anhDaiDien}`;
+    avatarImg.src = data.anhDaiDien ? `${AVATAR_BASE_URL}/${data.anhDaiDien}` : `${AVATAR_BASE_URL}/usernew.png`;
 
     selectedAvatar = data.anhDaiDien || '';
 
