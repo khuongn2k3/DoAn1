@@ -6,7 +6,7 @@ const khachHangSchema = new mongoose.Schema({
   soDienThoai: String,
   matKhau: { type: String, required: true },
   diaChi: String,
-  anhDaiDien: { type: String, default: '../avatar/usernew.png' } 
+  anhDaiDien: { type: String, default: 'usernew.png' } 
   },{
     versionKey: false 
 });
