@@ -143,7 +143,6 @@ function renderPagination() {
 
 let currentImageList = [];
 let currentImageIndex = 0;
-//
 let currentTourId = null;
 function showTourDetail(tour) {
   const detailSection = document.getElementById('tourDetails');
@@ -355,6 +354,7 @@ function bookTour(khachHangId) {
         alert('Đặt tour thành công!');
         form.reset();
         document.getElementById('tongTien').textContent = '0';
+        location.reload();
       } else {
         alert(result.message || 'Đặt tour thất bại');
       }
