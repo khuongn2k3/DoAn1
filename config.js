@@ -21,3 +21,6 @@ const PLAN_BASE_URL = isLocal
 const USER_BASE_URL = isLocal
 ? 'http://127.0.0.1:5500/User/user.html'
 : 'https://khuongn2k3.github.io/DoAn1/User/user.html';
+const SEARCH_BASE_URL = isLocal
+  ? 'http://127.0.0.1:5500/Search/search.html'
+  : 'https://khuongn2k3.github.io/DoAn1/Search/search.html';
