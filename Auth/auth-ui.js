@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       const data = await res.json();
       
       if (data && data.email) {
-        const avatarUrl = `${AVATAR_BASE_URL}/${data.anhDaiDien}`;
+        /*const avatarUrl = `${AVATAR_BASE_URL}/${data.anhDaiDien}`;*/
+        const avatarUrl = data.anhDaiDien;
         authArea.innerHTML = `
           <div class="user-avatar" onclick="location.href='${USER_BASE_URL}'" title="Trang cá nhân">
             <img src="${avatarUrl}" alt="Avatar" onerror="this.src='${AVATAR_BASE_URL}/usernew.png'" />
