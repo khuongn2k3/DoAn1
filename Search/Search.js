@@ -1,31 +1,42 @@
-// Hàm khởi động tìm kiếm dựa trên query trong URL
 function initSearch() {
+  const searchInput = document.getElementById("search-input");
+  const resultsContainer = document.getElementById("results");
+
+  if (!searchInput || !resultsContainer) {
+    console.error("Không tìm thấy phần tử search-input hoặc results.");
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const keyword = params.get("q");
   if (!keyword) return;
-  document.getElementById("search-input").value = keyword;
+
+  searchInput.value = keyword;
   search(keyword);
 }
 
-// Chạy khi trang load lần đầu
 document.addEventListener("DOMContentLoaded", () => {
   initSearch();
 });
 
-// Xử lý khi nhấn Enter
+// Nếu người dùng bấm Back/Forward trên trình duyệt
+window.addEventListener("popstate", () => {
+  initSearch();
+});
+
 function handleEnter(event) {
   if (event.key === "Enter") {
-    const keyword = document.getElementById('search-input').value.trim();
+    const searchInput = document.getElementById("search-input");
+    if (!searchInput) return;
+
+    const keyword = searchInput.value.trim();
     if (keyword) {
-      // Cập nhật URL mà không reload trang
       window.history.pushState({}, "", `search.html?q=${encodeURIComponent(keyword)}`);
-      // Gọi lại tìm kiếm với từ khóa mới
       initSearch();
     }
   }
 }
 
-// Hàm gọi API tìm kiếm
 async function search(keyword) {
   try {
     const response = await fetch(`${API_BASE_URL}/api_search?q=${encodeURIComponent(keyword)}`);
@@ -36,14 +47,16 @@ async function search(keyword) {
   }
 }
 
-// Hiển thị kết quả tìm kiếm
 function displaySearchResults(results) {
   const container = document.getElementById("results");
+  if (!container) return;
+
   container.innerHTML = "";
-  if (results.length === 0) {
+  if (!Array.isArray(results) || results.length === 0) {
     container.innerHTML = `<p style="margin-left:100px;">Không tìm thấy kết quả nào.</p>`;
     return;
   }
+
   results.forEach(item => {
     const card = document.createElement("div");
     card.className = "post-card result-item";
