@@ -30,7 +30,7 @@ function handleEnter(event) {
 
     const keyword = searchInput.value.trim();
     if (keyword) {
-      window.history.pushState({}, "", `Search.html?q=${encodeURIComponent(keyword)}`);
+      window.history.pushState({}, "", `${SEARCH_PAGE_URL}?q=${encodeURIComponent(keyword)}`);
       initSearch();
     }
   }
