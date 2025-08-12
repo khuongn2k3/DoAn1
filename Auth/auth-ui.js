@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const avatarUrl =
         data.anhDaiDien && data.anhDaiDien.trim().startsWith('http')
           ? data.anhDaiDien.trim()
-          : `${AVATAR_BASE_URL}${data.anhDaiDien || 'usernew.png'}`;
+          : `data.anhDaiDien || 'usernew.png'}`;
         authArea.innerHTML = `
           <div class="user-avatar" onclick="location.href='${USER_BASE_URL}'" title="Trang cá nhân">
             <img src="${avatarUrl}" alt="Avatar" onerror="this.src='${AVATAR_BASE_URL}/usernew.png'" />
