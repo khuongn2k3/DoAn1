@@ -10,8 +10,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       const data = await res.json();
       
       if (data && data.email) {
-        const avatarUrl = data.anhDaiDien && data.anhDaiDien.startsWith('http')
-          ? data.anhDaiDien
+        const avatarUrl =
+        data.anhDaiDien && data.anhDaiDien.trim().startsWith('http')
+          ? data.anhDaiDien.trim()
           : `${AVATAR_BASE_URL}${data.anhDaiDien || 'usernew.png'}`;
         authArea.innerHTML = `
           <div class="user-avatar" onclick="location.href='${USER_BASE_URL}'" title="Trang cá nhân">
