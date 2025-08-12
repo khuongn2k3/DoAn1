@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
   document.querySelectorAll('.avatar-option').forEach(img => {
     const fileName = img.getAttribute('data-avatar');
-    img.src = fileName;
+    img.src = `${AVATAR_BASE_URL}/${fileName}`;
   });
 
   const btnToggle = document.getElementById('Btn_choseimg');
