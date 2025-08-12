@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initSearch();
 });
 
-// Nếu người dùng bấm Back/Forward trên trình duyệt
 window.addEventListener("popstate", () => {
   initSearch();
 });
