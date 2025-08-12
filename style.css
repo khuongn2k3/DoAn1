@@ -4,7 +4,7 @@ body#page-index {
   scroll-behavior: smooth;
 }
 #page-index #authArea {
-  margin-left: 50px;
+  margin-left: auto;
   display: flex;
   align-items: center;
   padding-right: 30px;
