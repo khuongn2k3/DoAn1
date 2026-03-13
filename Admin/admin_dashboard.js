@@ -84,8 +84,62 @@ try {
     }
 
     document.getElementById('userCount').textContent = users.length;
-    document.getElementById('tourCount').textContent = tours.length;
+    document.getElementById('tourCount').textContent = tours.filter(t => t.trangThai !== 'Ẩn').length;
     document.getElementById('orderCount').textContent = orders.length;
+
+    // --- Doanh thu (chỉ tính đơn đã hoàn thành) ---
+    const revenue = orders
+      .filter(o => o.trangThai === 'DA_HOAN_THANH')
+      .reduce((sum, o) => sum + (o.tongTien || 0), 0);
+    document.getElementById('revenueTotal').textContent = revenue.toLocaleString('vi-VN') + ' đ';
+
+    // --- Trạng thái đơn ---
+    document.getElementById('orderPending').textContent    = orders.filter(o => o.trangThai === 'CHO_XAC_NHAN').length;
+    document.getElementById('orderConfirmed').textContent  = orders.filter(o => o.trangThai === 'DA_XAC_NHAN').length;
+    document.getElementById('orderOngoing').textContent    = orders.filter(o => o.trangThai === 'DANG_DIEN_RA').length;
+    document.getElementById('orderDone').textContent       = orders.filter(o => o.trangThai === 'DA_HOAN_THANH').length;
+    document.getElementById('orderCancelled').textContent  = orders.filter(o => o.trangThai === 'DA_HUY').length;
+
+    // --- Thống kê tour ---
+    document.getElementById('tourVisible').textContent = tours.filter(t => t.trangThai !== 'Ẩn').length;
+    document.getElementById('tourHidden').textContent  = tours.filter(t => t.trangThai === 'Ẩn').length;
+    document.getElementById('tourBien').textContent    = tours.filter(t => t.loaiDiaDiem === 'Biển').length;
+    document.getElementById('tourNui').textContent     = tours.filter(t => t.loaiDiaDiem === 'Núi').length;
+    document.getElementById('tourTP').textContent      = tours.filter(t => t.loaiDiaDiem === 'Thành phố').length;
+
+    // --- Top tour phổ biến ---
+    const tourOrderCount = {};
+    orders.forEach(o => {
+      const tid = o.tourId?._id || o.tourId;
+      const tname = o.tourId?.tenTour || 'Không rõ';
+      if (!tid) return;
+      if (!tourOrderCount[tid]) tourOrderCount[tid] = { name: tname, count: 0, revenue: 0 };
+      tourOrderCount[tid].count++;
+      tourOrderCount[tid].revenue += o.tongTien || 0;
+    });
+    const topTours = Object.values(tourOrderCount)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5);
+    const topContainer = document.getElementById('topToursContainer');
+    topContainer.innerHTML = '';
+    if (topTours.length === 0) {
+      topContainer.innerHTML = '<p style="color:#999">Chưa có đơn đặt nào.</p>';
+    } else {
+      topTours.forEach((t, i) => {
+        const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+        const card = document.createElement('div');
+        card.className = 'top-tour-card';
+        card.innerHTML = `
+          <div class="top-tour-rank">${medals[i]}</div>
+          <div class="top-tour-name">${t.name}</div>
+          <div class="top-tour-meta">
+            <span>📋 ${t.count} đơn</span>
+            <span>💰 ${t.revenue.toLocaleString('vi-VN')} đ</span>
+          </div>
+        `;
+        topContainer.appendChild(card);
+      });
+    }
 
   const userList = document.getElementById('userList');
     userList.innerHTML = '';
