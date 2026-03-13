@@ -253,3 +253,61 @@ body {
   gap: 6px;
 }
 
+
+/* ===== ENHANCED STATS ===== */
+.stats-row-1 { flex-wrap: wrap; }
+.stats-row-2 { flex-wrap: wrap; gap: 12px; }
+
+.stats-subtitle {
+  margin: 24px 0 10px;
+  font-size: 16px;
+  color: #444;
+  border-left: 4px solid #2c3e50;
+  padding-left: 10px;
+}
+
+/* Card màu sắc */
+.card { position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+
+.card-blue   { border-top: 4px solid #3498db; }
+.card-green  { border-top: 4px solid #2ecc71; }
+.card-orange { border-top: 4px solid #e67e22; }
+.card-purple { border-top: 4px solid #9b59b6; }
+.card-yellow { border-top: 4px solid #f1c40f; }
+.card-cyan   { border-top: 4px solid #1abc9c; }
+.card-indigo { border-top: 4px solid #5c6bc0; }
+.card-red    { border-top: 4px solid #e74c3c; }
+
+.card-icon { font-size: 28px; margin-bottom: 6px; }
+.card h3 { font-size: 13px; color: #777; margin: 4px 0; font-weight: 500; }
+.card p { font-size: 26px; font-weight: 700; margin: 4px 0; color: #2c3e50; }
+
+/* Small cards (hàng 2 trở đi) */
+.card-sm { flex: 1; min-width: 130px; padding: 14px 12px; }
+.card-icon-sm { font-size: 22px; margin-bottom: 4px; }
+.card-label { font-size: 12px; color: #777; margin: 2px 0; }
+.card-sm p { font-size: 22px; font-weight: 700; color: #2c3e50; margin: 2px 0; }
+
+/* Top tour cards */
+.top-tours-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.top-tour-card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+.top-tour-card:hover { transform: translateX(4px); }
+.top-tour-rank { font-size: 24px; min-width: 36px; }
+.top-tour-name { flex: 1; font-weight: 600; color: #2c3e50; font-size: 15px; }
+.top-tour-meta { display: flex; gap: 18px; font-size: 13px; color: #555; }
+.top-tour-meta span { display: flex; align-items: center; gap: 4px; }
