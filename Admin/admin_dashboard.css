@@ -311,3 +311,32 @@ body {
 .top-tour-name { flex: 1; font-weight: 600; color: #2c3e50; font-size: 15px; }
 .top-tour-meta { display: flex; gap: 18px; font-size: 13px; color: #555; }
 .top-tour-meta span { display: flex; align-items: center; gap: 4px; }
+
+/* ===== CHARTS ===== */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  margin-top: 10px;
+}
+.chart-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.chart-card h4 {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.chart-card-wide {
+  grid-column: 1 / -1;
+}
+.chart-card canvas {
+  max-height: 260px;
+}
