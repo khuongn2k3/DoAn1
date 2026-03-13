@@ -924,26 +924,23 @@ function updateRevenueChart() {
   destroyChart('revenueLine');
   const ctx = document.getElementById('chartRevenueLine').getContext('2d');
   _charts.revenueLine = new Chart(ctx, {
-    type: 'line',
-    data: {
+        type: 'bar', data: {
       labels,
       datasets: [
         {
           label: 'Doanh thu thực tế (triệu đ)',
           data: actual,
           borderColor: '#10b981',
-          backgroundColor: 'rgba(16,185,129,0.08)',
-          tension: 0.3, fill: true,
-          pointRadius: 4, pointHoverRadius: 6,
+          backgroundColor: 'rgba(16,185,129,0.75)',
+          borderRadius: 4,
         },
         {
           label: 'Doanh thu dự kiến (triệu đ)',
           data: expected,
           borderColor: '#f97316',
-          backgroundColor: 'rgba(249,115,22,0.06)',
-          tension: 0.3, fill: true,
-          borderDash: [5,4],
-          pointRadius: 4, pointHoverRadius: 6,
+          backgroundColor: 'rgba(249,115,22,0.70)',
+          borderRadius: 4,
+          borderDash: undefined,
         }
       ]
     },
