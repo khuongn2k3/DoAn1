@@ -29,89 +29,67 @@
             <!-- Hàng 1: Số liệu chính -->
             <div class="stats stats-row-1">
               <div class="card card-blue">
-                <div class="card-icon">👥</div>
                 <h3>Khách hàng</h3>
                 <p id="userCount">0</p>
               </div>
               <div class="card card-green">
-                <div class="card-icon">🗺️</div>
                 <h3>Tour đang hiển thị</h3>
                 <p id="tourCount">0</p>
               </div>
               <div class="card card-orange">
-                <div class="card-icon">📋</div>
                 <h3>Tổng đơn đặt</h3>
                 <p id="orderCount">0</p>
               </div>
               <div class="card card-purple">
-                <div class="card-icon">💰</div>
                 <h3>Doanh thu (đã hoàn thành)</h3>
                 <p id="revenueTotal">0 đ</p>
               </div>
             </div>
 
             <!-- Hàng 2: Trạng thái đơn -->
-            <h3 class="stats-subtitle">📊 Trạng thái đơn đặt tour</h3>
+            <h3 class="stats-subtitle">Trạng thái đơn đặt tour</h3>
             <div class="stats stats-row-2">
               <div class="card card-sm card-yellow">
-                <div class="card-icon-sm">⏳</div>
                 <p class="card-label">Chờ xác nhận</p>
                 <p id="orderPending">0</p>
               </div>
               <div class="card card-sm card-cyan">
-                <div class="card-icon-sm">✅</div>
                 <p class="card-label">Đã xác nhận</p>
                 <p id="orderConfirmed">0</p>
               </div>
               <div class="card card-sm card-indigo">
-                <div class="card-icon-sm">🚌</div>
                 <p class="card-label">Đang diễn ra</p>
                 <p id="orderOngoing">0</p>
               </div>
               <div class="card card-sm card-green">
-                <div class="card-icon-sm">🏁</div>
                 <p class="card-label">Đã hoàn thành</p>
                 <p id="orderDone">0</p>
               </div>
               <div class="card card-sm card-red">
-                <div class="card-icon-sm">❌</div>
                 <p class="card-label">Đã hủy</p>
                 <p id="orderCancelled">0</p>
               </div>
             </div>
 
-            <!-- Hàng 3: Tour & loại -->
-            <h3 class="stats-subtitle">🗂️ Thống kê tour</h3>
-            <div class="stats stats-row-2">
-              <div class="card card-sm card-green">
-                <div class="card-icon-sm">👁️</div>
-                <p class="card-label">Tour hiển thị</p>
-                <p id="tourVisible">0</p>
+            <!-- Hàng 3: Biểu đồ -->
+            <h3 class="stats-subtitle">Biểu đồ thống kê</h3>
+            <div class="charts-grid">
+              <div class="chart-card">
+                <h4>Trạng thái đơn đặt tour</h4>
+                <canvas id="chartOrderStatus"></canvas>
               </div>
-              <div class="card card-sm card-red">
-                <div class="card-icon-sm">🙈</div>
-                <p class="card-label">Tour đã ẩn</p>
-                <p id="tourHidden">0</p>
+              <div class="chart-card">
+                <h4>Tour theo loại địa điểm</h4>
+                <canvas id="chartTourType"></canvas>
               </div>
-              <div class="card card-sm card-blue">
-                <div class="card-icon-sm">🏖️</div>
-                <p class="card-label">Tour biển</p>
-                <p id="tourBien">0</p>
-              </div>
-              <div class="card card-sm card-indigo">
-                <div class="card-icon-sm">⛰️</div>
-                <p class="card-label">Tour núi</p>
-                <p id="tourNui">0</p>
-              </div>
-              <div class="card card-sm card-orange">
-                <div class="card-icon-sm">🏙️</div>
-                <p class="card-label">Tour thành phố</p>
-                <p id="tourTP">0</p>
+              <div class="chart-card chart-card-wide">
+                <h4>Top 5 tour được đặt nhiều nhất</h4>
+                <canvas id="chartTopTours"></canvas>
               </div>
             </div>
 
-            <!-- Hàng 4: Top tour phổ biến -->
-            <h3 class="stats-subtitle">🏆 Top tour được đặt nhiều nhất</h3>
+            <!-- Hàng 4: Top tour bảng -->
+            <h3 class="stats-subtitle">Top tour được đặt nhiều nhất</h3>
             <div id="topToursContainer" class="top-tours-grid"></div>
         </section>
 
@@ -426,6 +404,7 @@
       <div id="tourDetailContent"></div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="../config.js"></script>
   <script src="admin_dashboard.js"></script>
   <script src="admin_dashboard_search.js"></script>
