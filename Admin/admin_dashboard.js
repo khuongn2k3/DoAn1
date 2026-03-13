@@ -101,11 +101,6 @@ try {
     document.getElementById('orderCancelled').textContent  = orders.filter(o => o.trangThai === 'DA_HUY').length;
 
     // --- Thống kê tour ---
-    document.getElementById('tourVisible').textContent = tours.filter(t => t.trangThai !== 'Ẩn').length;
-    document.getElementById('tourHidden').textContent  = tours.filter(t => t.trangThai === 'Ẩn').length;
-    document.getElementById('tourBien').textContent    = tours.filter(t => t.loaiDiaDiem === 'Biển').length;
-    document.getElementById('tourNui').textContent     = tours.filter(t => t.loaiDiaDiem === 'Núi').length;
-    document.getElementById('tourTP').textContent      = tours.filter(t => t.loaiDiaDiem === 'Thành phố').length;
 
     // --- Top tour phổ biến ---
     const tourOrderCount = {};
