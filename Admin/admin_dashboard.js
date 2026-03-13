@@ -141,6 +141,16 @@ try {
       });
     }
 
+    // --- VẼ BIỂU ĐỒ ---
+    renderCharts({
+      pending:   orders.filter(o => o.trangThai === 'CHO_XAC_NHAN').length,
+      confirmed: orders.filter(o => o.trangThai === 'DA_XAC_NHAN').length,
+      ongoing:   orders.filter(o => o.trangThai === 'DANG_DIEN_RA').length,
+      done:      orders.filter(o => o.trangThai === 'DA_HOAN_THANH').length,
+      cancelled: orders.filter(o => o.trangThai === 'DA_HUY').length,
+    }, tours, topTours);
+
+
   const userList = document.getElementById('userList');
     userList.innerHTML = '';
     users.forEach(u => {
@@ -669,4 +679,123 @@ function xoaDatTour(id, btn) {
     }
   })
   .catch(err => console.error('Lỗi khi xóa:', err));
+}
+// ===== BIỂU ĐỒ CHART.JS =====
+let chartOrderStatusInst = null;
+let chartTourTypeInst    = null;
+let chartTopToursInst    = null;
+
+function renderCharts(orderStats, tours, topTours) {
+  // Màu sắc chung
+  const colors = {
+    yellow:  '#f1c40f',
+    cyan:    '#1abc9c',
+    indigo:  '#5c6bc0',
+    green:   '#2ecc71',
+    red:     '#e74c3c',
+    blue:    '#3498db',
+    orange:  '#e67e22',
+    purple:  '#9b59b6',
+  };
+
+  // 1. Biểu đồ tròn - Trạng thái đơn
+  if (chartOrderStatusInst) chartOrderStatusInst.destroy();
+  const ctx1 = document.getElementById('chartOrderStatus').getContext('2d');
+  chartOrderStatusInst = new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+      labels: ['Chờ xác nhận', 'Đã xác nhận', 'Đang diễn ra', 'Đã hoàn thành', 'Đã hủy'],
+      datasets: [{
+        data: [orderStats.pending, orderStats.confirmed, orderStats.ongoing, orderStats.done, orderStats.cancelled],
+        backgroundColor: [colors.yellow, colors.cyan, colors.indigo, colors.green, colors.red],
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.parsed} đơn`
+          }
+        }
+      }
+    }
+  });
+
+  // 2. Biểu đồ tròn - Loại địa điểm tour
+  if (chartTourTypeInst) chartTourTypeInst.destroy();
+  const loaiList = ['Biển', 'Núi', 'Rừng', 'Thành phố', 'Khác'];
+  const loaiColors = [colors.blue, colors.indigo, colors.green, colors.orange, colors.purple];
+  const loaiData = loaiList.map(l => tours.filter(t => t.loaiDiaDiem === l).length);
+  const ctx2 = document.getElementById('chartTourType').getContext('2d');
+  chartTourTypeInst = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+      labels: loaiList,
+      datasets: [{
+        data: loaiData,
+        backgroundColor: loaiColors,
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.parsed} tour`
+          }
+        }
+      }
+    }
+  });
+
+  // 3. Biểu đồ cột - Top 5 tour
+  if (chartTopToursInst) chartTopToursInst.destroy();
+  if (topTours.length === 0) return;
+  const ctx3 = document.getElementById('chartTopTours').getContext('2d');
+  chartTopToursInst = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: topTours.map(t => t.name.length > 25 ? t.name.slice(0, 25) + '...' : t.name),
+      datasets: [
+        {
+          label: 'Số đơn đặt',
+          data: topTours.map(t => t.count),
+          backgroundColor: colors.blue,
+          borderRadius: 6,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Doanh thu (nghìn đ)',
+          data: topTours.map(t => Math.round(t.revenue / 1000)),
+          backgroundColor: colors.green,
+          borderRadius: 6,
+          yAxisID: 'y1',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 12 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.datasetIndex === 0
+              ? ` ${ctx.parsed.y} đơn`
+              : ` ${ctx.parsed.y.toLocaleString()} nghìn đ`
+          }
+        }
+      },
+      scales: {
+        y:  { beginAtZero: true, position: 'left',  ticks: { stepSize: 1 }, title: { display: true, text: 'Số đơn' } },
+        y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Doanh thu (nghìn đ)' } }
+      }
+    }
+  });
 }
