@@ -93,12 +93,14 @@ try {
       .reduce((sum, o) => sum + (o.tongTien || 0), 0);
     document.getElementById('revenueTotal').textContent = revenue.toLocaleString('vi-VN') + ' đ';
 
+    // Doanh thu dự kiến (DA_XAC_NHAN + DANG_DIEN_RA)
+    const revenueExpected = orders
+      .filter(o => o.trangThai === 'DA_XAC_NHAN' || o.trangThai === 'DANG_DIEN_RA')
+      .reduce((sum, o) => sum + (o.tongTien || 0), 0);
+    document.getElementById('revenueExpected').textContent = revenueExpected.toLocaleString('vi-VN') + ' đ';
+
     // --- Trạng thái đơn ---
-    document.getElementById('orderPending').textContent    = orders.filter(o => o.trangThai === 'CHO_XAC_NHAN').length;
-    document.getElementById('orderConfirmed').textContent  = orders.filter(o => o.trangThai === 'DA_XAC_NHAN').length;
-    document.getElementById('orderOngoing').textContent    = orders.filter(o => o.trangThai === 'DANG_DIEN_RA').length;
-    document.getElementById('orderDone').textContent       = orders.filter(o => o.trangThai === 'DA_HOAN_THANH').length;
-    document.getElementById('orderCancelled').textContent  = orders.filter(o => o.trangThai === 'DA_HUY').length;
+
 
     // --- Thống kê tour ---
 
@@ -108,14 +110,16 @@ try {
       const tid = o.tourId?._id || o.tourId;
       const tname = o.tourId?.tenTour || 'Không rõ';
       if (!tid) return;
-      if (!tourOrderCount[tid]) tourOrderCount[tid] = { name: tname, count: 0, revenue: 0 };
+      if (!tourOrderCount[tid]) tourOrderCount[tid] = { name: tname, count: 0, revenueActual: 0, revenueExpected: 0 };
       tourOrderCount[tid].count++;
-      tourOrderCount[tid].revenue += o.tongTien || 0;
+      if (o.trangThai === 'DA_HOAN_THANH') tourOrderCount[tid].revenueActual += o.tongTien || 0;
+      if (o.trangThai === 'DA_XAC_NHAN' || o.trangThai === 'DANG_DIEN_RA') tourOrderCount[tid].revenueExpected += o.tongTien || 0;
     });
     const topTours = Object.values(tourOrderCount)
       .sort((a, b) => b.count - a.count)
       .slice(0, 5);
     const topContainer = document.getElementById('topToursContainer');
+    if (!topContainer) return;
     topContainer.innerHTML = '';
     if (topTours.length === 0) {
       topContainer.innerHTML = '<p style="color:#999">Chưa có đơn đặt nào.</p>';
@@ -129,14 +133,17 @@ try {
           <div class="top-tour-name">${t.name}</div>
           <div class="top-tour-meta">
             <span>📋 ${t.count} đơn</span>
-            <span>💰 ${t.revenue.toLocaleString('vi-VN')} đ</span>
+            <span>Thực tế: ${t.revenueActual.toLocaleString('vi-VN')} đ</span>
+            <span>Dự kiến: ${t.revenueExpected.toLocaleString('vi-VN')} đ</span>
           </div>
         `;
         topContainer.appendChild(card);
       });
     }
 
-    // --- VẼ BIỂU ĐỒ ---
+    // --- LƯU DATA TOÀN CỤC & VẼ BIỂU ĐỒ ---
+    _allOrders = orders;
+    _allTours  = tours;
     renderCharts({
       pending:   orders.filter(o => o.trangThai === 'CHO_XAC_NHAN').length,
       confirmed: orders.filter(o => o.trangThai === 'DA_XAC_NHAN').length,
@@ -144,6 +151,7 @@ try {
       done:      orders.filter(o => o.trangThai === 'DA_HOAN_THANH').length,
       cancelled: orders.filter(o => o.trangThai === 'DA_HUY').length,
     }, tours, topTours);
+    updateRevenueChart();
 
 
   const userList = document.getElementById('userList');
@@ -675,121 +683,280 @@ function xoaDatTour(id, btn) {
   })
   .catch(err => console.error('Lỗi khi xóa:', err));
 }
+
 // ===== BIỂU ĐỒ CHART.JS =====
-let chartOrderStatusInst = null;
-let chartTourTypeInst    = null;
-let chartTopToursInst    = null;
+let _charts = {};
+let _allOrders = [], _allTours = [], _allTopTours = [];
+
+function destroyChart(key) {
+  if (_charts[key]) { _charts[key].destroy(); delete _charts[key]; }
+}
 
 function renderCharts(orderStats, tours, topTours) {
-  // Màu sắc chung
-  const colors = {
-    yellow:  '#f1c40f',
-    cyan:    '#1abc9c',
-    indigo:  '#5c6bc0',
-    green:   '#2ecc71',
-    red:     '#e74c3c',
-    blue:    '#3498db',
-    orange:  '#e67e22',
-    purple:  '#9b59b6',
+  _allTopTours = topTours;
+
+  const P = {
+    yellow:  '#f59e0b',
+    cyan:    '#06b6d4',
+    indigo:  '#6366f1',
+    green:   '#10b981',
+    red:     '#ef4444',
+    blue:    '#3b82f6',
+    orange:  '#f97316',
+    purple:  '#8b5cf6',
+    slate:   '#64748b',
   };
 
-  // 1. Biểu đồ tròn - Trạng thái đơn
-  if (chartOrderStatusInst) chartOrderStatusInst.destroy();
+  // ---- 1. Doughnut: trạng thái đơn ----
+  destroyChart('orderStatus');
   const ctx1 = document.getElementById('chartOrderStatus').getContext('2d');
-  chartOrderStatusInst = new Chart(ctx1, {
+  _charts.orderStatus = new Chart(ctx1, {
     type: 'doughnut',
     data: {
       labels: ['Chờ xác nhận', 'Đã xác nhận', 'Đang diễn ra', 'Đã hoàn thành', 'Đã hủy'],
       datasets: [{
         data: [orderStats.pending, orderStats.confirmed, orderStats.ongoing, orderStats.done, orderStats.cancelled],
-        backgroundColor: [colors.yellow, colors.cyan, colors.indigo, colors.green, colors.red],
-        borderWidth: 2,
-        borderColor: '#fff',
+        backgroundColor: [P.yellow, P.cyan, P.indigo, P.green, P.red],
+        borderWidth: 2, borderColor: '#fff',
       }]
     },
     options: {
-      responsive: true,
+      responsive: true, cutout: '62%',
       plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.parsed} đơn`
-          }
-        }
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed} đơn` } },
+        datalabels: false,
       }
-    }
+    },
+    plugins: [{
+      id: 'centerLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx, data } = chart;
+        chart.getDatasetMeta(0).data.forEach((arc, i) => {
+          const val = data.datasets[0].data[i];
+          if (!val) return;
+          const { x, y } = arc.tooltipPosition();
+          ctx.save();
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 12px Be Vietnam Pro, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(val, x, y);
+          ctx.restore();
+        });
+      }
+    }]
   });
 
-  // 2. Biểu đồ tròn - Loại địa điểm tour
-  if (chartTourTypeInst) chartTourTypeInst.destroy();
-  const loaiList = ['Biển', 'Núi', 'Rừng', 'Thành phố', 'Khác'];
-  const loaiColors = [colors.blue, colors.indigo, colors.green, colors.orange, colors.purple];
-  const loaiData = loaiList.map(l => tours.filter(t => t.loaiDiaDiem === l).length);
+  // ---- 2. Pie: loại địa điểm ----
+  destroyChart('tourType');
+  const loaiList   = ['Biển', 'Núi', 'Rừng', 'Thành phố', 'Khác'];
+  const loaiColors = [P.blue, P.indigo, P.green, P.orange, P.slate];
+  const loaiData   = loaiList.map(l => tours.filter(t => t.loaiDiaDiem === l).length);
   const ctx2 = document.getElementById('chartTourType').getContext('2d');
-  chartTourTypeInst = new Chart(ctx2, {
+  _charts.tourType = new Chart(ctx2, {
     type: 'pie',
     data: {
       labels: loaiList,
       datasets: [{
         data: loaiData,
         backgroundColor: loaiColors,
-        borderWidth: 2,
-        borderColor: '#fff',
+        borderWidth: 2, borderColor: '#fff',
       }]
     },
     options: {
       responsive: true,
       plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.parsed} tour`
-          }
-        }
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed} tour` } },
       }
-    }
+    },
+    plugins: [{
+      id: 'pieLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx, data } = chart;
+        chart.getDatasetMeta(0).data.forEach((arc, i) => {
+          const val = data.datasets[0].data[i];
+          if (!val) return;
+          const { x, y } = arc.tooltipPosition();
+          ctx.save();
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 12px Be Vietnam Pro, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(val, x, y);
+          ctx.restore();
+        });
+      }
+    }]
   });
 
-  // 3. Biểu đồ cột - Top 5 tour
-  if (chartTopToursInst) chartTopToursInst.destroy();
-  if (topTours.length === 0) return;
-  const ctx3 = document.getElementById('chartTopTours').getContext('2d');
-  chartTopToursInst = new Chart(ctx3, {
-    type: 'bar',
-    data: {
-      labels: topTours.map(t => t.name.length > 25 ? t.name.slice(0, 25) + '...' : t.name),
-      datasets: [
-        {
+  // ---- 3. Horizontal bar: top 5 theo số đơn ----
+  destroyChart('topByOrder');
+  if (topTours.length > 0) {
+    const ctx3 = document.getElementById('chartTopByOrder').getContext('2d');
+    const labels3 = topTours.map(t => t.name.length > 28 ? t.name.slice(0,28)+'…' : t.name);
+    _charts.topByOrder = new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: labels3,
+        datasets: [{
           label: 'Số đơn đặt',
           data: topTours.map(t => t.count),
-          backgroundColor: colors.blue,
-          borderRadius: 6,
-          yAxisID: 'y',
+          backgroundColor: P.blue + 'cc',
+          borderColor: P.blue,
+          borderWidth: 1,
+          borderRadius: 4,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: c => ` ${c.parsed.x} đơn` } }
+        },
+        scales: {
+          x: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } },
+          y: { ticks: { font: { size: 12 } }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  // ---- 4. Horizontal bar: top 5 doanh thu thực tế vs dự kiến ----
+  destroyChart('topByRevenue');
+  if (topTours.length > 0) {
+    const ctx4 = document.getElementById('chartTopByRevenue').getContext('2d');
+    const labels4 = topTours.map(t => t.name.length > 28 ? t.name.slice(0,28)+'…' : t.name);
+    _charts.topByRevenue = new Chart(ctx4, {
+      type: 'bar',
+      data: {
+        labels: labels4,
+        datasets: [
+          {
+            label: 'Thực tế',
+            data: topTours.map(t => Math.round(t.revenueActual / 1000)),
+            backgroundColor: P.green + 'cc',
+            borderColor: P.green,
+            borderWidth: 1,
+            borderRadius: 4,
+          },
+          {
+            label: 'Dự kiến',
+            data: topTours.map(t => Math.round(t.revenueExpected / 1000)),
+            backgroundColor: P.orange + 'cc',
+            borderColor: P.orange,
+            borderWidth: 1,
+            borderRadius: 4,
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { position: 'top', labels: { font: { size: 12 }, padding: 12 } },
+          tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.x.toLocaleString()} nghìn đ` } }
+        },
+        scales: {
+          x: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'nghìn đồng' } },
+          y: { ticks: { font: { size: 12 } }, grid: { display: false } }
+        }
+      }
+    });
+  }
+}
+
+// ---- 5. Biểu đồ đường doanh thu theo thời gian ----
+function buildRevenueLineData(orders, groupBy, from, to) {
+  const actualOrders   = orders.filter(o => o.trangThai === 'DA_HOAN_THANH');
+  const expectedOrders = orders.filter(o => o.trangThai === 'DA_XAC_NHAN' || o.trangThai === 'DANG_DIEN_RA');
+
+  const fromDate = from ? new Date(from) : null;
+  const toDate   = to   ? new Date(to)   : null;
+
+  function getKey(dateStr) {
+    const d = new Date(dateStr);
+    if (groupBy === 'day')   return d.toISOString().slice(0,10);
+    if (groupBy === 'month') return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    return String(d.getFullYear());
+  }
+
+  function inRange(dateStr) {
+    const d = new Date(dateStr);
+    if (fromDate && d < fromDate) return false;
+    if (toDate   && d > toDate)   return false;
+    return true;
+  }
+
+  const actualMap = {}, expectedMap = {};
+
+  actualOrders.forEach(o => {
+    if (!o.ngayDat || !inRange(o.ngayDat)) return;
+    const k = getKey(o.ngayDat);
+    actualMap[k] = (actualMap[k] || 0) + (o.tongTien || 0);
+  });
+
+  expectedOrders.forEach(o => {
+    if (!o.ngayKhoiHanh || !inRange(o.ngayKhoiHanh)) return;
+    const k = getKey(o.ngayKhoiHanh);
+    expectedMap[k] = (expectedMap[k] || 0) + (o.tongTien || 0);
+  });
+
+  const allKeys = [...new Set([...Object.keys(actualMap), ...Object.keys(expectedMap)])].sort();
+
+  return {
+    labels: allKeys,
+    actual:   allKeys.map(k => Math.round((actualMap[k]   || 0) / 1000)),
+    expected: allKeys.map(k => Math.round((expectedMap[k] || 0) / 1000)),
+  };
+}
+
+function updateRevenueChart() {
+  const groupBy = document.getElementById('revenueGroupBy').value;
+  const from    = document.getElementById('revenueFrom').value;
+  const to      = document.getElementById('revenueTo').value;
+
+  const { labels, actual, expected } = buildRevenueLineData(_allOrders, groupBy, from, to);
+
+  destroyChart('revenueLine');
+  const ctx = document.getElementById('chartRevenueLine').getContext('2d');
+  _charts.revenueLine = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Doanh thu thực tế (nghìn đ)',
+          data: actual,
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16,185,129,0.08)',
+          tension: 0.3, fill: true,
+          pointRadius: 4, pointHoverRadius: 6,
         },
         {
-          label: 'Doanh thu (nghìn đ)',
-          data: topTours.map(t => Math.round(t.revenue / 1000)),
-          backgroundColor: colors.green,
-          borderRadius: 6,
-          yAxisID: 'y1',
+          label: 'Doanh thu dự kiến (nghìn đ)',
+          data: expected,
+          borderColor: '#f97316',
+          backgroundColor: 'rgba(249,115,22,0.06)',
+          tension: 0.3, fill: true,
+          borderDash: [5,4],
+          pointRadius: 4, pointHoverRadius: 6,
         }
       ]
     },
     options: {
       responsive: true,
       plugins: {
-        legend: { position: 'top', labels: { font: { size: 12 } } },
+        legend: { position: 'top', labels: { font: { size: 12 }, padding: 14 } },
         tooltip: {
-          callbacks: {
-            label: ctx => ctx.datasetIndex === 0
-              ? ` ${ctx.parsed.y} đơn`
-              : ` ${ctx.parsed.y.toLocaleString()} nghìn đ`
-          }
+          callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.y.toLocaleString()} nghìn đ` }
         }
       },
       scales: {
-        y:  { beginAtZero: true, position: 'left',  ticks: { stepSize: 1 }, title: { display: true, text: 'Số đơn' } },
-        y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Doanh thu (nghìn đ)' } }
+        x: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 12 } } },
+        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'nghìn đồng' } }
       }
     }
   });
