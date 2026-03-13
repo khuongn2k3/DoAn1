@@ -26,8 +26,8 @@
         <section id="overview" class="tab-content active">
             <h2>Tổng quan</h2>
 
-            <!-- Hàng 1: Số liệu chính -->
-            <div class="stats stats-row-1">
+            <!-- KPI Cards -->
+            <div class="stats">
               <div class="card card-blue">
                 <h3>Khách hàng</h3>
                 <p id="userCount">0</p>
@@ -41,38 +41,19 @@
                 <p id="orderCount">0</p>
               </div>
               <div class="card card-purple">
-                <h3>Doanh thu (đã hoàn thành)</h3>
+                <h3>Doanh thu thực tế</h3>
                 <p id="revenueTotal">0 đ</p>
+                <small>Đã hoàn thành</small>
+              </div>
+              <div class="card card-orange2">
+                <h3>Doanh thu dự kiến</h3>
+                <p id="revenueExpected">0 đ</p>
+                <small>Đã xác nhận + Đang diễn ra</small>
               </div>
             </div>
 
-            <!-- Hàng 2: Trạng thái đơn -->
-            <h3 class="stats-subtitle">Trạng thái đơn đặt tour</h3>
-            <div class="stats stats-row-2">
-              <div class="card card-sm card-yellow">
-                <p class="card-label">Chờ xác nhận</p>
-                <p id="orderPending">0</p>
-              </div>
-              <div class="card card-sm card-cyan">
-                <p class="card-label">Đã xác nhận</p>
-                <p id="orderConfirmed">0</p>
-              </div>
-              <div class="card card-sm card-indigo">
-                <p class="card-label">Đang diễn ra</p>
-                <p id="orderOngoing">0</p>
-              </div>
-              <div class="card card-sm card-green">
-                <p class="card-label">Đã hoàn thành</p>
-                <p id="orderDone">0</p>
-              </div>
-              <div class="card card-sm card-red">
-                <p class="card-label">Đã hủy</p>
-                <p id="orderCancelled">0</p>
-              </div>
-            </div>
-
-            <!-- Hàng 3: Biểu đồ -->
-            <h3 class="stats-subtitle">Biểu đồ thống kê</h3>
+            <!-- Biểu đồ hàng 1: 2 tròn + 2 ngang -->
+            <p class="stats-subtitle">Phân tích đơn &amp; tour</p>
             <div class="charts-grid">
               <div class="chart-card">
                 <h4>Trạng thái đơn đặt tour</h4>
@@ -82,15 +63,34 @@
                 <h4>Tour theo loại địa điểm</h4>
                 <canvas id="chartTourType"></canvas>
               </div>
-              <div class="chart-card chart-card-wide">
-                <h4>Top 5 tour được đặt nhiều nhất</h4>
-                <canvas id="chartTopTours"></canvas>
+              <div class="chart-card">
+                <h4>Top 5 tour theo số đơn đặt</h4>
+                <canvas id="chartTopByOrder"></canvas>
+              </div>
+              <div class="chart-card">
+                <h4>Top 5 tour theo doanh thu</h4>
+                <canvas id="chartTopByRevenue"></canvas>
               </div>
             </div>
 
-            <!-- Hàng 4: Top tour bảng -->
-            <h3 class="stats-subtitle">Top tour được đặt nhiều nhất</h3>
-            <div id="topToursContainer" class="top-tours-grid"></div>
+            <!-- Biểu đồ đường doanh thu theo thời gian -->
+            <p class="stats-subtitle">Doanh thu theo thời gian</p>
+            <div class="chart-card chart-card-wide" style="margin-bottom:24px;">
+              <div class="chart-filter">
+                <label>Xem theo:</label>
+                <select id="revenueGroupBy">
+                  <option value="month">Tháng</option>
+                  <option value="day">Ngày</option>
+                  <option value="year">Năm</option>
+                </select>
+                <label>Từ:</label>
+                <input type="date" id="revenueFrom" />
+                <label>Đến:</label>
+                <input type="date" id="revenueTo" />
+                <button onclick="updateRevenueChart()">Áp dụng</button>
+              </div>
+              <canvas id="chartRevenueLine"></canvas>
+            </div>
         </section>
 
         <section id="users" class="tab-content">
