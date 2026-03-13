@@ -837,7 +837,7 @@ function renderCharts(orderStats, tours, topTours) {
         datasets: [
           {
             label: 'Thực tế',
-            data: topTours.map(t => Math.round(t.revenueActual / 1000)),
+            data: topTours.map(t => Math.round(t.revenueActual / 1000000 * 10) / 10),
             backgroundColor: P.green + 'cc',
             borderColor: P.green,
             borderWidth: 1,
@@ -845,7 +845,7 @@ function renderCharts(orderStats, tours, topTours) {
           },
           {
             label: 'Dự kiến',
-            data: topTours.map(t => Math.round(t.revenueExpected / 1000)),
+            data: topTours.map(t => Math.round(t.revenueExpected / 1000000 * 10) / 10),
             backgroundColor: P.orange + 'cc',
             borderColor: P.orange,
             borderWidth: 1,
@@ -858,10 +858,10 @@ function renderCharts(orderStats, tours, topTours) {
         responsive: true,
         plugins: {
           legend: { position: 'top', labels: { font: { size: 12 }, padding: 12 } },
-          tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.x.toLocaleString()} nghìn đ` } }
+          tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.x} triệu đ` } }
         },
         scales: {
-          x: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'nghìn đồng' } },
+          x: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'triệu đồng' } },
           y: { ticks: { font: { size: 12 } }, grid: { display: false } }
         }
       }
@@ -909,8 +909,8 @@ function buildRevenueLineData(orders, groupBy, from, to) {
 
   return {
     labels: allKeys,
-    actual:   allKeys.map(k => Math.round((actualMap[k]   || 0) / 1000)),
-    expected: allKeys.map(k => Math.round((expectedMap[k] || 0) / 1000)),
+    actual:   allKeys.map(k => Math.round((actualMap[k]   || 0) / 1000000 * 10) / 10),
+    expected: allKeys.map(k => Math.round((expectedMap[k] || 0) / 1000000 * 10) / 10),
   };
 }
 
@@ -929,7 +929,7 @@ function updateRevenueChart() {
       labels,
       datasets: [
         {
-          label: 'Doanh thu thực tế (nghìn đ)',
+          label: 'Doanh thu thực tế (triệu đ)',
           data: actual,
           borderColor: '#10b981',
           backgroundColor: 'rgba(16,185,129,0.08)',
@@ -937,7 +937,7 @@ function updateRevenueChart() {
           pointRadius: 4, pointHoverRadius: 6,
         },
         {
-          label: 'Doanh thu dự kiến (nghìn đ)',
+          label: 'Doanh thu dự kiến (triệu đ)',
           data: expected,
           borderColor: '#f97316',
           backgroundColor: 'rgba(249,115,22,0.06)',
@@ -952,12 +952,12 @@ function updateRevenueChart() {
       plugins: {
         legend: { position: 'top', labels: { font: { size: 12 }, padding: 14 } },
         tooltip: {
-          callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.y.toLocaleString()} nghìn đ` }
+          callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.y} triệu đ` }
         }
       },
       scales: {
         x: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 12 } } },
-        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'nghìn đồng' } }
+        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'triệu đồng' } }
       }
     }
   });
