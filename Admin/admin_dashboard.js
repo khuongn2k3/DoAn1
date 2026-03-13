@@ -119,12 +119,12 @@ try {
       .sort((a, b) => b.count - a.count)
       .slice(0, 5);
     const topContainer = document.getElementById('topToursContainer');
-    if (!topContainer) return;
-    topContainer.innerHTML = '';
-    if (topTours.length === 0) {
-      topContainer.innerHTML = '<p style="color:#999">Chưa có đơn đặt nào.</p>';
-    } else {
-      topTours.forEach((t, i) => {
+    if (topContainer) {
+      topContainer.innerHTML = '';
+      if (topTours.length === 0) {
+        topContainer.innerHTML = '<p style="color:#999">Chưa có đơn đặt nào.</p>';
+      } else {
+        topTours.forEach((t, i) => {
         const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
         const card = document.createElement('div');
         card.className = 'top-tour-card';
@@ -138,7 +138,8 @@ try {
           </div>
         `;
         topContainer.appendChild(card);
-      });
+        });
+      }
     }
 
     // --- LƯU DATA TOÀN CỤC & VẼ BIỂU ĐỒ ---
