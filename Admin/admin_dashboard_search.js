@@ -1,13 +1,3 @@
-// ===== HELPER: REMOVE VIETNAMESE ACCENT =====
-function normalizeText(str) {
-  return (str || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/đ/g, "d")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const allSearchInputs = document.querySelectorAll('[data-type]');
 
@@ -27,10 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-// ================= USER =================
 async function searchUser() {
-  const keyword = normalizeText(document.getElementById("searchUserKeyword").value);
+  const keyword = document.getElementById("searchUserKeyword").value.toLowerCase().trim();
 
   try {
     const response = await fetch(`${API_BASE_URL}/api_khachhang`);
@@ -43,23 +31,20 @@ async function searchUser() {
     }
 
     const filteredUsers = users.filter(user =>
-      normalizeText(user.hoTen).includes(keyword) ||
-      normalizeText(user.email).includes(keyword) ||
-      normalizeText(user.soDienThoai).includes(keyword)
+      user.hoTen?.toLowerCase().includes(keyword) ||
+      user.email?.toLowerCase().includes(keyword) ||
+      user.soDienThoai?.toLowerCase().includes(keyword)
     );
 
     renderUserList(filteredUsers);
   } catch (error) {
     console.error("Lỗi khi tìm kiếm khách hàng:", error);
-    alert("Lỗi tải dữ liệu khách hàng");
   }
 }
-
 function clearSearchUser() {
   document.getElementById("searchUserKeyword").value = "";
   searchUser();
 }
-
 function renderUserList(users) {
   const tbody = document.getElementById("userList");
   tbody.innerHTML = "";
@@ -83,57 +68,41 @@ function renderUserList(users) {
     tbody.appendChild(row);
   });
 }
-
-// ================= TOUR =================
 async function searchTourDropdown() {
-  const keywordRaw = document.getElementById("searchKeyword").value.trim();
-  const keyword = normalizeText(keywordRaw);
-
+  const keyword = document.getElementById("searchKeyword").value.trim();
   const loaiDiaDiem = document.getElementById("searchLoaiDiaDiem").value;
   const loaiTour = document.getElementById("searchLoaiTour").value;
   const trangThai = document.getElementById("searchTrangThai").value;
 
-  const isEmptySearch = !keywordRaw && !loaiDiaDiem && !loaiTour && !trangThai;
+  const params = new URLSearchParams();
+  if (keyword) params.append("tenTour", keyword);
+  if (loaiDiaDiem) params.append("loaiDiaDiem", loaiDiaDiem);
+  if (loaiTour) params.append("loaiTour", loaiTour);
+  if (trangThai) params.append("trangThai", trangThai);
+
+  const isEmptySearch = !keyword && !loaiDiaDiem && !loaiTour && !trangThai;
   if (isEmptySearch) {
     loadData(); 
     return;
   }
-
   try {
-    const res = await fetch(`${API_BASE_URL}/api_tour`);
-    const tours = await res.json();
+    const res = await fetch(`${API_BASE_URL}/api_tour/search?${params.toString()}`);
+    if (!res.ok) throw new Error("Lỗi tìm kiếm");
 
-    const filtered = tours.filter(t => {
-      const matchKeyword =
-        !keyword ||
-        normalizeText(t.tenTour).includes(keyword) ||
-        normalizeText(t.diemDen).includes(keyword) ||
-        normalizeText(t.diemKhoiHanh).includes(keyword);
-
-      const matchLoaiDiaDiem = !loaiDiaDiem || t.loaiDiaDiem === loaiDiaDiem;
-      const matchLoaiTour = !loaiTour || t.loaiTour === loaiTour;
-      const matchTrangThai = !trangThai || t.trangThai === trangThai;
-
-      return matchKeyword && matchLoaiDiaDiem && matchLoaiTour && matchTrangThai;
-    });
-
-    renderTourList(filtered);
-
+    const data = await res.json();
+    renderTourList(data);
   } catch (err) {
     console.error("Lỗi khi tìm kiếm:", err);
-    alert("Lỗi kết nối server (tour)");
     renderTourList([]);
   }
 }
-
 function clearSearchTourFilter() {
   document.getElementById("searchKeyword").value = "";
   document.getElementById("searchLoaiDiaDiem").value = "";
   document.getElementById("searchLoaiTour").value = "";
   document.getElementById("searchTrangThai").value = "";
-  loadData();
+  searchTourDropdown();
 }
-
 function renderTourList(tours) {
   const tourList = document.getElementById('tourList');
   tourList.innerHTML = "";
@@ -185,10 +154,8 @@ function renderTourList(tours) {
     tourList.appendChild(row);
   });
 }
-
-// ================= ORDER =================
 async function searchOrderDropdown() {
-  const keyword = normalizeText(document.getElementById("searchOrderKeyword").value);
+  const keyword = document.getElementById("searchOrderKeyword").value.trim().toLowerCase();
   const trangThai = document.getElementById("searchOrderStatus").value;
   const tuNgay = document.getElementById("searchTuNgay").value;
   const denNgay = document.getElementById("searchDenNgay").value;
@@ -211,40 +178,29 @@ async function searchOrderDropdown() {
       const tour = order.tourId || {};
       const khachHang = order.khachHangId || {};
 
-      const keywordMatch = !keyword || (
-        normalizeText(tour.tenTour).includes(keyword) ||
-        normalizeText(tour.diemDen).includes(keyword) ||
-        normalizeText(khachHang?.hoTen).includes(keyword)
+      const keywordMatch = keyword === "" || (
+        (tour.tenTour && tour.tenTour.toLowerCase().includes(keyword)) ||
+        (tour.diemDen && tour.diemDen.toLowerCase().includes(keyword)) ||
+        (khachHang?.hoTen && khachHang.hoTen.toLowerCase().includes(keyword))
       );
 
       const statusMatch = !trangThai || order.trangThai === trangThai;
-
-      const d = new Date(order.ngayKhoiHanh);
-      const dateStr = d.getFullYear() + "-" +
-        String(d.getMonth()+1).padStart(2,'0') + "-" +
-        String(d.getDate()).padStart(2,'0');
-
       const dateMatch =
-        (!tuNgay || dateStr >= tuNgay) &&
-        (!denNgay || dateStr <= denNgay);
-
+        (!tuNgay || new Date(order.ngayKhoiHanh).toISOString().slice(0, 10) >= tuNgay) &&
+        (!denNgay || new Date(order.ngayKhoiHanh).toISOString().slice(0, 10) <= denNgay);
       const loaiMatch = !loaiTour || tour.loaiTour === loaiTour;
-
       const dichVuMatch = !dichVuThem || (
-        order.dichVuThem &&
         order.dichVuThem.some(dv => dv.ten === dichVuThem)
       );
 
-      return keywordMatch && statusMatch && dateMatch && loaiMatch && dichVuMatch;
+      return keywordMatch && statusMatch && dateMatch && loaiMatch  && dichVuMatch;
     });
 
     renderOrderList(filtered);
   } catch (err) {
     console.error("Lỗi khi tải/lọc đặt tour:", err);
-    alert("Lỗi tải dữ liệu đơn đặt");
   }
 }
-
 function clearOrderFilter() {
   document.getElementById("searchOrderKeyword").value = "";
   document.getElementById("searchOrderStatus").value = "";
@@ -252,5 +208,41 @@ function clearOrderFilter() {
   document.getElementById("searchDenNgay").value = "";
   document.getElementById("searchLoaiTour_Order").value = "";
   document.getElementById("searchDichVuThem").value = "";
-  loadData();
+  searchOrderDropdown()
 }
+function renderOrderList(orders) {
+  const tbody = document.getElementById("orderList");
+  tbody.innerHTML = "";
+
+  if (!orders.length) {
+    tbody.innerHTML = "<tr><td colspan='5'>Không có dữ liệu</td></tr>";
+    return;
+  }
+
+  orders.forEach(o => {
+    const tour = o.tourId || {};
+    const khach = o.khachHangId || {};
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${khach.hoTen || '---'}</td>
+      <td>${tour.tenTour || '---'}</td>
+      <td>${new Date(o.ngayDat).toLocaleDateString()}</td>
+      <td>
+        <select onchange="doiTrangThaiDatTour('${o._id}', this.value)">
+          <option value="CHO_XAC_NHAN" ${o.trangThai === 'CHO_XAC_NHAN' ? 'selected' : ''}>Chờ xác nhận</option>
+          <option value="DA_XAC_NHAN" ${o.trangThai === 'DA_XAC_NHAN' ? 'selected' : ''}>Đã xác nhận</option>
+          <option value="DANG_DIEN_RA" ${o.trangThai === 'DANG_DIEN_RA' ? 'selected' : ''}>Đang diễn ra</option>
+          <option value="DA_HOAN_THANH" ${o.trangThai === 'DA_HOAN_THANH' ? 'selected' : ''}>Đã hoàn thành</option>
+          <option value="DA_HUY" ${o.trangThai === 'DA_HUY' ? 'selected' : ''}>Đã hủy</option>
+        </select>
+      </td>
+      <td>
+        <button onclick="xemChiTietTour('${tour._id || ''}')">Chi tiết tour</button>
+        <button onclick='xemChiTietDatTour(${JSON.stringify(o).replace(/'/g, "\\'")})'>Chi tiết đặt</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
