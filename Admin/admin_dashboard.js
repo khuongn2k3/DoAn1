@@ -408,6 +408,98 @@ document.getElementById('tourForm').addEventListener('submit', async function (e
   e.preventDefault();
 
   const form = e.target;
+  
+  // ===== VALIDATION =====
+  
+  // 1. Tên tour
+  const tenTour = form.elements['tenTour'].value.trim();
+  if (!tenTour) {
+    alert('Tên tour không được để trống!');
+    return;
+  }
+  if (tenTour.length < 3) {
+    alert('Tên tour phải có ít nhất 3 ký tự!');
+    return;
+  }
+
+  // 2. Loại địa điểm
+  const loaiDiaDiem = form.elements['loaiDiaDiem'].value.trim();
+  if (!loaiDiaDiem) {
+    alert('Loại địa điểm không được để trống!');
+    return;
+  }
+
+  // 3. Phương tiện (phải chọn ít nhất 1)
+  const phuongTienChecked = form.querySelectorAll('input[name="phuongTien"]:checked');
+  if (phuongTienChecked.length === 0) {
+    alert('Vui lòng chọn ít nhất một phương tiện!');
+    return;
+  }
+
+  // 4. Điểm khởi hành
+  const diemKhoiHanh = form.elements['diemKhoiHanh'].value.trim();
+  if (!diemKhoiHanh) {
+    alert('Điểm khởi hành không được để trống!');
+    return;
+  }
+
+  // 5. Điểm đến
+  const diemDen = form.elements['diemDen'].value.trim();
+  if (!diemDen) {
+    alert('Điểm đến không được để trống!');
+    return;
+  }
+
+  // 6. Điểm khởi hành và điểm đến không được trùng nhau
+  if (diemKhoiHanh.toLowerCase() === diemDen.toLowerCase()) {
+    alert('Điểm khởi hành và điểm đến không được trùng nhau!');
+    return;
+  }
+
+  // 7. Số ngày phải > 0
+  const soNgay = Number(form.elements['soNgay'].value);
+  if (soNgay <= 0) {
+    alert('Số ngày phải lớn hơn 0!');
+    return;
+  }
+
+  // 8. Giá người lớn không được để trống
+  const giaNguoiLon = form.elements['giaNguoiLon'].value.trim();
+  if (!giaNguoiLon || Number(giaNguoiLon) <= 0) {
+    alert('Giá người lớn không hợp lệ!');
+    return;
+  }
+
+  // 9. Trạng thái không được để trống
+  const trangThai = form.elements['trangThai'].value.trim();
+  if (!trangThai) {
+    alert('Trạng thái không được để trống!');
+    return;
+  }
+
+  // 10. Validate dịch vụ thêm (nếu có)
+  const tenDV = form.querySelectorAll('input[name="dichVuThemTen[]"]');
+  const giaDV = form.querySelectorAll('input[name="dichVuThemGia[]"]');
+  
+  for (let i = 0; i < tenDV.length; i++) {
+    const ten = tenDV[i].value.trim();
+    const gia = giaDV[i].value.trim();
+    
+    // Nếu có tên nhưng không có giá hoặc ngược lại
+    if ((ten && !gia) || (!ten && gia)) {
+      alert('Dịch vụ thêm phải có đủ tên và giá!');
+      return;
+    }
+    
+    // Nếu có cả tên và giá, kiểm tra giá phải > 0
+    if (ten && gia && Number(gia) <= 0) {
+      alert('Giá dịch vụ phải lớn hơn 0!');
+      return;
+    }
+  }
+
+  // ===== KẾT THÚC VALIDATION =====
+
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
   const hinhAnhFiles = form.querySelector('input[name="hinhAnh"]').files;
@@ -455,23 +547,22 @@ document.getElementById('tourForm').addEventListener('submit', async function (e
       data.hinhAnh = [];
     }
   }
+  
   data.phuongTien = Array.from(form.querySelectorAll('input[name="phuongTien"]:checked'))
     .map(cb => cb.value);
-  const soNgay = Number(form.querySelector('input[name="soNgay"]').value);
+  
   const soDem = Number(form.querySelector('input[name="soDem"]').value);
-  const tenDV = form.querySelectorAll('input[name="dichVuThemTen[]"]');
-  const giaDV = form.querySelectorAll('input[name="dichVuThemGia[]"]');
 
   const dichVuThem = [];
-
   for (let i = 0; i < tenDV.length; i++) {
     const ten = tenDV[i].value.trim();
     const gia = parseFloat(giaDV[i].value);
 
-    if (ten && !isNaN(gia)) {
+    if (ten && !isNaN(gia) && gia > 0) {
       dichVuThem.push({ ten, gia });
     }
   }
+  
   data.dichVuThem = dichVuThem;
   data.soNgay = soNgay;
   data.soDem = soDem;
@@ -479,6 +570,7 @@ document.getElementById('tourForm').addEventListener('submit', async function (e
   data.giaNguoiLon = Number(data.giaNguoiLon);
   data.giaTreEm = Number(data.giaTreEm);
   data.giaTreNho = Number(data.giaTreNho);
+  
   const isEditing = data._id && data._id.trim() !== '';
   if (!isEditing) delete data._id;
 
