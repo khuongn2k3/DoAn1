@@ -409,96 +409,146 @@ document.getElementById('tourForm').addEventListener('submit', async function (e
 
   const form = e.target;
   
-  // ===== VALIDATION =====
-  
-  // 1. Tên tour
-  const tenTour = form.elements['tenTour'].value.trim();
-  if (!tenTour) {
-    alert('Tên tour không được để trống!');
-    return;
-  }
-  if (tenTour.length < 3) {
-    alert('Tên tour phải có ít nhất 3 ký tự!');
+  // ===== VALIDATION FULL CHUẨN QA =====
+
+// 1. Tên tour
+const tenTour = form.elements['tenTour'].value.trim();
+if (!tenTour) {
+  alert('Tên tour không được để trống!');
+  return;
+}
+if (tenTour.length < 10 || tenTour.length > 255) {
+  alert('Tên tour phải từ 10 đến 255 ký tự!');
+  return;
+}
+
+// 2. Mô tả (optional nhưng <=1000)
+const moTa = form.elements['moTa'].value.trim();
+if (moTa.length > 1000) {
+  alert('Mô tả không được vượt quá 1000 ký tự!');
+  return;
+}
+
+// 3. Loại địa điểm
+const loaiDiaDiem = form.elements['loaiDiaDiem'].value.trim();
+if (!loaiDiaDiem) {
+  alert('Loại địa điểm không được để trống!');
+  return;
+}
+
+// 4. Loại tour
+const loaiTour = form.elements['loaiTour'].value.trim();
+if (!loaiTour) {
+  alert('Loại tour không được để trống!');
+  return;
+}
+
+// 5. Phương tiện
+const phuongTienChecked = form.querySelectorAll('input[name="phuongTien"]:checked');
+if (phuongTienChecked.length === 0) {
+  alert('Vui lòng chọn ít nhất một phương tiện!');
+  return;
+}
+
+// 6. Điểm khởi hành
+const diemKhoiHanh = form.elements['diemKhoiHanh'].value.trim();
+if (!diemKhoiHanh) {
+  alert('Điểm khởi hành không được để trống!');
+  return;
+}
+
+// 7. Điểm đến
+const diemDen = form.elements['diemDen'].value.trim();
+if (!diemDen) {
+  alert('Điểm đến không được để trống!');
+  return;
+}
+
+// 8. Không trùng điểm
+if (diemKhoiHanh.toLowerCase() === diemDen.toLowerCase()) {
+  alert('Điểm khởi hành và điểm đến không được trùng nhau!');
+  return;
+}
+
+// 9. Số ngày
+const soNgay = Number(form.elements['soNgay'].value);
+if (isNaN(soNgay) || soNgay <= 0) {
+  alert('Số ngày phải là số hợp lệ và > 0!');
+  return;
+}
+
+// 10. Số đêm
+const soDem = Number(form.elements['soDem'].value);
+if (isNaN(soDem) || soDem <= 0) {
+  alert('Số đêm phải là số hợp lệ và > 0!');
+  return;
+}
+
+// 11. Logic ngày/đêm
+if (soNgay < soDem) {
+  alert('Số ngày phải lớn hơn hoặc bằng số đêm!');
+  return;
+}
+
+// 12. Giá người lớn
+const giaNguoiLon = Number(form.elements['giaNguoiLon'].value);
+if (isNaN(giaNguoiLon) || giaNguoiLon <= 0) {
+  alert('Giá người lớn không hợp lệ!');
+  return;
+}
+
+// 13. Giá trẻ em
+const giaTreEm = Number(form.elements['giaTreEm'].value);
+if (isNaN(giaTreEm) || giaTreEm <= 0) {
+  alert('Giá trẻ em không hợp lệ!');
+  return;
+}
+
+// 14. Giá trẻ nhỏ
+const giaTreNho = Number(form.elements['giaTreNho'].value);
+if (isNaN(giaTreNho) || giaTreNho <= 0) {
+  alert('Giá trẻ nhỏ không hợp lệ!');
+  return;
+}
+
+// 15. Trạng thái
+const trangThai = form.elements['trangThai'].value.trim();
+if (!trangThai) {
+  alert('Trạng thái không được để trống!');
+  return;
+}
+
+// 16. Dịch vụ thêm
+const tenDV = form.querySelectorAll('input[name="dichVuThemTen[]"]');
+const giaDV = form.querySelectorAll('input[name="dichVuThemGia[]"]');
+
+for (let i = 0; i < tenDV.length; i++) {
+  const ten = tenDV[i].value.trim();
+  const gia = giaDV[i].value.trim();
+
+  if ((ten && !gia) || (!ten && gia)) {
+    alert('Dịch vụ thêm phải có đủ tên và giá!');
     return;
   }
 
-  // 2. Loại địa điểm
-  const loaiDiaDiem = form.elements['loaiDiaDiem'].value.trim();
-  if (!loaiDiaDiem) {
-    alert('Loại địa điểm không được để trống!');
+  if (ten && (isNaN(gia) || Number(gia) <= 0)) {
+    alert('Giá dịch vụ phải là số > 0!');
     return;
   }
+}
 
-  // 3. Phương tiện (phải chọn ít nhất 1)
-  const phuongTienChecked = form.querySelectorAll('input[name="phuongTien"]:checked');
-  if (phuongTienChecked.length === 0) {
-    alert('Vui lòng chọn ít nhất một phương tiện!');
-    return;
-  }
-
-  // 4. Điểm khởi hành
-  const diemKhoiHanh = form.elements['diemKhoiHanh'].value.trim();
-  if (!diemKhoiHanh) {
-    alert('Điểm khởi hành không được để trống!');
-    return;
-  }
-
-  // 5. Điểm đến
-  const diemDen = form.elements['diemDen'].value.trim();
-  if (!diemDen) {
-    alert('Điểm đến không được để trống!');
-    return;
-  }
-
-  // 6. Điểm khởi hành và điểm đến không được trùng nhau
-  if (diemKhoiHanh.toLowerCase() === diemDen.toLowerCase()) {
-    alert('Điểm khởi hành và điểm đến không được trùng nhau!');
-    return;
-  }
-
-  // 7. Số ngày phải > 0
-  const soNgay = Number(form.elements['soNgay'].value);
-  if (soNgay <= 0) {
-    alert('Số ngày phải lớn hơn 0!');
-    return;
-  }
-
-  // 8. Giá người lớn không được để trống
-  const giaNguoiLon = form.elements['giaNguoiLon'].value.trim();
-  if (!giaNguoiLon || Number(giaNguoiLon) <= 0) {
-    alert('Giá người lớn không hợp lệ!');
-    return;
-  }
-
-  // 9. Trạng thái không được để trống
-  const trangThai = form.elements['trangThai'].value.trim();
-  if (!trangThai) {
-    alert('Trạng thái không được để trống!');
-    return;
-  }
-
-  // 10. Validate dịch vụ thêm (nếu có)
-  const tenDV = form.querySelectorAll('input[name="dichVuThemTen[]"]');
-  const giaDV = form.querySelectorAll('input[name="dichVuThemGia[]"]');
-  
-  for (let i = 0; i < tenDV.length; i++) {
-    const ten = tenDV[i].value.trim();
-    const gia = giaDV[i].value.trim();
-    
-    // Nếu có tên nhưng không có giá hoặc ngược lại
-    if ((ten && !gia) || (!ten && gia)) {
-      alert('Dịch vụ thêm phải có đủ tên và giá!');
+// 17. Ảnh (optional nhưng phải đúng định dạng)
+const files = form.querySelector('input[name="hinhAnh"]').files;
+if (files.length > 0) {
+  for (let file of files) {
+    if (!file.type.startsWith('image/')) {
+      alert('Chỉ được upload file ảnh!');
       return;
     }
-    
-    // Nếu có cả tên và giá, kiểm tra giá phải > 0
-    if (ten && gia && Number(gia) <= 0) {
-      alert('Giá dịch vụ phải lớn hơn 0!');
-      return;
-    }
   }
+}
 
-  // ===== KẾT THÚC VALIDATION =====
+// ===== END VALIDATION =====
 
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
