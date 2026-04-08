@@ -600,8 +600,6 @@ if (files.length > 0) {
   
   data.phuongTien = Array.from(form.querySelectorAll('input[name="phuongTien"]:checked'))
     .map(cb => cb.value);
-  
-  const soDem = Number(form.querySelector('input[name="soDem"]').value);
 
   const dichVuThem = [];
   for (let i = 0; i < tenDV.length; i++) {
